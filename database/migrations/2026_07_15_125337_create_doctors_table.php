@@ -12,9 +12,26 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+    $table->id();
+
+    $table->foreignId('department_id')
+          ->constrained()
+          ->cascadeOnDelete();
+
+    $table->foreignId('user_id')
+          ->constrained()
+          ->cascadeOnDelete();
+
+    $table->string('specialization', 150);
+    $table->string('qualification');
+    $table->integer('experience');
+    $table->string('phone', 20);
+    $table->string('working_days', 100);
+    $table->time('start_time');
+    $table->time('end_time');
+
+    $table->timestamps();
+});
     }
 
     /**

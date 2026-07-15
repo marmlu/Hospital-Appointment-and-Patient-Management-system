@@ -15,11 +15,11 @@ return new class extends Migration
     $table->id();
 
     $table->foreignId('department_id')
-          ->constrained()
+          ->constrained('departments')
           ->cascadeOnDelete();
 
     $table->foreignId('user_id')
-          ->constrained()
+          ->constrained('users')
           ->cascadeOnDelete();
 
     $table->string('specialization', 150);

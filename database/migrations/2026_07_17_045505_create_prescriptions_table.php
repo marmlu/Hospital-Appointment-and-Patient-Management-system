@@ -11,10 +11,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prescriptions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+       Schema::create('prescriptions', function (Blueprint $table) {
+    $table->id();
+
+    // Link to the medical record
+    $table->foreignId('medical_record_id')
+          ->constrained('medical_records')
+          ->cascadeOnDelete();
+
+    // Medicine information
+    $table->string('medicine_name');
+    $table->string('dosage');
+    $table->string('frequency');
+    $table->string('duration');
+    $table->integer('quantity')->nullable();
+
+    // Additional notes
+    $table->text('instructions')->nullable();
+
+    $table->date('prescribed_date');
+
+    $table->timestamps();
+});
     }
 
     /**

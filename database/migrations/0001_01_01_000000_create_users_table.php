@@ -22,6 +22,9 @@ return new class extends Migration
             ]);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+             $table->enum('role', [
+                'Admin','Doctor','Receptionist'
+            ]);
             $table->rememberToken();
             $table->timestamps();
         });

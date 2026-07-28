@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+}
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background-color: #0f172a;
+    position: fixed;
+    width: 230px;
+    min-height: 100vh;
+    color: #d1d5db;
+    font-family: "Segoe UI", sans-serif;
+    font-size: small;
+}
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: x-large;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(1, 225, 241);
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: white;
+}
+.logoSide {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    margin-bottom: 0;
+    font-size: small;
+    font-weight: normal;
+}
+.logoName {
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+}
+.sectionName {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 0;
+    color: #a2a5aa;
+}
+.list {
+    list-style: none;
+    padding: 0;
+    margin-left: 15px;
+}
+.list i {
+    margin-right: 16px;
+}
+li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: 0.25s;
+}
+li:hover {
+    background-color: #007281;
+    border-radius: 15px;
+    color: white;
+    cursor: pointer;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #60789b;
+    margin: 20px 12px;
+    margin-bottom: 2px;
+}
+.other {
+    margin-left: 0;
+}
+.secondSection {
+    border: 0;
+    border-top: 1px solid #60789b;
+    margin: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.secondSectionName {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 0px;
+
+    color: #a2a5aa;
+}
+.appointment {
+    background-color: #007281;
+    border-radius: 15px;
+    color: white;
+}
+.navbar {
+    color: black;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 250px;
+}

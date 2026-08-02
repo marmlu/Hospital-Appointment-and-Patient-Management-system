@@ -1,12 +1,9 @@
 body {
     margin: 0;
+    display: flex;
+    background: #f8fafc;
     font-family: "Poppins", sans-serif;
 }
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-}
-
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -105,26 +102,24 @@ hr {
     color: white;
 }
 .navbar {
-    position: fixed;
-    top: 10px;
-    left: 250px;
-    right: 20px;
     height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 0 30px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
 }
 .search-container {
     position: relative;
     width: 300px;
     box-sizing: border-box;
 }
-
 .search-container input {
     width: 100%;
     padding: 10px 10px 10px 40px; /* Leave space for the icon */
@@ -134,7 +129,6 @@ hr {
     border-width: thin;
     box-sizing: border-box;
 }
-
 .search-container i {
     position: absolute;
     left: 12px;
@@ -210,16 +204,30 @@ hr {
     justify-content: space-between;
     gap: 20px;
 }
-.page-header h2 {
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: #1f2937;
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 30px;
+}
+.add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #007281;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
 }
 
-.page-header p {
-    margin: 4px 0 0;
-    font-size: 14px;
-    color: #6b7280;
+.add-btn:hover {
+    background: #005f6b;
+}
+.content {
+    padding: 0 30px 30px;
 }

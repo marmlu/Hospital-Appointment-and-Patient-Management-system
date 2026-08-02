@@ -16,79 +16,120 @@
         <title></title>
     </head>
     <body>
-        <section class="nav-container">
-            <nav class="sidebar">
-                <div class="logoContainer">
-                    <div class="logo">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                    </div>
-                    <div class="logoSide">
-                        <span class="logoName">EthioCare</span>
-                        <span>Hospital Management</span>
-                    </div>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logoContainer">
+                <div class="logo">
+                    <i class="fa-solid fa-heart-pulse"></i>
                 </div>
 
-                <hr />
-                <p class="sectionName">Main Menu</p>
-                <ul class="list">
-                    <li><i class="fa-solid fa-house"></i> Dashboard</li>
-                    <li><i class="fa-solid fa-user-group"></i> Users</li>
-                    <li><i class="fa-solid fa-users"></i> Patients</li>
-                    <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
-                    <li><i class="fa-solid fa-building"></i> Departments</li>
-                    <li class="appointment">
-                        <i class="fa-solid fa fa-calendar-check"></i>
-                        Appointments
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-file-medical"></i> Medical Records
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-file-prescription"></i>
-                        Prescriptions
-                    </li>
-                    <li><i class="fa-solid fa-chart-column"></i> Reports</li>
-                    <li><i class="fa-solid fa-gear"></i> Settings</li>
-                </ul>
+                <div class="logoSide">
+                    <span class="logoName">EthioCare</span>
+                    <span>Hospital Management</span>
+                </div>
+            </div>
 
-                <hr class="secondSection" />
-                <p class="secondSectionName">Others</p>
-                <ul class="list">
-                    <li>
-                        <i class="fa-solid other fa-circle-user"></i> Profile
-                    </li>
-                    <li>
-                        <i
-                            class="fa-solid other fa-arrow-right-from-bracket"
-                        ></i>
-                        Logout
-                    </li>
-                </ul>
-            </nav>
+            <hr />
+
+            <p class="sectionName">Main Menu</p>
+
+            <ul class="list">
+                <li><i class="fa-solid fa-house"></i> Dashboard</li>
+                <li><i class="fa-solid fa-user-group"></i> Users</li>
+                <li><i class="fa-solid fa-users"></i> Patients</li>
+                <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
+                <li><i class="fa-solid fa-building"></i> Departments</li>
+
+                <li class="appointment">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Appointments
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-file-medical"></i>
+                    Medical Records
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-file-prescription"></i>
+                    Prescriptions
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-chart-column"></i>
+                    Reports
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </li>
+            </ul>
+
+            <hr class="secondSection" />
+
+            <p class="secondSectionName">Others</p>
+
+            <ul class="list">
+                <li>
+                    <i class="fa-solid fa-circle-user"></i>
+                    Profile
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    Logout
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Right Side -->
+        <div class="main-content">
+            <!-- Navbar -->
             <nav class="navbar">
-                <div class="page-header">
-                    <h2>Appointments</h2>
-                    <p>Manage patient appointments and schedules</p>
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search..." />
                 </div>
+
                 <div class="gap">
-                    <div class="search-container">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search..." />
-                    </div>
                     <div class="notification">
                         <i class="fa-solid fa-bell"></i>
                         <span class="badge">3</span>
                     </div>
+
                     <div class="admin-profile">
                         <i class="fa-solid fa-circle-user profile-icon"></i>
+
                         <div class="admin-info">
                             <h4>Dr. Jon Doe</h4>
-                            <p>Adminstrator</p>
+                            <p>Administrator</p>
                         </div>
+
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                 </div>
             </nav>
-        </section>
+
+            <!-- Page Header -->
+            <header class="page-header">
+                <div class="header-left">
+                    <h2>Appointments</h2>
+                    <p>Manage patient appointments and schedules</p>
+                </div>
+
+                <button class="add-btn">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Appointment
+                </button>
+            </header>
+
+            <!-- Main Page Content -->
+            <main class="content">
+                <!-- Filters -->
+
+                <!-- Appointment Table -->
+            </main>
+        </div>
     </body>
 </html>

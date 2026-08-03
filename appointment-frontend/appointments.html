@@ -87,12 +87,15 @@
         <div class="main-content">
             <!-- Navbar -->
             <nav class="navbar">
-                <div class="search-container">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Search..." />
+                <div class="header-left">
+                    <h2>Appointments</h2>
                 </div>
 
                 <div class="gap">
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search..." />
+                    </div>
                     <div class="notification">
                         <i class="fa-solid fa-bell"></i>
                         <span class="badge">3</span>
@@ -112,18 +115,41 @@
             </nav>
 
             <!-- Page Header -->
-            <header class="page-header">
-                <div class="header-left">
-                    <h2>Appointments</h2>
-                    <p>Manage patient appointments and schedules</p>
-                </div>
 
-                <button class="add-btn">
+            <!-- <button class="add-btn">
                     <i class="fa-solid fa-plus"></i>
                     Add Appointment
-                </button>
-            </header>
-
+                </button> -->
+            <div class="card-container">
+                <div class="card card-1">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <div>
+                        <p>Today's Appointments</p>
+                        <h2>18</h2>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <i class="fa-regular fa-clock"></i>
+                    <div>
+                        <p>Pending</p>
+                        <h2>6</h2>
+                    </div>
+                </div>
+                <div class="card card-3">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <div>
+                        <p>Completed</p>
+                        <h2>4</h2>
+                    </div>
+                </div>
+                <div class="card card-4">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                    <div>
+                        <p>Cancelled</p>
+                        <h2>8</h2>
+                    </div>
+                </div>
+            </div>
             <!-- Main Page Content -->
             <main class="content">
                 <!-- Filters -->

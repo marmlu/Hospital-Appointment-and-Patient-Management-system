@@ -5,6 +5,7 @@ body {
     font-family: "Poppins", sans-serif;
 }
 .sidebar {
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     background-color: #0f172a;
@@ -206,12 +207,6 @@ hr {
     gap: 20px;
 }
 
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    line-height: 0.8;
-}
 .add-btn {
     display: flex;
     align-items: center;
@@ -230,12 +225,12 @@ hr {
     background: #005f6b;
 }
 .content {
-    padding: 0 30px 30px;
 }
 .card-container {
+    width: 100%;
     display: flex;
-    gap: 15px;
-    left: 250px;
+    flex-wrap: wrap;
+    gap: 20px;
     right: 10px;
     box-sizing: border-box;
     padding: 20px;
@@ -245,9 +240,8 @@ hr {
     gap: 10px;
     align-items: center;
     justify-content: start;
-    flex: wrap;
+    flex: 1 1 220px;
     border-radius: 10px;
-    width: 25%;
     line-height: 0.5;
     height: 100px;
     background-color: white;
@@ -255,6 +249,8 @@ hr {
     padding: 5px;
     padding-left: 15px;
     font-size: 15px;
+    min-width: 220px;
+    max-width: 300px;
 }
 .card-1 {
 }
@@ -303,4 +299,40 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.search-filter-container {
+    display: flex;
+}
+.search-input-container {
+    position: relative;
+    overflow: hidden;
+}
+.search-input-container i {
+    position: absolute;
+}
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    .card-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    .card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        flex: none;
+    }
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        height: auto;
+        padding: 20px;
+    }
 }

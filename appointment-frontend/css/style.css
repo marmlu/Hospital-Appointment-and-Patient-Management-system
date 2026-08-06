@@ -310,6 +310,13 @@ hr {
 .search-input-container i {
     position: absolute;
 }
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
 @media (max-width: 768px) {
     .sidebar {
         display: none;
@@ -334,5 +341,16 @@ hr {
         gap: 15px;
         height: auto;
         padding: 20px;
+    }
+    .gap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .hamburger {
+        display: block;
     }
 }

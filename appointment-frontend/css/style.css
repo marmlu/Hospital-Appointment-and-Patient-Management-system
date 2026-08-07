@@ -300,22 +300,64 @@ hr {
     align-items: center;
     justify-content: center;
 }
-.search-filter-container {
-    display: flex;
-}
-.search-input-container {
-    position: relative;
-    overflow: hidden;
-}
-.search-input-container i {
-    position: absolute;
-}
 .hamburger {
     display: none;
     background: none;
     border: none;
     font-size: 24px;
     cursor: pointer;
+}
+.search-filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-input-container {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 300px;
+    box-sizing: border-box;
+}
+.appointment-search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+}
+.search-input-container i {
+    color: #888;
+    font-size: 16px;
+}
+.search-input-container:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+}
+.filter-select {
+    width: 180px;
+    padding: 10px 14px;
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    font: 15px;
+    cursor: pointer;
+}
+.filter-select:active {
+    border-color: blue;
+    box-shadow: 0 15px rgba(rgb(83, 82, 82, 0.08));
 }
 @media (max-width: 768px) {
     .sidebar {

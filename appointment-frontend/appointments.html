@@ -152,9 +152,38 @@
                 <!-- Filters -->
                 <div class="search-filter-container">
                     <div class="search-input-container">
-                        <i class="fa-solid fa-magnifying-class"></i>
-                        <input class="appointment-search-input" type="text" />
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            class="appointment-search-input"
+                            type="text"
+                            placeholder="Search appointments here"
+                        />
                     </div>
+                    <div class="filter-container">
+                        <select class="filter-select">
+                            <option>Status</option>
+                            <option>pending</option>
+                            <option>approved</option>
+                            <option>completed</option>
+                            <option>cancelled</option>
+                        </select>
+
+                        <select class="filter-select">
+                            <option>Department</option>
+                            <option>Neurology</option>
+                            <option>Orthopedics</option>
+                            <option>Dermatology</option>
+                            <option>Cardiology</option>
+                        </select>
+                        <select class="filter-select">
+                            <option>Doctor</option>
+                            <option>Dr Abraham</option>
+                            <option>Dr John</option>
+                            <option>Dr Gemechis</option>
+                            <option>Dr Lia</option>
+                        </select>
+                    </div>
+                    <button class="add-btn">Add Appointments</button>
                 </div>
 
                 <!-- Appointment Table -->

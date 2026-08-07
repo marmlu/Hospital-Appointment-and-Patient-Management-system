@@ -327,7 +327,7 @@ hr {
     gap: 10px;
     background-color: #fff;
     border: 1px solid #dcdcdc;
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 10px 15px;
     width: 300px;
     box-sizing: border-box;
@@ -358,6 +358,21 @@ hr {
 .filter-select:active {
     border-color: blue;
     box-shadow: 0 15px rgba(rgb(83, 82, 82, 0.08));
+}
+.table-container {
+    border-radius: 15px;
+}
+table {
+    width: calc(100% - 30px);
+    border-collapse: collapse;
+    background-color: white;
+    margin: 15px;
+}
+th,
+td {
+    border: 1px solid lightgray;
+    padding: 7px;
+    text-align: left;
 }
 @media (max-width: 768px) {
     .sidebar {

@@ -363,24 +363,45 @@ hr {
     box-shadow: 0 15px rgba(rgb(83, 82, 82, 0.08));
 }
 .table-container {
-    overflow: hidden;
+    width: 100%;
+    overflow-x: auto;
     border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: white;
 }
+
 table {
-    width: calc(100% - 30px);
+    width: 100%;
     border-collapse: collapse;
     background-color: white;
-    margin: 15px;
 }
-th,
-td {
-    border: 1px solid lightgray;
-    padding: 7px;
+
+th {
+    padding: 14px 16px;
     text-align: left;
-}
-.actions {
-    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
     white-space: nowrap;
+}
+
+td {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 13px;
+    color: #444;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
 }
 
 .actions button {

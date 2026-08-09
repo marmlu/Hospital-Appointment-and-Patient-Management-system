@@ -555,4 +555,156 @@ tbody tr:last-child td {
         padding: 15px;
     }
 }
-/* appointment-details.html styles */
+/* ========================================
+   APPOINTMENT DETAILS
+======================================== */
+
+.appointment-details {
+    padding: 30px;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.details-header h1 {
+    margin: 15px 0 5px;
+    font-size: 28px;
+    color: #1e293b;
+}
+
+.details-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.back-btn:hover {
+    color: #00a8c6;
+}
+.edit-appointment-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #00a8c6;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.edit-appointment-btn:hover {
+    background: #008da5;
+}
+/* Appointment Details Card */
+
+.details-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-title i {
+    color: #00a8c6;
+    font-size: 18px;
+}
+
+.card-title h2 {
+    margin: 0;
+    font-size: 17px;
+    color: #1e293b;
+}
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.detail-item span:first-child {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.detail-item strong {
+    font-size: 14px;
+    color: #1e293b;
+}
+.two-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.detail-list .detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.description {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+}
+/* ========================================
+   APPOINTMENT DETAILS - RESPONSIVE
+======================================== */
+
+@media (max-width: 768px) {
+    .appointment-details {
+        padding: 20px;
+    }
+
+    .details-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .details-header h1 {
+        font-size: 24px;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}

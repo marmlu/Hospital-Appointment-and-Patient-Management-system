@@ -365,15 +365,19 @@ hr {
 .table-container {
     width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     border: 1px solid #ddd;
     border-radius: 12px;
     background-color: white;
+    box-sizing: border-box;
 }
 
-table {
+.table-container table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
+    min-width: 1000px;
+    margin: 0;
 }
 
 th {
@@ -474,5 +478,88 @@ tbody tr:last-child td {
     }
     .hamburger {
         display: block;
+    }
+    .search-filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        background-color: white;
+    }
+    .filter-container {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .search-input-container {
+        width: 100%;
+        padding: 15px;
+    }
+}
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    .card-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    .card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        flex: none;
+    }
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        height: auto;
+        padding: 20px;
+    }
+    .gap {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .hamburger {
+        display: block;
+    }
+    .search-filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        background-color: white;
+    }
+    .filter-container {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .search-input-container {
+        width: 100%;
+        padding: 15px;
     }
 }

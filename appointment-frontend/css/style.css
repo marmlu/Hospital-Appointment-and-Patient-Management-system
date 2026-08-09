@@ -4,105 +4,63 @@ body {
     background: #ededf8;
     font-family: "Poppins", sans-serif;
 }
+
 .sidebar {
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    background-color: #0f172a;
-    position: fixed;
     width: 250px;
-    min-height: 100vh;
-    color: #d1d5db;
-    font-family: "Segoe UI", sans-serif;
-    font-size: small;
+    height: 100vh;
+    background: #0f172a;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    line-height: 1.5;
 }
-.logoContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: x-large;
-    font-weight: bold;
-    margin-top: 5px;
-}
+
 .logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgb(1, 225, 241);
-    padding: 8px 10px;
-    border-radius: 10px;
-    color: white;
-}
-.logoSide {
-    display: flex;
-    flex-direction: column;
-    margin: 8px;
-    margin-bottom: 0;
-    font-size: small;
-    font-weight: normal;
-}
-.logoName {
-    font-size: x-large;
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
     font-weight: bold;
-    color: white;
+    border-bottom: 1px solid #334155;
 }
-.sectionName {
-    text-align: left;
-    margin-left: 20px;
-    margin-bottom: 0;
-    color: #a2a5aa;
+
+.logo i {
+    color: #00d4ff;
 }
-.list {
+
+.menu {
     list-style: none;
-    padding: 0;
-    margin-left: 15px;
+    padding: 0 5px;
 }
-.list i {
-    margin-right: 16px;
-}
-li {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    transition: 0.25s;
-}
-li:hover {
-    background-color: #007281;
-    border-radius: 15px;
-    color: white;
+
+.menu li {
+    padding: 10px 12px;
+    margin: 4px 0;
+    border-radius: 12px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-hr {
-    border: 0;
-    border-top: 1px solid #60789b;
-    margin: 20px 12px;
-    margin-bottom: 2px;
+.menu li :hover {
+    background: #00a8c6;
 }
-.other {
-    margin-left: 0;
-}
-.secondSection {
-    border: 0;
-    border-top: 1px solid #60789b;
-    margin: 0px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.secondSectionName {
-    text-align: left;
-    margin-left: 20px;
-    margin-bottom: 0px;
 
-    color: #a2a5aa;
+.menu i {
+    width: 25px;
+}
+
+/* Main Content */
+
+.main {
+    margin-left: 250px;
+    width: 100%;
 }
 .appointment {
     background-color: #007281;
     border-radius: 15px;
     color: white;
 }
-
+/* appointments.html style  */
 .navbar {
     height: 70px;
     display: flex;
@@ -597,3 +555,4 @@ tbody tr:last-child td {
         padding: 15px;
     }
 }
+/* appointment-details.html styles */

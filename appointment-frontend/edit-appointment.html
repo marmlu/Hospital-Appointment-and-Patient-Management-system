@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Edit Appointment</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Shared CSS -->
+        <link rel="stylesheet" href="css/style.css" />
+
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        />
+    </head>
+
+    <body>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                EthioCare
+            </div>
+
+            <ul class="menu">
+                <li><i class="fa-solid fa-house"></i> Dashboard</li>
+                <li><i class="fa-solid fa-users"></i> Patients</li>
+                <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
+                <li class="appointment">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Appointments
+                </li>
+                <li><i class="fa-solid fa-building"></i> Departments</li>
+                <li><i class="fa-solid fa-file-medical"></i> Records</li>
+                <li><i class="fa-solid fa-chart-line"></i> Reports</li>
+                <li><i class="fa-solid fa-gear"></i> Settings</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <div class="header-left">
+                    <button class="hamburger">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h2>Appointments</h2>
+                </div>
+
+                <div class="gap">
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search..." />
+                    </div>
+                    <div class="notification">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+
+                    <div class="admin-profile">
+                        <i class="fa-solid fa-circle-user profile-icon"></i>
+
+                        <div class="admin-info">
+                            <h4>Dr. Jon Doe</h4>
+                            <p>Administrator</p>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Edit Appointment -->
+            <section class="edit-appointment">
+                <!-- Page Header -->
+                <div class="edit-header">
+                    <div>
+                        <a href="appointments.html" class="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to Appointment
+                        </a>
+
+                        <h1>Edit Appointment</h1>
+
+                        <p>Update the information for this appointment.</p>
+                    </div>
+                </div>
+
+                <!-- Appointment Form -->
+                <div class="form-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <h2>Appointment Information</h2>
+                    </div>
+
+                    <form>
+                        <!-- Patient -->
+                        <div class="form-group">
+                            <label for="patient"> Patient </label>
+
+                            <select id="patient" name="patient">
+                                <option value="john-smith" selected>
+                                    John Smith
+                                </option>
+
+                                <option value="sarah-johnson">
+                                    Sarah Johnson
+                                </option>
+
+                                <option value="michael-brown">
+                                    Michael Brown
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Doctor -->
+                        <div class="form-group">
+                            <label for="doctor"> Doctor </label>
+
+                            <select id="doctor" name="doctor">
+                                <option value="dr-hana" selected>
+                                    Dr. Hana
+                                </option>
+
+                                <option value="dr-daniel">Dr. Daniel</option>
+
+                                <option value="dr-samuel">Dr. Samuel</option>
+                            </select>
+                        </div>
+
+                        <!-- Department -->
+                        <div class="form-group">
+                            <label for="department"> Department </label>
+
+                            <select id="department" name="department">
+                                <option value="cardiology" selected>
+                                    Cardiology
+                                </option>
+
+                                <option value="neurology">Neurology</option>
+
+                                <option value="pediatrics">Pediatrics</option>
+
+                                <option value="orthopedics">Orthopedics</option>
+
+                                <option value="dermatology">Dermatology</option>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="appointment-date"> Date </label>
+
+                            <input
+                                type="date"
+                                id="appointment-date"
+                                name="appointment-date"
+                                value="2026-07-28"
+                            />
+                        </div>
+
+                        <!-- Time -->
+                        <div class="form-group">
+                            <label for="appointment-time"> Time </label>
+
+                            <input
+                                type="time"
+                                id="appointment-time"
+                                name="appointment-time"
+                                value="09:30"
+                            />
+                        </div>
+
+                        <!-- Type -->
+                        <div class="form-group">
+                            <label for="appointment-type"> Type </label>
+
+                            <select
+                                id="appointment-type"
+                                name="appointment-type"
+                            >
+                                <option value="walk-in" selected>
+                                    Walk-in
+                                </option>
+
+                                <option value="online">Online</option>
+
+                                <option value="follow-up">Follow-up</option>
+
+                                <option value="routine">
+                                    Routine Check-up
+                                </option>
+
+                                <option value="referral">Referral</option>
+                            </select>
+                        </div>
+
+                        <!-- Status -->
+                        <div class="form-group">
+                            <label for="status"> Status </label>
+
+                            <select id="status" name="status">
+                                <option value="pending">Pending</option>
+
+                                <option value="approved" selected>
+                                    Approved
+                                </option>
+
+                                <option value="completed">Completed</option>
+
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                        <!-- Reason -->
+                        <div class="form-group full-width">
+                            <label for="reason"> Reason for Appointment </label>
+
+                            <textarea id="reason" name="reason" rows="4">
+Patient reports chest pain and shortness of breath.</textarea
+                            >
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="form-group full-width">
+                            <label for="notes"> Notes </label>
+
+                            <textarea id="notes" name="notes" rows="4">
+Follow-up consultation required after initial examination.</textarea
+                            >
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="form-actions">
+                            <a
+                                href="appointment-details.html"
+                                class="cancel-btn"
+                            >
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="save-btn">
+                                <i class="fa-solid fa-check"></i>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

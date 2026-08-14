@@ -5,6 +5,7 @@ const statusFilter = document.querySelector(".status-filter");
 const departmentFilter = document.querySelector(".department-filter");
 const doctorFilter = document.querySelector(".doctor-filter");
 const appointmentDate = document.querySelector("#appointment-date");
+const deleteButtons = document.querySelectorAll(".delete-btn");
 
 function filterAppointments() {
     const searchValue = appointmentSearch.value.toLowerCase();
@@ -84,3 +85,15 @@ statusFilter.addEventListener("change", filterAppointments);
 departmentFilter.addEventListener("change", filterAppointments);
 doctorFilter.addEventListener("change", filterAppointments);
 appointmentDate.addEventListener("change", filterAppointments);
+
+console.log(deleteButtons);
+deleteButtons.forEach(function (deleteButton) {
+    deleteButton.addEventListener("click", function (event) {
+        const rowTarget = event.target.closest("tr");
+        const confirmDelete = confirm("Are you sure you want to delete it?");
+
+        if (confirmDelete) {
+            rowTarget.remove();
+        }
+    });
+});

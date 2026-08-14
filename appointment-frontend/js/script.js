@@ -6,6 +6,7 @@ const departmentFilter = document.querySelector(".department-filter");
 const doctorFilter = document.querySelector(".doctor-filter");
 const appointmentDate = document.querySelector("#appointment-date");
 const deleteButtons = document.querySelectorAll(".delete-btn");
+const viewButtons = document.querySelectorAll(".view-btn");
 
 function filterAppointments() {
     const searchValue = appointmentSearch.value.toLowerCase();
@@ -91,9 +92,26 @@ deleteButtons.forEach(function (deleteButton) {
     deleteButton.addEventListener("click", function (event) {
         const rowTarget = event.target.closest("tr");
         const confirmDelete = confirm("Are you sure you want to delete it?");
-
         if (confirmDelete) {
             rowTarget.remove();
         }
+    });
+});
+
+viewButtons.forEach(function (viewButton) {
+    viewButton.addEventListener("click", function (event) {
+        const rowTarget = event.target.closest("tr");
+        const patientId = rowTarget.querySelector("td:nth-child(2)");
+        const doctorId = rowTarget.querySelector("td:nth-child(3)");
+        const department = rowTarget.querySelector("td:nth-child(4)");
+        const date = rowTarget.querySelector("td:nth-child(5)");
+        const reason = rowTarget.querySelector("td:nth-child(7)");
+        const status = rowTarget.querySelector("td:nth-child(8)");
+        console.log(patientId.textContent.trim());
+        console.log(doctorId.textContent.trim());
+        console.log(department.textContent.trim());
+        console.log(date.textContent.trim());
+        console.log(reason.textContent.trim());
+        console.log(status.textContent.trim());
     });
 });

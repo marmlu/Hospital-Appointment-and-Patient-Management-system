@@ -8,6 +8,21 @@ const appointmentDate = document.querySelector("#appointment-date");
 const deleteButtons = document.querySelectorAll(".delete-btn");
 const viewButtons = document.querySelectorAll(".view-btn");
 
+const retrieveAppointmentId = document.querySelector(
+    '[data-field="appointment-id"]',
+);
+
+const retrieveDoctorId = document.querySelector('[data-field="doctor-id"]');
+
+const retrievePatientId = document.querySelector('[data-field="patient-id"]');
+
+const retrieveStatus = document.querySelector('[data-field="status"]');
+
+const retrieveDate = document.querySelector('[data-field="date"]');
+
+const retrieveDepartment = document.querySelector('[data-field="department"]');
+
+const retrieveReason = document.querySelector('[data-field="reason"]');
 function filterAppointments() {
     const searchValue = appointmentSearch.value.toLowerCase();
     const selectedStatus = statusFilter.value.toLowerCase();
@@ -80,14 +95,22 @@ function filterAppointments() {
         }
     });
 }
+if (appointmentSearch) {
+    appointmentSearch.addEventListener("input", filterAppointments);
+}
+if (statusFilter) {
+    statusFilter.addEventListener("change", filterAppointments);
+}
+if (departmentFilter) {
+    departmentFilter.addEventListener("change", filterAppointments);
+}
+if (doctorFilter) {
+    doctorFilter.addEventListener("change", filterAppointments);
+}
+if (appointmentDate) {
+    appointmentDate.addEventListener("change", filterAppointments);
+}
 
-appointmentSearch.addEventListener("input", filterAppointments);
-statusFilter.addEventListener("change", filterAppointments);
-departmentFilter.addEventListener("change", filterAppointments);
-doctorFilter.addEventListener("change", filterAppointments);
-appointmentDate.addEventListener("change", filterAppointments);
-
-console.log(deleteButtons);
 deleteButtons.forEach(function (deleteButton) {
     deleteButton.addEventListener("click", function (event) {
         const rowTarget = event.target.closest("tr");
@@ -101,17 +124,58 @@ deleteButtons.forEach(function (deleteButton) {
 viewButtons.forEach(function (viewButton) {
     viewButton.addEventListener("click", function (event) {
         const rowTarget = event.target.closest("tr");
-        const patientId = rowTarget.querySelector("td:nth-child(2)");
-        const doctorId = rowTarget.querySelector("td:nth-child(3)");
-        const department = rowTarget.querySelector("td:nth-child(4)");
-        const date = rowTarget.querySelector("td:nth-child(5)");
-        const reason = rowTarget.querySelector("td:nth-child(7)");
-        const status = rowTarget.querySelector("td:nth-child(8)");
-        console.log(patientId.textContent.trim());
-        console.log(doctorId.textContent.trim());
-        console.log(department.textContent.trim());
-        console.log(date.textContent.trim());
-        console.log(reason.textContent.trim());
-        console.log(status.textContent.trim());
+        const appointmentId =
+            rowTarget.querySelector("td:nth-child(1)").textContent;
+        const patientId =
+            rowTarget.querySelector("td:nth-child(2)").textContent;
+        const doctorId = rowTarget.querySelector("td:nth-child(3)").textContent;
+        const department =
+            rowTarget.querySelector("td:nth-child(4)").textContent;
+        const date = rowTarget.querySelector("td:nth-child(5)").textContent;
+        const reason = rowTarget.querySelector("td:nth-child(7)").textContent;
+        const status = rowTarget.querySelector("td:nth-child(8)").textContent;
+        localStorage.setItem("appointmentId", appointmentId);
+        localStorage.setItem("patientId", patientId);
+        localStorage.setItem("doctorId", doctorId);
+        localStorage.setItem("department", department);
+        localStorage.setItem("date", date);
+        localStorage.setItem("reason", reason);
+        localStorage.setItem("status", status);
+        window.location.href = "appointment-details.html";
+        console.log(appointmentId);
+        console.log(patientId);
+        console.log(doctorId);
+        console.log(department);
+        console.log(date);
+        console.log(reason);
+        console.log(status);
     });
 });
+const retrievedAppointmentId = localStorage.getItem("appointmentId");
+if (retrieveAppointmentId) {
+    retrieveAppointmentId.textContent = retrievedAppointmentId;
+}
+const retrievedPatientId = localStorage.getItem("patientId");
+if (retrievePatientId) {
+    retrievePatientId.textContent = retrievedPatientId;
+}
+const retrievedDoctorId = localStorage.getItem("doctorId");
+if (retrieveDoctorId) {
+    retrieveDoctorId.textContent = retrievedDoctorId;
+}
+const retrievedDepartment = localStorage.getItem("department");
+if (retrieveDepartment) {
+    retrieveDepartment.textContent = retrievedDepartment;
+}
+const retrievedDate = localStorage.getItem("date");
+if (retrieveDate) {
+    retrieveDate.textContent = retrievedDate;
+}
+const retrievedReason = localStorage.getItem("reason");
+if (retrieveReason) {
+    retrieveReason.textContent = retrievedReason;
+}
+const retrievedStatus = localStorage.getItem("status");
+if (retrieveStatus) {
+    retrieveStatus.textContent = retrievedStatus;
+}

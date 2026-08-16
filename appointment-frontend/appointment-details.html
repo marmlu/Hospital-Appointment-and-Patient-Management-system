@@ -111,18 +111,20 @@
                     <div class="details-grid">
                         <div class="detail-item">
                             <span>Appointment ID</span>
-                            <strong>APT-001</strong>
+                            <strong data-field="appointment-id">APT-001</strong>
                         </div>
 
                         <div class="detail-item">
                             <span>Status</span>
 
-                            <span class="status approved"> Approved </span>
+                            <span class="status approved" data-field="status">
+                                Approved
+                            </span>
                         </div>
 
                         <div class="detail-item">
                             <span>Date</span>
-                            <strong>28 Jul 2026</strong>
+                            <strong data-field="date">28 Jul 2026</strong>
                         </div>
 
                         <div class="detail-item">
@@ -154,7 +156,7 @@
 
                             <div class="detail-item">
                                 <span>Patient ID</span>
-                                <strong>P-001</strong>
+                                <strong data-field="patient-id">P-001</strong>
                             </div>
 
                             <div class="detail-item">
@@ -188,13 +190,15 @@
 
                         <div class="detail-list">
                             <div class="detail-item">
-                                <span>Doctor Name</span>
-                                <strong>Dr. Hana</strong>
+                                <span>Doctor ID</span>
+                                <strong data-field="doctor-id">Dr. Hana</strong>
                             </div>
 
                             <div class="detail-item">
                                 <span>Department</span>
-                                <strong>Cardiology</strong>
+                                <strong data-field="department"
+                                    >Cardiology</strong
+                                >
                             </div>
 
                             <div class="detail-item">
@@ -209,7 +213,7 @@
                 <div class="details-card">
                     <div class="card-title">
                         <i class="fa-solid fa-notes-medical"></i>
-                        <h2>Appointment Reason</h2>
+                        <h2 data-field="reason">Appointment Reason</h2>
                     </div>
 
                     <p class="description">
@@ -232,5 +236,6 @@
                 </div>
             </section>
         </main>
+        <script src="js/script.js"></script>
     </body>
 </html>

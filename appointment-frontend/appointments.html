@@ -117,7 +117,7 @@
                         />
                     </div>
                     <div class="filter-container">
-                        <select class="filter-select">
+                        <select class="filter-select status-filter">
                             <option>All Status</option>
                             <option>pending</option>
                             <option>approved</option>
@@ -125,24 +125,26 @@
                             <option>cancelled</option>
                         </select>
 
-                        <select class="filter-select">
+                        <select class="filter-select department-filter">
                             <option>All Departments</option>
                             <option>Neurology</option>
                             <option>Orthopedics</option>
                             <option>Dermatology</option>
                             <option>Cardiology</option>
                         </select>
-                        <select class="filter-select">
-                            <option>All Doctor</option>
-                            <option>Dr Abraham</option>
-                            <option>Dr John</option>
-                            <option>Dr Gemechis</option>
-                            <option>Dr Lia</option>
+                        <select class="filter-select doctor-filter">
+                            <option>All Doctors</option>
+                            <option value="1">Dr Abraham</option>
+                            <option value="7">Dr John</option>
+                            <option value="4">Dr Gemechis</option>
+                            <option value="10">Dr Lia</option>
                         </select>
-                        <div class="date-filter filter-select">
-                            <i class="fa-regular fa-calendar"></i>
-                            <span>Select date</span>
-                            <input type="date" id="appointment-date" />
+                        <div class="date-filter">
+                            <input
+                                type="date"
+                                id="appointment-date"
+                                aria-label="Select date"
+                            />
                         </div>
                     </div>
                     <button class="add-btn">+ New Appointments</button>
@@ -175,7 +177,7 @@
                                 <td>10 Sep 2027</td>
                                 <td>09:30 AM</td>
                                 <td>Chest Pain</td>
-                                <td>Confirmed</td>
+                                <td>Completed</td>
                                 <td>Follow-up</td>
                                 <td></td>
                                 <td class="actions">
@@ -206,7 +208,7 @@
                             <tr>
                                 <td>4</td>
                                 <td>9</td>
-                                <td>2</td>
+                                <td>7</td>
                                 <td>Pediatrics</td>
                                 <td>11 Sep 2027</td>
                                 <td>11:00 AM</td>
@@ -277,7 +279,7 @@
                             <tr>
                                 <td>6</td>
                                 <td>18</td>
-                                <td>7</td>
+                                <td>1</td>
                                 <td>Dermatology</td>
                                 <td>13 Sep 2027</td>
                                 <td>10:15 AM</td>
@@ -313,12 +315,12 @@
                             <tr>
                                 <td>7</td>
                                 <td>21</td>
-                                <td>5</td>
+                                <td>7</td>
                                 <td>Ophthalmology</td>
                                 <td>14 Sep 2027</td>
                                 <td>03:45 PM</td>
                                 <td>Blurred Vision</td>
-                                <td>Confirmed</td>
+                                <td>Cancelled</td>
                                 <td>First Appointment</td>
                                 <td></td>
                                 <td class="actions">
@@ -350,5 +352,6 @@
                 </div>
             </main>
         </div>
+        <script src="js/script.js"></script>
     </body>
 </html>

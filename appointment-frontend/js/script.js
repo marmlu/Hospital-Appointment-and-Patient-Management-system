@@ -23,6 +23,10 @@ const retrieveDate = document.querySelector('[data-field="date"]');
 const retrieveDepartment = document.querySelector('[data-field="department"]');
 
 const retrieveReason = document.querySelector('[data-field="reason"]');
+const retrieveNotes = document.querySelector('[data-field="notes"]');
+const retrieveTime = document.querySelector('[data-field="time"]');
+const retrieveType = document.querySelector('[data-field="type"]');
+
 function filterAppointments() {
     const searchValue = appointmentSearch.value.toLowerCase();
     const selectedStatus = statusFilter.value.toLowerCase();
@@ -134,6 +138,9 @@ viewButtons.forEach(function (viewButton) {
         const date = rowTarget.querySelector("td:nth-child(5)").textContent;
         const reason = rowTarget.querySelector("td:nth-child(7)").textContent;
         const status = rowTarget.querySelector("td:nth-child(8)").textContent;
+        const time = rowTarget.querySelector("td:nth-child(6)").textContent;
+        const notes = rowTarget.querySelector("td:nth-child(9)").textContent;
+        const type = rowTarget.querySelector("td:nth-child(10)").textContent;
         localStorage.setItem("appointmentId", appointmentId);
         localStorage.setItem("patientId", patientId);
         localStorage.setItem("doctorId", doctorId);
@@ -141,6 +148,9 @@ viewButtons.forEach(function (viewButton) {
         localStorage.setItem("date", date);
         localStorage.setItem("reason", reason);
         localStorage.setItem("status", status);
+        localStorage.setItem("time", time);
+        localStorage.setItem("notes", notes);
+        localStorage.setItem("type", type);
         window.location.href = "appointment-details.html";
         console.log(appointmentId);
         console.log(patientId);
@@ -178,4 +188,16 @@ if (retrieveReason) {
 const retrievedStatus = localStorage.getItem("status");
 if (retrieveStatus) {
     retrieveStatus.textContent = retrievedStatus;
+}
+const retrievedTime = localStorage.getItem("time");
+if (retrieveTime) {
+    retrieveTime.textContent = retrievedTime;
+}
+const retrievedNotes = localStorage.getItem("notes");
+if (retrieveNotes) {
+    retrieveNotes.textContent = retrievedNotes;
+}
+const retrievedType = localStorage.getItem("type");
+if (retrieveType) {
+    retrieveType.textContent = retrievedType;
 }

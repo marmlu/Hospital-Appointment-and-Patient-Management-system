@@ -27,6 +27,9 @@ const retrieveNotes = document.querySelector('[data-field="notes"]');
 const retrieveTime = document.querySelector('[data-field="time"]');
 const retrieveType = document.querySelector('[data-field="type"]');
 
+const editAppointmentButton = document.querySelector(".edit-appointment-btn");
+const saveButton = document.querySelector("save-btn");
+
 function filterAppointments() {
     const searchValue = appointmentSearch.value.toLowerCase();
     const selectedStatus = statusFilter.value.toLowerCase();
@@ -201,3 +204,73 @@ const retrievedType = localStorage.getItem("type");
 if (retrieveType) {
     retrieveType.textContent = retrievedType;
 }
+
+editAppointmentButton.addEventListener("click", function () {
+    const appointmentArray = Array.from(appointmentRows);
+    const storedAppointmentId = localStorage.getItem("appointmentId");
+
+    if (storedAppointmentId) {
+        const matchingRow = appointmentArray.find(function (row) {
+            const rowAppointmentId = row
+                .querySelector("td:nth-child(1)")
+                .textContent.trim();
+
+            return rowAppointmentId === storedAppointmentId;
+        });
+
+        if (matchingRow) {
+            const appointmentId = matchingRow
+                .querySelector("td:nth-child(1)")
+                .textContent.trim();
+
+            const patientId = matchingRow
+                .querySelector("td:nth-child(2)")
+                .textContent.trim();
+
+            const doctorId = matchingRow
+                .querySelector("td:nth-child(3)")
+                .textContent.trim();
+
+            const department = matchingRow
+                .querySelector("td:nth-child(4)")
+                .textContent.trim();
+
+            const date = matchingRow
+                .querySelector("td:nth-child(5)")
+                .textContent.trim();
+
+            const time = matchingRow
+                .querySelector("td:nth-child(6)")
+                .textContent.trim();
+
+            const reason = matchingRow
+                .querySelector("td:nth-child(7)")
+                .textContent.trim();
+
+            const status = matchingRow
+                .querySelector("td:nth-child(8)")
+                .textContent.trim();
+
+            const notes = matchingRow
+                .querySelector("td:nth-child(9)")
+                .textContent.trim();
+
+            const type = matchingRow
+                .querySelector("td:nth-child(10)")
+                .textContent.trim();
+
+            localStorage.setItem("appointmentId", appointmentId);
+            localStorage.setItem("patientId", patientId);
+            localStorage.setItem("doctorId", doctorId);
+            localStorage.setItem("department", department);
+            localStorage.setItem("date", date);
+            localStorage.setItem("time", time);
+            localStorage.setItem("reason", reason);
+            localStorage.setItem("status", status);
+            localStorage.setItem("notes", notes);
+            localStorage.setItem("type", type);
+
+            window.location.href = "edit-appointment.html";
+        }
+    }
+});

@@ -48,36 +48,36 @@
         <main class="main-content">
             <!-- Navbar -->
             <nav class="navbar">
-                <div class="header-left">
+                <div class="left-of-navbar">
                     <button class="hamburger">
                         <i class="fa-solid fa-bars"></i>
                     </button>
                     <h2>Appointments</h2>
                 </div>
-
-                <div class="gap">
-                    <div class="search-container">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search..." />
-                    </div>
-                    <div class="notification">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="badge">3</span>
-                    </div>
-
-                    <div class="admin-profile">
-                        <i class="fa-solid fa-circle-user profile-icon"></i>
-
-                        <div class="admin-info">
-                            <h4>Dr. Jon Doe</h4>
-                            <p>Administrator</p>
+                <div class="navbar-menu">
+                    <div class="gap">
+                        <div class="search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="notification">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="badge">3</span>
                         </div>
 
-                        <i class="fa-solid fa-chevron-down"></i>
+                        <div class="admin-profile">
+                            <i class="fa-solid fa-circle-user profile-icon"></i>
+
+                            <div class="admin-info">
+                                <h4>Dr. Jon Doe</h4>
+                                <p>Administrator</p>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
                     </div>
                 </div>
             </nav>
-
             <!-- Edit Appointment -->
             <section class="edit-appointment">
                 <!-- Page Header -->
@@ -101,10 +101,10 @@
                         <h2>Appointment Information</h2>
                     </div>
 
-                    <form>
+                    <form id="appointment-form">
                         <!-- Patient -->
                         <div class="form-group">
-                            <label for="patient"> Patient </label>
+                            <label for="patient-id"> Patient </label>
 
                             <select id="patient-id" name="patientId">
                                 <option value="9" selected>9</option>
@@ -119,7 +119,7 @@
 
                         <!-- Doctor -->
                         <div class="form-group">
-                            <label for="doctor"> Doctor </label>
+                            <label for="doctor-id"> Doctor </label>
 
                             <select id="doctor-id" name="doctorId">
                                 <option value="4" selected>4</option>

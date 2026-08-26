@@ -61,19 +61,25 @@ body {
     color: white;
 }
 /* appointments.html style  */
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    min-height: 100vh;
+}
 .navbar {
-    height: 70px;
     display: flex;
     justify-content: space-between;
+    height: 70px;
+
     align-items: center;
     padding: 0 30px;
     background: white;
     margin: 0px;
 }
-.main-content {
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    min-height: 100vh;
+
+.left-of-navbar {
+    display: flex;
+    gap: 10px;
 }
 .search-container {
     position: relative;
@@ -445,6 +451,17 @@ tbody tr:last-child td {
     background-color: #ffebeb;
 }
 @media (max-width: 768px) {
+    .navbar-menu {
+        display: none;
+    }
+    .navbar-menu.unhide {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        height: auto;
+        padding: 20px;
+    }
     .sidebar {
         display: none;
     }
@@ -470,12 +487,11 @@ tbody tr:last-child td {
         padding: 20px;
     }
     .gap {
-        width: 100%;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        height: auto;
     }
     .hamburger {
         display: block;

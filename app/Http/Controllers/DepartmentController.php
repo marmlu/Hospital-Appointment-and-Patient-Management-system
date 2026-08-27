@@ -7,15 +7,11 @@ use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
 {
-    // Get all departments
     public function index()
     {
-        return response()->json(
-            Department::all()
-        );
+        return response()->json(Department::all());
     }
 
-    // Add a new department
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -25,25 +21,16 @@ class DepartmentController extends Controller
 
         $department = Department::create($validated);
 
-        return response()->json(
-            $department,
-            201
-        );
+        return response()->json($department, 201);
     }
 
-    // Get one department
     public function show(Department $department)
     {
-        return response()->json(
-            $department
-        );
+        return response()->json($department);
     }
 
-    // Update department
-    public function update(
-        Request $request,
-        Department $department
-    ) {
+    public function update(Request $request, Department $department)
+    {
         $validated = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string',
@@ -51,12 +38,9 @@ class DepartmentController extends Controller
 
         $department->update($validated);
 
-        return response()->json(
-            $department
-        );
+        return response()->json($department);
     }
 
-    // Delete department
     public function destroy(Department $department)
     {
         $department->delete();

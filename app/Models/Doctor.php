@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Doctor extends Model
 {
     protected $fillable = [
-        'department_id',
         'user_id',
+        'department_id',
         'specialization',
         'qualification',
         'experience',
@@ -18,18 +18,13 @@ class Doctor extends Model
         'end_time',
     ];
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function appointments()
+    public function department()
     {
-        return $this->hasMany(Appointment::class);
+        return $this->belongsTo(Department::class);
     }
 }

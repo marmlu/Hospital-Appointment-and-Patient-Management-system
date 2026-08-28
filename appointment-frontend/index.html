@@ -55,7 +55,7 @@
                     <button class="hamburger">
                         <i class="fa-solid fa-bars"></i>
                     </button>
-                    <h2>Appointments</h2>
+                    <h2>Appointment Dashboard</h2>
                 </div>
                 <div class="navbar-menu">
                     <div class="gap">
@@ -248,74 +248,23 @@
 
                     <!-- Recent Activity -->
 
+                    <!-- Recent Activity -->
+
                     <div class="dashboard-card">
                         <div class="dashboard-card-header">
                             <div>
                                 <h2>Recent Activity</h2>
-
                                 <p>Latest hospital activities</p>
                             </div>
                         </div>
 
-                        <div class="activity-list">
-                            <!-- Activity 1 -->
-
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fa-solid fa-user-plus"></i>
-                                </div>
-
-                                <div>
-                                    <strong>New patient registered</strong>
-
-                                    <span>
-                                        John Smith was added to the system.
-                                    </span>
-
-                                    <small> 10 minutes ago </small>
-                                </div>
-                            </div>
-
-                            <!-- Activity 2 -->
-
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fa-solid fa-calendar-check"></i>
-                                </div>
-
-                                <div>
-                                    <strong>Appointment approved</strong>
-
-                                    <span>
-                                        Sarah Johnson's appointment was
-                                        approved.
-                                    </span>
-
-                                    <small> 30 minutes ago </small>
-                                </div>
-                            </div>
-
-                            <!-- Activity 3 -->
-
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <i class="fa-solid fa-user-doctor"></i>
-                                </div>
-
-                                <div>
-                                    <strong>Doctor added</strong>
-
-                                    <span>
-                                        Dr. Samuel joined the hospital system.
-                                    </span>
-
-                                    <small> 1 hour ago </small>
-                                </div>
-                            </div>
+                        <div class="activity-list" id="activity-list">
+                            <!-- Activities will be inserted here by JavaScript -->
                         </div>
                     </div>
                 </div>
             </section>
         </main>
+        <script src="js/script.js"></script>
     </body>
 </html>

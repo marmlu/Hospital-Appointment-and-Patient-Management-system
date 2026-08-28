@@ -35,7 +35,145 @@ function getAppointments() {
 function saveAppointments(appointments) {
     localStorage.setItem("appointments", JSON.stringify(appointments));
 }
+function getActivities() {
+    return JSON.parse(localStorage.getItem("activities")) || [];
+}
 
+function saveActivities(activities) {
+    localStorage.setItem("activities", JSON.stringify(activities));
+}
+
+function addActivity(type, title, description) {
+    const activities = getActivities();
+
+    const newActivity = {
+        type: type,
+        title: title,
+        description: description,
+        time: Date.now(),
+    };
+
+    activities.unshift(newActivity);
+
+    // Keep only the latest 10 activities
+    if (activities.length > 10) {
+        activities.pop();
+    }
+
+    saveActivities(activities);
+}
+
+function formatActivityTime(timestamp) {
+    const activityTime = new Date(timestamp);
+    const currentTime = new Date();
+
+    const difference = currentTime - activityTime;
+
+    const seconds = Math.floor(difference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) {
+        return "Just now";
+    }
+
+    if (minutes < 60) {
+        return `${minutes} minute${minutes === 1 ? "" : "s"} ago`;
+    }
+
+    if (hours < 24) {
+        return `${hours} hour${hours === 1 ? "" : "s"} ago`;
+    }
+
+    if (days < 7) {
+        return `${days} day${days === 1 ? "" : "s"} ago`;
+    }
+
+    return activityTime.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+    });
+}
+
+function getActivityIcon(type) {
+    if (type === "patient") {
+        return "fa-user-plus";
+    }
+
+    if (type === "appointment") {
+        return "fa-calendar-check";
+    }
+
+    if (type === "doctor") {
+        return "fa-user-doctor";
+    }
+
+    if (type === "delete") {
+        return "fa-trash";
+    }
+
+    return "fa-circle-info";
+}
+
+function renderActivities() {
+    const activityList = document.querySelector("#activity-list");
+
+    if (!activityList) {
+        return;
+    }
+
+    const activities = getActivities();
+
+    activityList.innerHTML = "";
+
+    if (activities.length === 0) {
+        activityList.innerHTML = `
+            <div class="activity-item">
+                <div class="activity-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div>
+                    <strong>No recent activity</strong>
+
+                    <span>
+                        Recent hospital activities will appear here.
+                    </span>
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    activities.forEach(function (activity) {
+        const activityItem = document.createElement("div");
+
+        activityItem.className = "activity-item";
+
+        activityItem.innerHTML = `
+            <div class="activity-icon">
+                <i class="fa-solid ${getActivityIcon(activity.type)}"></i>
+            </div>
+
+            <div>
+                <strong>${activity.title}</strong>
+
+                <span>
+                    ${activity.description}
+                </span>
+
+                <small>
+                    ${formatActivityTime(activity.time)}
+                </small>
+            </div>
+        `;
+
+        activityList.appendChild(activityItem);
+    });
+}
 function formatDate(dateValue) {
     if (!dateValue) {
         return "";
@@ -77,36 +215,74 @@ function convertDisplayedDateToISO(dateText) {
         return "";
     }
 
-    const parts = dateText.trim().split(/\s+/);
+    const value = dateText.trim();
 
-    if (parts.length !== 3) {
+    if (!value) {
         return "";
     }
 
-    const day = parts[0];
-    const month = parts[1].toLowerCase();
-    const year = parts[2];
-
-    const months = {
-        jan: "01",
-        feb: "02",
-        mar: "03",
-        apr: "04",
-        may: "05",
-        jun: "06",
-        jul: "07",
-        aug: "08",
-        sep: "09",
-        oct: "10",
-        nov: "11",
-        dec: "12",
-    };
-
-    if (!months[month]) {
-        return "";
+    // Already in YYYY-MM-DD format
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+        return value;
     }
 
-    return `${year}-${months[month]}-${day.padStart(2, "0")}`;
+    // DD/MM/YYYY or DD-MM-YYYY
+    const numericParts = value.split(/[\/-]/);
+
+    if (
+        numericParts.length === 3 &&
+        /^\d{1,2}$/.test(numericParts[0]) &&
+        /^\d{1,2}$/.test(numericParts[1]) &&
+        /^\d{4}$/.test(numericParts[2])
+    ) {
+        const day = numericParts[0].padStart(2, "0");
+        const month = numericParts[1].padStart(2, "0");
+        const year = numericParts[2];
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // DD Mon YYYY
+    const parts = value.split(/\s+/);
+
+    if (parts.length === 3) {
+        const day = parts[0];
+        const month = parts[1].toLowerCase();
+        const year = parts[2];
+
+        const months = {
+            jan: "01",
+            january: "01",
+            feb: "02",
+            february: "02",
+            mar: "03",
+            march: "03",
+            apr: "04",
+            april: "04",
+            may: "05",
+            jun: "06",
+            june: "06",
+            jul: "07",
+            july: "07",
+            aug: "08",
+            august: "08",
+            sep: "09",
+            sept: "09",
+            september: "09",
+            oct: "10",
+            october: "10",
+            nov: "11",
+            november: "11",
+            dec: "12",
+            december: "12",
+        };
+
+        if (/^\d{1,2}$/.test(day) && /^\d{4}$/.test(year) && months[month]) {
+            return `${year}-${months[month]}-${day.padStart(2, "0")}`;
+        }
+    }
+
+    return "";
 }
 
 function importHtmlAppointments() {
@@ -748,7 +924,11 @@ if (appointmentForm) {
             appointments.push(newAppointment);
 
             saveAppointments(appointments);
-
+            addActivity(
+                "appointment",
+                "New appointment created",
+                `Appointment #${newAppointmentId} was added to the system.`,
+            );
             console.log("Highest ID:", highestId);
             console.log("Creating new appointment:", newAppointmentId);
         }
@@ -763,6 +943,7 @@ if (appointmentForm) {
             );
 
             if (appointmentIndex !== -1) {
+                const oldStatus = appointments[appointmentIndex].status;
                 appointments[appointmentIndex] = {
                     id: appointments[appointmentIndex].id,
                     patientId: updatedPatientId,
@@ -777,7 +958,16 @@ if (appointmentForm) {
                 };
 
                 saveAppointments(appointments);
-
+                if (
+                    oldStatus !== updatedStatus &&
+                    updatedStatus.toLowerCase() === "approved"
+                ) {
+                    addActivity(
+                        "appointment",
+                        "Appointment approved",
+                        `Appointment #${appointments[appointmentIndex].id} was approved.`,
+                    );
+                }
                 storeAppointmentDetails(appointments[appointmentIndex]);
             }
         }
@@ -825,5 +1015,249 @@ if (retrieveAppointmentId) {
 if (hamburger && navbarMenu) {
     hamburger.addEventListener("click", function () {
         navbarMenu.classList.toggle("unhide");
+    });
+}
+/* ========================================
+   INDEX.HTML / DASHBOARD
+======================================== */
+
+const dashboard = document.querySelector(".dashboard");
+
+const overviewCards = document.querySelectorAll(".overview-card");
+
+const totalPatientsElement =
+    overviewCards[0]?.querySelector(".overview-info h2");
+
+const totalDoctorsElement =
+    overviewCards[1]?.querySelector(".overview-info h2");
+
+const totalAppointmentsElement =
+    overviewCards[2]?.querySelector(".overview-info h2");
+
+const totalDepartmentsElement =
+    overviewCards[3]?.querySelector(".overview-info h2");
+
+const appointmentPreview = document.querySelector(".appointment-preview");
+
+const dashboardSearchInput = document.querySelector(".search-container input");
+
+const hamburgerForIndexHtml = document.querySelector(".hamburgerForIndexHtml");
+
+const navbarMenuForIndexHtml = document.querySelector(".navbar-menu");
+
+function getTodayDate() {
+    const today = new Date();
+
+    const year = today.getFullYear();
+
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+
+    const day = String(today.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+function getUniqueValues(appointments, property) {
+    const values = appointments
+        .map(function (appointment) {
+            return appointment[property];
+        })
+        .filter(function (value) {
+            return value !== undefined && value !== null && value !== "";
+        });
+
+    return [...new Set(values)];
+}
+
+function getTimeInMinutes(timeValue) {
+    if (!timeValue) {
+        return 0;
+    }
+
+    const timeObject = new Date(`January 1, 2026 ${timeValue}`);
+
+    if (isNaN(timeObject.getTime())) {
+        return 0;
+    }
+
+    return timeObject.getHours() * 60 + timeObject.getMinutes();
+}
+
+function updateOverviewCards() {
+    const appointments = getAppointments();
+
+    /* Total Patients */
+
+    if (totalPatientsElement) {
+        const patients = getUniqueValues(appointments, "patientId");
+
+        totalPatientsElement.textContent = patients.length;
+    }
+
+    /* Total Doctors */
+
+    if (totalDoctorsElement) {
+        const doctors = getUniqueValues(appointments, "doctorId");
+
+        totalDoctorsElement.textContent = doctors.length;
+    }
+
+    /* Total Appointments */
+
+    if (totalAppointmentsElement) {
+        totalAppointmentsElement.textContent = appointments.length;
+    }
+
+    /* Total Departments */
+
+    if (totalDepartmentsElement) {
+        const departments = getUniqueValues(appointments, "department");
+
+        totalDepartmentsElement.textContent = departments.length;
+    }
+}
+
+function createDashboardAppointmentItem(appointment) {
+    const appointmentItem = document.createElement("div");
+
+    appointmentItem.className = "appointment-item";
+
+    appointmentItem.innerHTML = `
+        <div class="appointment-patient">
+
+            <div class="patient-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+                <strong>
+                    Patient ${appointment.patientId || ""}
+                </strong>
+
+                <span>
+                    Doctor ${appointment.doctorId || ""}
+                    ·
+                    ${appointment.department || ""}
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="appointment-time">
+
+            <strong>
+                ${formatTime(appointment.time)}
+            </strong>
+
+            <span>
+                ${appointment.status || ""}
+            </span>
+
+        </div>
+    `;
+
+    return appointmentItem;
+}
+
+function displayUpcomingAppointments() {
+    if (!appointmentPreview) {
+        return;
+    }
+
+    const appointments = getAppointments();
+
+    const today = getTodayDate();
+
+    const todayAppointments = appointments
+        .filter(function (appointment) {
+            return appointment.date === today;
+        })
+        .sort(function (a, b) {
+            return getTimeInMinutes(a.time) - getTimeInMinutes(b.time);
+        });
+
+    appointmentPreview.innerHTML = "";
+
+    if (todayAppointments.length === 0) {
+        const emptyMessage = document.createElement("p");
+
+        emptyMessage.textContent =
+            "There are no appointments scheduled for today.";
+
+        appointmentPreview.appendChild(emptyMessage);
+
+        return;
+    }
+
+    todayAppointments.forEach(function (appointment) {
+        appointmentPreview.appendChild(
+            createDashboardAppointmentItem(appointment),
+        );
+    });
+}
+
+function updateTodayAppointmentCount() {
+    const appointments = getAppointments();
+
+    const today = getTodayDate();
+
+    const todayAppointments = appointments.filter(function (appointment) {
+        return appointment.date === today;
+    });
+
+    if (totalAppointmentsElement) {
+        totalAppointmentsElement.textContent = todayAppointments.length;
+    }
+}
+
+function searchDashboard() {
+    if (!dashboardSearchInput) {
+        return;
+    }
+
+    const searchValue = dashboardSearchInput.value.trim().toLowerCase();
+
+    if (!dashboard) {
+        return;
+    }
+
+    const searchableItems = dashboard.querySelectorAll(
+        ".overview-card, .appointment-item, .activity-item",
+    );
+
+    searchableItems.forEach(function (item) {
+        const text = item.textContent.toLowerCase();
+
+        if (searchValue === "" || text.includes(searchValue)) {
+            item.style.display = "";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+function initializeDashboard() {
+    if (!dashboard) {
+        return;
+    }
+
+    updateOverviewCards();
+
+    displayUpcomingAppointments();
+    renderActivities();
+}
+
+if (dashboard) {
+    initializeDashboard();
+}
+
+if (dashboardSearchInput) {
+    dashboardSearchInput.addEventListener("input", searchDashboard);
+}
+
+if (hamburgerForIndexHtml && navbarMenuForIndexHtml) {
+    hamburgerForIndexHtml.addEventListener("click", function () {
+        navbarMenuForIndexHtml.classList.toggle("unhide");
     });
 }

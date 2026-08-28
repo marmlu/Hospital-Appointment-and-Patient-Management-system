@@ -254,6 +254,21 @@ body {
     font-size: 24px;
     cursor: pointer;
 }
+.hamburger,
+.navbar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.hamburger {
+    display: none;
+}
+
+.navbar-toggle {
+    display: none;
+}
 .search-filter-container {
     display: flex;
     align-items: center;
@@ -450,134 +465,189 @@ tbody tr:last-child td {
 .delete-btn:hover {
     background-color: #ffebeb;
 }
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+/* Tablet and Mobile */
 @media (max-width: 768px) {
-    .navbar-menu {
-        display: none;
-    }
-    .navbar-menu.unhide {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        height: auto;
-        padding: 20px;
-    }
+    /* ================================
+       SIDEBAR
+    ================================= */
+
     .sidebar {
         display: none;
+        position: fixed;
+        left: 0;
+        top: 70px;
+        width: 250px;
+        height: 100vh;
+        z-index: 1000;
     }
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-    }
-    .card-container {
-        flex-direction: column;
-        width: 100%;
-    }
-    .card {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
-        flex: none;
-    }
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        height: auto;
-        padding: 20px;
-    }
-    .gap {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        height: auto;
-    }
-    .hamburger {
+
+    .sidebar.unhide {
         display: block;
     }
-    .search-filter-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-        width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-        background-color: white;
-    }
-    .filter-container {
-        align-items: flex-start;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .search-input-container {
-        width: 100%;
-        padding: 15px;
-    }
-}
-@media (max-width: 600px) {
-    .sidebar {
-        display: none;
-    }
+
+    /* ================================
+       MAIN CONTENT
+    ================================= */
+
     .main-content {
         margin-left: 0;
         width: 100%;
     }
-    .card-container {
-        flex-direction: column;
-        width: 100%;
-    }
-    .card {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
-        flex: none;
-    }
+
+    /* ================================
+       NAVBAR
+    ================================= */
+
     .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-        height: auto;
-        padding: 20px;
-    }
-    .gap {
-        width: 100%;
+        position: relative;
+        height: 70px;
+        padding: 0 20px;
         display: flex;
+        flex-direction: row;
+        align-items: center;
         justify-content: space-between;
+    }
+
+    .left-of-navbar {
+        display: flex;
         align-items: center;
         gap: 10px;
-        flex-wrap: wrap;
     }
+
+    .left-of-navbar h2 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+    /* Hamburger = Sidebar button */
     .hamburger {
         display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
     }
+
+    /* Three dots = Navbar menu button */
+    .navbar-toggle {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    /* ================================
+       NAVBAR DROPDOWN
+    ================================= */
+
+    .navbar-menu {
+        display: none;
+
+        position: absolute;
+        top: 70px;
+        right: 20px;
+
+        width: 300px;
+
+        padding: 15px;
+
+        background: white;
+        border-radius: 10px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+        z-index: 999;
+    }
+
+    .navbar-menu.unhide {
+        display: block;
+    }
+
+    .navbar-menu .gap {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .notification {
+        align-self: flex-start;
+    }
+
+    .admin-profile {
+        width: 100%;
+    }
+
+    /* ================================
+       CARDS
+    ================================= */
+
+    .card-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+        min-width: 0;
+        max-width: none;
+        flex: none;
+    }
+
+    /* ================================
+       APPOINTMENT FILTERS
+    ================================= */
+
     .search-filter-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
+
         width: 100%;
         height: auto;
+
         margin-bottom: 20px;
+
         box-sizing: border-box;
         background-color: white;
     }
+
     .filter-container {
-        align-items: flex-start;
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
         gap: 10px;
+
         width: 100%;
         box-sizing: border-box;
     }
+
     .search-input-container {
         width: 100%;
         padding: 15px;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .date-filter {
+        width: 100%;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
 /* ========================================

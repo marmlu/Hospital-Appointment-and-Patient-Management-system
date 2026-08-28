@@ -24,6 +24,8 @@ const appointmentForm = document.querySelector("#appointment-form");
 
 const hamburger = document.querySelector(".hamburger");
 const navbarMenu = document.querySelector(".navbar-menu");
+const navbarToggle = document.querySelector(".navbar-toggle");
+const sidebar = document.querySelector(".sidebar");
 const addBtn = document.querySelector(".add-btn");
 
 const appointmentTableBody = document.querySelector("tbody");
@@ -1012,8 +1014,14 @@ if (retrieveAppointmentId) {
     loadAppointmentDetails();
 }
 
-if (hamburger && navbarMenu) {
+if (hamburger && sidebar) {
     hamburger.addEventListener("click", function () {
+        sidebar.classList.toggle("unhide");
+    });
+}
+
+if (navbarToggle && navbarMenu) {
+    navbarToggle.addEventListener("click", function () {
         navbarMenu.classList.toggle("unhide");
     });
 }

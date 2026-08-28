@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Department;
+use App\Models\User;
 
 class Doctor extends Model
 {
     protected $fillable = [
-        'user_id',
         'department_id',
+        'user_id',
         'specialization',
         'qualification',
         'experience',
@@ -18,13 +20,13 @@ class Doctor extends Model
         'end_time',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     public function department()
     {
         return $this->belongsTo(Department::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

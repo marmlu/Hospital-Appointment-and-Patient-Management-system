@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Department Management</title>
+    <link rel="stylesheet" href="doctor_department.css">
+</head>
+
+<body>
+
+    <main class="department-management">
+
+        <!-- Page Header -->
+        <section class="page-header">
+
+            <div>
+                <h1>Department Management</h1>
+
+                <p>
+                    Manage hospital departments and their information.
+                </p>
+            </div>
+
+            <button type="button">
+                <i class="fa-solid fa-plus"></i>
+                Add Department
+            </button>
+
+        </section>
+
+
+        <!-- Search -->
+        <section class="department-tools">
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="departmentSearch"
+                    placeholder="Search departments..."
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- Department List -->
+        <section class="department-list">
+
+            <div class="section-title">
+
+                <h2>Departments</h2>
+
+                <span>
+                    Total Departments: 0
+                </span>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Department Name</th>
+                            <th>Description</th>
+                            <th>Doctors</th>
+                            <th>Actions</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <!-- Department data will come from database later -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

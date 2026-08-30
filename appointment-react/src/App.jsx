@@ -1,131 +1,37 @@
-import { useState } from "react";
-import "./style.css";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import AppointmentDashboard from "./pages/AppointmentDashboard";
+import Appointments from "./pages/Appointments";
+import AppointmentDetails from "./pages/AppointmentDetails";
+import EditAppointment from "./pages/EditAppointment";
 
 function App() {
-    const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [navbarOpen, setNavbarOpen] = useState(false);
-
     return (
-        <>
-            {/* ========================================
-                SIDEBAR
-            ======================================== */}
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path="/"
+                    element={<Navigate to="/appointment-dashboard" replace />}
+                />
 
-            <aside className={`sidebar ${sidebarOpen ? "unhide" : ""}`}>
-                <div className="logo">
-                    <i className="fa-solid fa-heart-pulse"></i> EthioCare
-                </div>
+                <Route
+                    path="/appointment-dashboard"
+                    element={<AppointmentDashboard />}
+                />
 
-                <ul className="menu">
-                    <li>
-                        <i className="fa-solid fa-house"></i>
-                        Dashboard
-                    </li>
+                <Route path="/appointments" element={<Appointments />} />
 
-                    <li>
-                        <i className="fa-solid fa-user-injured"></i>
-                        Patients
-                    </li>
+                <Route
+                    path="/appointment-details/:id"
+                    element={<AppointmentDetails />}
+                />
 
-                    <li>
-                        <i className="fa-solid fa-user-doctor"></i>
-                        Doctors
-                    </li>
-
-                    <li className="appointment">
-                        <i className="fa-solid fa-calendar-check"></i>
-                        Appointments
-                    </li>
-
-                    <li>
-                        <i className="fa-solid fa-building"></i>
-                        Departments
-                    </li>
-
-                    <li>
-                        <i className="fa-solid fa-file-medical"></i>
-                        Records
-                    </li>
-
-                    <li>
-                        <i className="fa-solid fa-chart-column"></i>
-                        Reports
-                    </li>
-
-                    <li>
-                        <i className="fa-solid fa-gear"></i>
-                        Settings
-                    </li>
-                </ul>
-            </aside>
-
-            {/* ========================================
-                MAIN CONTENT
-            ======================================== */}
-
-            <main className="main-content">
-                {/* ========================================
-                    NAVBAR
-                ======================================== */}
-
-                <nav className="navbar">
-                    {/* Left side */}
-                    <div className="left-of-navbar">
-                        <button
-                            className="hamburger"
-                            onClick={() => setSidebarOpen(!sidebarOpen)}
-                        >
-                            <i className="fa-solid fa-bars"></i>
-                        </button>
-
-                        <h2>Appointments</h2>
-                    </div>
-
-                    {/* Desktop navbar */}
-                    <div className="gap">
-                        <div className="search-container">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-
-                            <input type="text" placeholder="Search..." />
-                        </div>
-
-                        <div className="notification">
-                            <i className="fa-solid fa-bell"></i>
-
-                            <span className="badge">3</span>
-                        </div>
-
-                        <div className="admin-profile">
-                            <i className="fa-solid fa-circle-user profile-icon"></i>
-
-                            <div className="admin-info">
-                                <h4>Dr. Jon Doe</h4>
-
-                                <p>Administrator</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Mobile navbar button */}
-                    <button
-                        className="navbar-toggle"
-                        onClick={() => setNavbarOpen(!navbarOpen)}
-                    >
-                        <i className="fa-solid fa-ellipsis-vertical"></i>
-                    </button>
-                </nav>
-
-                {/* ========================================
-                    PAGE CONTENT
-                ======================================== */}
-
-                <section className="content">
-                    <h1>Appointment Dashboard</h1>
-
-                    <p>Welcome to your appointment dashboard.</p>
-                </section>
-            </main>
-        </>
+                <Route
+                    path="/edit-appointment/:id"
+                    element={<EditAppointment />}
+                />
+            </Routes>
+        </BrowserRouter>
     );
 }
 

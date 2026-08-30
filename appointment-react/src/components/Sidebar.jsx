@@ -1,6 +1,6 @@
-function Sidebar() {
+function Sidebar({ sidebarOpen }) {
     return (
-        <aside className="sidebar">
+        <aside className={`sidebar ${sidebarOpen ? "unhide" : ""}`}>
             <div className="logo">
                 <i className="fa-solid fa-heart-pulse"></i>
                 EthioCare
@@ -8,45 +8,59 @@ function Sidebar() {
 
             <ul className="menu">
                 <li>
-                    <i className="fa-solid fa-house"></i>
-                    Dashboard
+                    <a href="#">
+                        <i className="fa-solid fa-house"></i>
+                        Dashboard
+                    </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-users"></i>
-                    Patients
+                    <a href="#">
+                        <i className="fa-solid fa-user"></i>
+                        Patients
+                    </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-user-doctor"></i>
-                    Doctors
+                    <a href="#">
+                        <i className="fa-solid fa-user-doctor"></i>
+                        Doctors
+                    </a>
                 </li>
 
                 <li className="appointment">
-                    <a href="index.html">
+                    <a href="#">
                         <i className="fa-solid fa-calendar-check"></i>
                         Appointments
                     </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-building"></i>
-                    Departments
+                    <a href="#">
+                        <i className="fa-solid fa-building"></i>
+                        Departments
+                    </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-file-medical"></i>
-                    Records
+                    <a href="#">
+                        <i className="fa-solid fa-file-medical"></i>
+                        Records
+                    </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-chart-line"></i>
-                    Reports
+                    <a href="#">
+                        <i className="fa-solid fa-chart-column"></i>
+                        Reports
+                    </a>
                 </li>
 
                 <li>
-                    <i className="fa-solid fa-gear"></i>
-                    Settings
+                    <a href="#">
+                        <i className="fa-solid fa-gear"></i>
+                        Settings
+                    </a>
                 </li>
             </ul>
         </aside>

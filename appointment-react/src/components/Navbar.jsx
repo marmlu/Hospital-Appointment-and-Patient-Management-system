@@ -1,33 +1,62 @@
-function Navbar() {
+function Navbar({ toggleSidebar, navbarOpen, toggleNavbar }) {
     return (
         <nav className="navbar">
             <div className="left-of-navbar">
-                {/* Sidebar toggle */}
-                <button className="hamburger" type="button">
+                <button
+                    className="hamburger"
+                    onClick={toggleSidebar}
+                    aria-label="Toggle sidebar"
+                >
                     <i className="fa-solid fa-bars"></i>
                 </button>
 
                 <h2>Appointments</h2>
             </div>
 
-            {/* Navbar menu */}
-            <div className="navbar-menu">
+            <div className="gap desktop-navbar">
+                <div className="search-container">
+                    <i className="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text" placeholder="Search..." />
+                </div>
+
+                <div className="notification">
+                    <i className="fa-solid fa-bell"></i>
+                    <span className="badge">3</span>
+                </div>
+
+                <div className="admin-profile">
+                    <i className="fa-solid fa-circle-user profile-icon"></i>
+
+                    <div className="admin-info">
+                        <h4>Dr. Jon Doe</h4>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </div>
+
+            <button
+                className="navbar-toggle"
+                onClick={toggleNavbar}
+                aria-label="Toggle navbar menu"
+            >
+                <i className="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+
+            <div className={`navbar-menu ${navbarOpen ? "unhide" : ""}`}>
                 <div className="gap">
-                    {/* Search */}
                     <div className="search-container">
                         <i className="fa-solid fa-magnifying-glass"></i>
 
                         <input type="text" placeholder="Search..." />
                     </div>
 
-                    {/* Notifications */}
                     <div className="notification">
                         <i className="fa-solid fa-bell"></i>
 
                         <span className="badge">3</span>
                     </div>
 
-                    {/* Admin profile */}
                     <div className="admin-profile">
                         <i className="fa-solid fa-circle-user profile-icon"></i>
 
@@ -35,16 +64,9 @@ function Navbar() {
                             <h4>Dr. Jon Doe</h4>
                             <p>Administrator</p>
                         </div>
-
-                        <i className="fa-solid fa-chevron-down"></i>
                     </div>
                 </div>
             </div>
-
-            {/* Navbar toggle */}
-            <button className="navbar-toggle" type="button">
-                <i className="fa-solid fa-ellipsis-vertical"></i>
-            </button>
         </nav>
     );
 }

@@ -1,26 +1,55 @@
+/* ========================================
+   GLOBAL
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     margin: 0;
+    padding: 0;
     display: flex;
     background: #ededf8;
     font-family: "Poppins", sans-serif;
 }
+
+button,
+input,
+select,
+textarea {
+    font-family: "Poppins", sans-serif;
+}
+
+/* ========================================
+   SIDEBAR
+======================================== */
 
 .sidebar {
     width: 250px;
     height: 100vh;
     background: #0f172a;
     color: white;
+
     position: fixed;
     left: 0;
     top: 0;
+
     line-height: 1.5;
 }
 
 .logo {
     text-align: center;
     padding: 20px;
+
     font-size: 24px;
     font-weight: bold;
+
     border-bottom: 1px solid #334155;
 }
 
@@ -31,12 +60,15 @@ body {
 .menu {
     list-style: none;
     padding: 0 5px;
+    margin: 0;
 }
 
 .menu li {
     padding: 10px 12px;
     margin: 4px 0;
+
     border-radius: 12px;
+
     cursor: pointer;
     transition: 0.3s;
 }
@@ -49,121 +81,52 @@ body {
     width: 25px;
 }
 
-/* Main Content */
+/* ========================================
+   ACTIVE APPOINTMENT MENU ITEM
+======================================== */
 
 .appointment {
     background-color: #007281;
     border-radius: 15px;
     color: white;
 }
+
 .appointment a {
     text-decoration: none;
     color: inherit;
 }
-/* appointments.html style  */
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
 .main-content {
     margin-left: 250px;
     width: calc(100% - 250px);
     min-height: 100vh;
 }
+
+/* ========================================
+   NAVBAR
+======================================== */
+
 .navbar {
     display: flex;
     justify-content: space-between;
-    height: 70px;
-
     align-items: center;
+
+    height: 70px;
     padding: 0 30px;
+
     background: white;
-    margin: 0px;
 }
 
 .left-of-navbar {
     display: flex;
+    align-items: center;
     gap: 10px;
 }
-.search-container {
-    position: relative;
-    width: 300px;
-    box-sizing: border-box;
-}
-.search-container input {
-    width: 100%;
-    padding: 10px 10px 10px 40px; /* Leave space for the icon */
-    border-radius: 10px;
-    border-color: rgb(173, 171, 171);
-    border-style: solid;
-    border-width: thin;
-    box-sizing: border-box;
-}
-.search-container i {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: gray;
-    font-size: 15px;
-}
-.search-container input:hover {
-    border-color: rgb(14, 224, 224);
-}
-.search-container input:focus {
-    border-width: 2px;
-    border-color: rgb(148, 236, 236);
-    outline: none;
-}
-.notification {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-}
-.notification i {
-    font-size: 20px;
-    color: #6b7280;
-}
-.notification:hover i {
-    color: #007281;
-}
-.badge {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 15px;
-    height: 15px;
-    background: #ef4444;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 11px;
-    font-weight: bold;
-}
-.admin-profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-}
-.profile-icon {
-    font-size: 42px;
-    color: #6b7280;
-}
-.admin-info h4 {
-    margin: 0;
-    font-size: 15px;
-    color: #111827;
-}
 
-.admin-info p {
-    margin: 2px 0 0;
-    font-size: 12px;
-    color: #6b7280;
-}
 .gap {
     display: flex;
     align-items: center;
@@ -171,94 +134,141 @@ body {
     gap: 20px;
 }
 
-.content {
+/* ========================================
+   SEARCH
+======================================== */
+
+.search-container {
+    position: relative;
+    width: 300px;
 }
-.card-container {
+
+.search-container input {
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    right: 10px;
-    box-sizing: border-box;
-    padding: 15px;
-}
-.card {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: start;
-    flex: 1 1 220px;
+
+    padding: 10px 10px 10px 40px;
+
+    border: 1px solid rgb(173, 171, 171);
     border-radius: 10px;
-    line-height: 0.5;
-    height: 100px;
-    background-color: white;
-    font-size: 16px;
-    padding: 5px;
-    padding-left: 15px;
+
+    box-sizing: border-box;
+}
+
+.search-container i {
+    position: absolute;
+
+    left: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: gray;
     font-size: 15px;
-    min-width: 220px;
-    max-width: 300px;
 }
-.card-1 {
+
+.search-container input:hover {
+    border-color: rgb(14, 224, 224);
 }
-.card-2 {
+
+.search-container input:focus {
+    border-width: 2px;
+    border-color: rgb(148, 236, 236);
+
+    outline: none;
 }
-.card-3 {
-}
-.card-4 {
-}
-.card i {
-    font-size: xx-large;
-    border-radius: 8px;
-}
-.card-1 i {
-    color: #368dfd;
-    width: 50px;
-    background-color: #d0e3fc;
-    height: 50px;
+
+/* ========================================
+   NOTIFICATION
+======================================== */
+
+.notification {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+    position: relative;
 }
-.card-2 i {
-    color: #f7c709;
-    width: 50px;
-    background-color: #fcf1c9;
-    height: 50px;
+
+.notification i {
+    font-size: 20px;
+    color: #6b7280;
+}
+
+.notification:hover i {
+    color: #007281;
+}
+
+.badge {
+    position: absolute;
+
+    top: 4px;
+    right: 4px;
+
+    width: 15px;
+    height: 15px;
+
+    background: #ef4444;
+    color: white;
+
+    border-radius: 50%;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    font-size: 11px;
+    font-weight: bold;
 }
-.card-3 i {
-    color: #07f058;
-    width: 50px;
-    background-color: #c6f5d6;
-    height: 50px;
+
+/* ========================================
+   ADMIN PROFILE
+======================================== */
+
+.admin-profile {
     display: flex;
     align-items: center;
-    justify-content: center;
-}
-.card-4 i {
-    color: #f02a2a;
-    width: 50px;
-    background-color: #f5dbdb;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.hamburger {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px;
+
+    gap: 12px;
+
     cursor: pointer;
 }
+
+.profile-icon {
+    font-size: 42px;
+    color: #6b7280;
+}
+
+.admin-info h4 {
+    margin: 0;
+
+    font-size: 15px;
+    color: #111827;
+}
+
+.admin-info p {
+    margin: 2px 0 0;
+
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* ========================================
+   NAVBAR BUTTONS
+======================================== */
+
 .hamburger,
 .navbar-toggle {
     background: none;
     border: none;
+
     cursor: pointer;
+
     font-size: 22px;
 }
 
@@ -269,76 +279,184 @@ body {
 .navbar-toggle {
     display: none;
 }
+
+/* ========================================
+   CARDS
+======================================== */
+
+.card-container {
+    width: 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    padding: 15px;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 10px;
+
+    flex: 1 1 220px;
+
+    min-width: 220px;
+    max-width: 300px;
+
+    height: 100px;
+
+    padding: 5px 5px 5px 15px;
+
+    background-color: white;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+    line-height: 0.5;
+}
+
+.card i {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: xx-large;
+}
+
+.card-1 i {
+    color: #368dfd;
+    background-color: #d0e3fc;
+}
+
+.card-2 i {
+    color: #f7c709;
+    background-color: #fcf1c9;
+}
+
+.card-3 i {
+    color: #07f058;
+    background-color: #c6f5d6;
+}
+
+.card-4 i {
+    color: #f02a2a;
+    background-color: #f5dbdb;
+}
+
+/* ========================================
+   APPOINTMENT SEARCH / FILTERS
+======================================== */
+
 .search-filter-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+
     height: 50px;
-    background-color: #fff;
+
+    padding: 10px;
     margin: 15px;
+
     gap: 10px;
+
+    background-color: #fff;
 }
+
 .filter-container {
     display: flex;
     align-items: center;
+
     gap: 10px;
+
     flex: 1;
 }
 
 .search-input-container {
     position: relative;
-    overflow: hidden;
+
     display: flex;
     align-items: center;
+
     gap: 10px;
+
+    width: 260px;
+
+    padding: 8px 10px;
+
     background-color: #fff;
+
     border: 1px solid #dcdcdc;
     border-radius: 10px;
-    padding: 8px 10px;
-    width: 260px;
-    box-sizing: border-box;
+
+    overflow: hidden;
 }
+
 .appointment-search-input {
     flex: 1;
+
     border: none;
     outline: none;
-    font-size: 15px;
+
     background: transparent;
+
+    font-size: 15px;
 }
+
 .search-input-container i {
     color: #888;
     font-size: 16px;
 }
+
 .search-input-container:focus-within {
     border-color: #3b82f6;
     box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
 }
+
 .filter-select {
     width: 140px;
-    padding: 8px 0px;
+
+    padding: 8px 0;
+
     border: 1px solid lightgray;
     border-radius: 8px;
+
     font-size: 15px;
+
     cursor: pointer;
     flex: 1;
 }
+
 .filter-select:active {
     border-color: blue;
     box-shadow: 0 15px rgba(83, 82, 82, 0.08);
 }
+
+/* ========================================
+   DATE FILTER
+======================================== */
+
 .date-filter {
     width: 140px;
     height: 36px;
+
     padding: 0 10px;
-    border: 1px solid lightgray;
-    border-radius: 8px;
 
     display: flex;
     align-items: center;
+
     gap: 8px;
 
-    box-sizing: border-box;
+    border: 1px solid lightgray;
+    border-radius: 8px;
 }
 
 .date-filter i {
@@ -349,22 +467,37 @@ body {
 .date-filter input {
     width: 100%;
     height: 100%;
+
     border: none;
     outline: none;
+
     background: transparent;
+
     font-family: "Poppins", sans-serif;
     font-size: 13px;
+
     cursor: pointer;
 }
+
+/* ========================================
+   ADD BUTTON
+======================================== */
+
 .add-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
+
     gap: 8px;
+
     padding: 12px 18px;
+
     border: none;
     border-radius: 8px;
+
     background: blue;
     color: white;
+
     cursor: pointer;
 
     font-weight: 600;
@@ -373,77 +506,115 @@ body {
 .add-btn:hover {
     background: #005f6b;
 }
+
+/* ========================================
+   APPOINTMENT TABLE
+======================================== */
+
 .table-container {
     width: calc(100% - 30px);
+
+    margin: 15px;
+
     overflow-x: auto;
     overflow-y: hidden;
+
     border: 1px solid #ddd;
     border-radius: 12px;
+
     background-color: white;
-    box-sizing: border-box;
-    margin: 15px;
 }
 
 .table-container table {
     width: 100%;
-    border-collapse: collapse;
-    background-color: white;
     min-width: 1000px;
+
     margin: 0;
+
+    border-collapse: collapse;
+
+    background-color: white;
 }
 
-th {
+.table-container th {
     padding: 14px 16px;
+
     text-align: left;
+
     font-size: 15px;
     font-weight: 600;
+
     color: #555;
     background-color: #f8f9fa;
+
     border-bottom: 1px solid #ddd;
+
     white-space: nowrap;
 }
 
-td {
+.table-container td {
     padding: 14px 16px;
+
     text-align: left;
+
     font-size: 13px;
+
     color: #444;
+
     border-bottom: 1px solid #eee;
+
     white-space: nowrap;
 }
 
-tbody tr:hover {
+.table-container tbody tr:hover {
     background-color: #f8fafc;
 }
 
-tbody tr:last-child td {
+.table-container tbody tr:last-child td {
     border-bottom: none;
 }
+
+/* ========================================
+   TABLE ACTIONS
+======================================== */
+
 .actions {
     position: relative;
     z-index: 10;
 }
+
 .actions a {
     text-decoration: none;
 }
+
 .actions a,
 .actions button {
     position: relative;
     z-index: 11;
+
     pointer-events: auto;
+
     width: 32px;
     height: 32px;
+
     padding: 0;
+
     border: none;
     border-radius: 6px;
+
     background: transparent;
+
     cursor: pointer;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     font-size: 14px;
+
     transition: 0.2s ease;
 }
+
 .view-btn {
     color: #4a90e2;
 }
@@ -451,6 +622,7 @@ tbody tr:last-child td {
 .view-btn:hover {
     background-color: #eaf3ff;
 }
+
 .edit-btn {
     color: #f39c12;
 }
@@ -458,6 +630,7 @@ tbody tr:last-child td {
 .edit-btn:hover {
     background-color: #fff4df;
 }
+
 .delete-btn {
     color: #e74c3c;
 }
@@ -465,191 +638,7 @@ tbody tr:last-child td {
 .delete-btn:hover {
     background-color: #ffebeb;
 }
-/* ========================================
-   RESPONSIVE DESIGN
-======================================== */
 
-/* Tablet and Mobile */
-@media (max-width: 768px) {
-    /* ================================
-       SIDEBAR
-    ================================= */
-
-    .sidebar {
-        display: none;
-        position: fixed;
-        left: 0;
-        top: 70px;
-        width: 250px;
-        height: 100vh;
-        z-index: 1000;
-    }
-
-    .sidebar.unhide {
-        display: block;
-    }
-
-    /* ================================
-       MAIN CONTENT
-    ================================= */
-
-    .main-content {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    /* ================================
-       NAVBAR
-    ================================= */
-
-    .navbar {
-        position: relative;
-        height: 70px;
-        padding: 0 20px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .left-of-navbar {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .left-of-navbar h2 {
-        margin: 0;
-        font-size: 22px;
-    }
-
-    /* Hamburger = Sidebar button */
-    .hamburger {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 24px;
-        cursor: pointer;
-    }
-
-    /* Three dots = Navbar menu button */
-    .navbar-toggle {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 22px;
-        cursor: pointer;
-    }
-
-    /* ================================
-       NAVBAR DROPDOWN
-    ================================= */
-
-    .navbar-menu {
-        display: none;
-
-        position: absolute;
-        top: 70px;
-        right: 20px;
-
-        width: 300px;
-
-        padding: 15px;
-
-        background: white;
-        border-radius: 10px;
-
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-
-        z-index: 999;
-    }
-
-    .navbar-menu.unhide {
-        display: block;
-    }
-
-    .navbar-menu .gap {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-    }
-
-    .search-container {
-        width: 100%;
-    }
-
-    .notification {
-        align-self: flex-start;
-    }
-
-    .admin-profile {
-        width: 100%;
-    }
-
-    /* ================================
-       CARDS
-    ================================= */
-
-    .card-container {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .card {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
-        flex: none;
-    }
-
-    /* ================================
-       APPOINTMENT FILTERS
-    ================================= */
-
-    .search-filter-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-
-        width: 100%;
-        height: auto;
-
-        margin-bottom: 20px;
-
-        box-sizing: border-box;
-        background-color: white;
-    }
-
-    .filter-container {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .search-input-container {
-        width: 100%;
-        padding: 15px;
-    }
-
-    .filter-select {
-        width: 100%;
-    }
-
-    .date-filter {
-        width: 100%;
-    }
-
-    .add-btn {
-        width: 100%;
-        justify-content: center;
-    }
-}
 /* ========================================
    APPOINTMENT DETAILS
 ======================================== */
@@ -660,67 +649,93 @@ tbody tr:last-child td {
 
 .details-header {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
+
     margin-bottom: 25px;
 }
 
 .details-header h1 {
     margin: 15px 0 5px;
+
     font-size: 28px;
+
     color: #1e293b;
 }
 
 .details-header p {
     margin: 0;
+
     color: #64748b;
     font-size: 14px;
 }
+
 .back-btn {
     display: inline-flex;
     align-items: center;
+
     gap: 8px;
+
     text-decoration: none;
+
     color: #475569;
+
     font-size: 14px;
     font-weight: 500;
+
     transition: 0.2s ease;
 }
 
 .back-btn:hover {
     color: #00a8c6;
 }
+
 .edit-appointment-btn {
     display: inline-flex;
     align-items: center;
+
     gap: 8px;
+
     padding: 10px 16px;
+
     border-radius: 8px;
+
     background: #00a8c6;
     color: white;
+
     text-decoration: none;
+
     font-size: 14px;
     font-weight: 500;
+
     transition: 0.2s ease;
 }
 
 .edit-appointment-btn:hover {
     background: #008da5;
 }
-/* Appointment Details Card */
+
+/* ========================================
+   APPOINTMENT DETAILS CARD
+======================================== */
 
 .details-card {
     background: #ffffff;
+
     border: 1px solid #e2e8f0;
     border-radius: 12px;
+
     padding: 24px;
+
     margin-bottom: 20px;
 }
 
 .card-title {
     display: flex;
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 20px;
 }
 
@@ -731,18 +746,24 @@ tbody tr:last-child td {
 
 .card-title h2 {
     margin: 0;
+
     font-size: 17px;
+
     color: #1e293b;
 }
+
 .details-grid {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
 }
 
 .detail-item {
     display: flex;
     flex-direction: column;
+
     gap: 5px;
 }
 
@@ -755,54 +776,38 @@ tbody tr:last-child td {
     font-size: 14px;
     color: #1e293b;
 }
+
 .two-column {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
 }
+
 .detail-list {
     display: flex;
     flex-direction: column;
+
     gap: 16px;
 }
 
 .detail-list .detail-item {
     display: flex;
     flex-direction: column;
+
     gap: 4px;
 }
+
 .description {
     margin: 0;
+
     color: #475569;
+
     font-size: 14px;
     line-height: 1.7;
 }
-/* ========================================
-   APPOINTMENT DETAILS - RESPONSIVE
-======================================== */
 
-@media (max-width: 768px) {
-    .appointment-details {
-        padding: 20px;
-    }
-
-    .details-header {
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .details-header h1 {
-        font-size: 24px;
-    }
-
-    .two-column {
-        grid-template-columns: 1fr;
-    }
-
-    .details-grid {
-        grid-template-columns: 1fr;
-    }
-}
 /* ========================================
    EDIT APPOINTMENT
 ======================================== */
@@ -811,19 +816,21 @@ tbody tr:last-child td {
     padding: 30px;
 }
 
-/* Page Header */
 .edit-header {
     margin-bottom: 25px;
 }
 
 .edit-header h1 {
     margin: 15px 0 5px;
+
     font-size: 28px;
+
     color: #1e293b;
 }
 
 .edit-header p {
     margin: 0;
+
     color: #64748b;
     font-size: 14px;
 }
@@ -834,18 +841,21 @@ tbody tr:last-child td {
 
 .form-card {
     background: #ffffff;
+
     border: 1px solid #e2e8f0;
     border-radius: 12px;
+
     padding: 25px;
+
     margin-bottom: 20px;
 }
-
-/* Card Title */
 
 .form-card .card-title {
     display: flex;
     align-items: center;
+
     gap: 10px;
+
     margin-bottom: 25px;
 }
 
@@ -856,7 +866,9 @@ tbody tr:last-child td {
 
 .form-card .card-title h2 {
     margin: 0;
+
     font-size: 18px;
+
     color: #1e293b;
 }
 
@@ -866,33 +878,30 @@ tbody tr:last-child td {
 
 .form-card form {
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
+
     gap: 20px;
 }
-
-/* Form Group */
 
 .form-group {
     display: flex;
     flex-direction: column;
+
     gap: 7px;
 }
-
-/* Labels */
 
 .form-group label {
     font-size: 13px;
     font-weight: 500;
+
     color: #334155;
 }
-
-/* Inputs, Selects and Textareas */
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    box-sizing: border-box;
 
     padding: 11px 12px;
 
@@ -902,6 +911,7 @@ tbody tr:last-child td {
     background: #ffffff;
 
     color: #334155;
+
     font-family: "Poppins", sans-serif;
     font-size: 13px;
 
@@ -912,8 +922,6 @@ tbody tr:last-child td {
         box-shadow 0.2s ease;
 }
 
-/* Focus */
-
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -922,15 +930,13 @@ tbody tr:last-child td {
     box-shadow: 0 0 0 3px rgba(0, 168, 198, 0.1);
 }
 
-/* Textarea */
-
 .form-group textarea {
     resize: vertical;
+
     min-height: 100px;
+
     line-height: 1.6;
 }
-
-/* Full Width Fields */
 
 .form-group.full-width {
     grid-column: 1 / -1;
@@ -944,8 +950,8 @@ tbody tr:last-child td {
     grid-column: 1 / -1;
 
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
 
     gap: 12px;
 
@@ -954,8 +960,6 @@ tbody tr:last-child td {
 
     border-top: 1px solid #e2e8f0;
 }
-
-/* Cancel Button */
 
 .cancel-btn {
     display: inline-flex;
@@ -985,8 +989,6 @@ tbody tr:last-child td {
     background: #f8fafc;
     border-color: #94a3b8;
 }
-
-/* Save Button */
 
 .save-btn {
     display: inline-flex;
@@ -1021,103 +1023,30 @@ tbody tr:last-child td {
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   DASHBOARD
 ======================================== */
-
-/* Tablet */
-
-@media (max-width: 768px) {
-    .edit-appointment {
-        padding: 20px;
-    }
-
-    .edit-header h1 {
-        font-size: 24px;
-    }
-
-    .form-card {
-        padding: 20px;
-    }
-
-    .form-card form {
-        grid-template-columns: 1fr;
-    }
-
-    .form-group.full-width {
-        grid-column: auto;
-    }
-
-    .form-actions {
-        grid-column: auto;
-    }
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-    .edit-appointment {
-        padding: 15px;
-    }
-
-    .edit-header h1 {
-        font-size: 22px;
-    }
-
-    .edit-header p {
-        font-size: 13px;
-    }
-
-    .form-card {
-        padding: 16px;
-    }
-
-    .form-card .card-title h2 {
-        font-size: 16px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-        font-size: 13px;
-    }
-
-    .form-actions {
-        flex-direction: column-reverse;
-        align-items: stretch;
-    }
-
-    .cancel-btn,
-    .save-btn {
-        width: 100%;
-    }
-}
-/* ========================================
-   DASHBOARD / INDEX PAGE
-======================================== */
-
-/* Main Dashboard */
 
 .dashboard {
     padding: 30px;
 }
-
-/* ========================================
-   DASHBOARD HEADER
-======================================== */
 
 .dashboard-header {
     margin-bottom: 25px;
 }
 
 .dashboard-header h1 {
-    margin: 10px 10px;
+    margin: 10px;
+
     font-size: 28px;
+
     color: #1e293b;
 }
 
 .dashboard-header p {
     margin: 10px;
+
     color: #64748b;
+
     font-size: 14px;
 }
 
@@ -1127,32 +1056,35 @@ tbody tr:last-child td {
 
 .overview-cards {
     display: grid;
+
     grid-template-columns: repeat(4, 1fr);
+
     gap: 20px;
+
     margin-bottom: 25px;
 }
 
 .overview-card {
     display: flex;
     align-items: center;
+
     gap: 15px;
+
+    padding: 20px;
 
     background: #ffffff;
 
     border: 1px solid #e2e8f0;
     border-radius: 12px;
 
-    padding: 20px;
-
     transition: 0.2s ease;
 }
 
 .overview-card:hover {
     transform: translateY(-2px);
+
     box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
-
-/* Overview Icon */
 
 .overview-icon {
     width: 48px;
@@ -1162,17 +1094,15 @@ tbody tr:last-child td {
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
     border-radius: 10px;
 
     background: #e6f8fb;
     color: #00a8c6;
 
     font-size: 20px;
-
-    flex-shrink: 0;
 }
-
-/* Overview Information */
 
 .overview-info {
     display: flex;
@@ -1186,7 +1116,9 @@ tbody tr:last-child td {
 
 .overview-info h2 {
     margin: 3px 0;
+
     font-size: 24px;
+
     color: #1e293b;
 }
 
@@ -1201,24 +1133,24 @@ tbody tr:last-child td {
 
 .dashboard-grid {
     display: grid;
+
     grid-template-columns: 1.5fr 1fr;
+
     gap: 20px;
 }
 
-/* ========================================
-   DASHBOARD CARDS
-======================================== */
-
 .dashboard-card {
+    padding: 24px;
+
     background: #ffffff;
 
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-
-    padding: 24px;
 }
 
-/* Card Header */
+/* ========================================
+   DASHBOARD CARD HEADER
+======================================== */
 
 .dashboard-card-header {
     display: flex;
@@ -1232,6 +1164,7 @@ tbody tr:last-child td {
     margin: 0 0 4px;
 
     font-size: 17px;
+
     color: #1e293b;
 }
 
@@ -1239,6 +1172,7 @@ tbody tr:last-child td {
     margin: 0;
 
     font-size: 12px;
+
     color: #64748b;
 }
 
@@ -1278,11 +1212,10 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Patient */
-
 .appointment-patient {
     display: flex;
     align-items: center;
+
     gap: 12px;
 }
 
@@ -1293,6 +1226,8 @@ tbody tr:last-child td {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -1305,6 +1240,7 @@ tbody tr:last-child td {
 .appointment-patient div:last-child {
     display: flex;
     flex-direction: column;
+
     gap: 3px;
 }
 
@@ -1318,12 +1254,11 @@ tbody tr:last-child td {
     color: #94a3b8;
 }
 
-/* Appointment Time */
-
 .appointment-time {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
     gap: 4px;
 }
 
@@ -1333,14 +1268,14 @@ tbody tr:last-child td {
 }
 
 .appointment-time span {
-    font-size: 11px;
-
     padding: 3px 8px;
 
     border-radius: 20px;
 
     background: #e6f8fb;
     color: #008da5;
+
+    font-size: 11px;
 }
 
 /* ========================================
@@ -1355,6 +1290,7 @@ tbody tr:last-child td {
 .activity-item {
     display: flex;
     align-items: flex-start;
+
     gap: 12px;
 
     padding: 15px 0;
@@ -1366,8 +1302,6 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Activity Icon */
-
 .activity-icon {
     width: 36px;
     height: 36px;
@@ -1376,21 +1310,20 @@ tbody tr:last-child td {
     align-items: center;
     justify-content: center;
 
+    flex-shrink: 0;
+
     border-radius: 50%;
 
     background: #e6f8fb;
     color: #00a8c6;
 
     font-size: 13px;
-
-    flex-shrink: 0;
 }
-
-/* Activity Text */
 
 .activity-item > div:last-child {
     display: flex;
     flex-direction: column;
+
     gap: 3px;
 }
 
@@ -1402,6 +1335,7 @@ tbody tr:last-child td {
 .activity-item span {
     font-size: 11px;
     color: #64748b;
+
     line-height: 1.5;
 }
 
@@ -1411,10 +1345,12 @@ tbody tr:last-child td {
 }
 
 /* ========================================
-   DASHBOARD RESPONSIVE
+   RESPONSIVE DESIGN
 ======================================== */
 
-/* Large Tablet */
+/* ========================================
+   LARGE TABLET
+======================================== */
 
 @media (max-width: 1100px) {
     .overview-cards {
@@ -1426,9 +1362,272 @@ tbody tr:last-child td {
     }
 }
 
-/* Tablet */
+/* ========================================
+   TABLET / MOBILE
+======================================== */
 
 @media (max-width: 768px) {
+    /* ------------------------------------
+       SIDEBAR
+    ------------------------------------ */
+
+    .sidebar {
+        display: none;
+
+        position: fixed;
+
+        left: 0;
+        top: 70px;
+
+        width: 250px;
+        height: 100vh;
+
+        z-index: 1000;
+    }
+
+    .sidebar.unhide {
+        display: block;
+    }
+
+    /* ------------------------------------
+       MAIN CONTENT
+    ------------------------------------ */
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* ------------------------------------
+       NAVBAR
+    ------------------------------------ */
+
+    .navbar {
+        position: relative;
+
+        height: 70px;
+
+        padding: 0 20px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .left-of-navbar {
+        display: flex;
+        align-items: center;
+
+        gap: 10px;
+    }
+
+    .left-of-navbar h2 {
+        margin: 0;
+
+        font-size: 22px;
+    }
+
+    .hamburger {
+        display: block;
+
+        background: none;
+        border: none;
+
+        font-size: 24px;
+
+        cursor: pointer;
+    }
+
+    .navbar-toggle {
+        display: block;
+
+        background: none;
+        border: none;
+
+        font-size: 22px;
+
+        cursor: pointer;
+    }
+
+    /* ------------------------------------
+       NAVBAR DROPDOWN
+    ------------------------------------ */
+
+    .navbar-menu {
+        display: none;
+
+        position: absolute;
+
+        top: 70px;
+        right: 20px;
+
+        width: 300px;
+
+        padding: 15px;
+
+        background: white;
+
+        border-radius: 10px;
+
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+        z-index: 999;
+    }
+
+    .navbar-menu.unhide {
+        display: block;
+    }
+
+    .navbar-menu .gap {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 15px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .notification {
+        align-self: flex-start;
+    }
+
+    .admin-profile {
+        width: 100%;
+    }
+
+    /* ------------------------------------
+       CARDS
+    ------------------------------------ */
+
+    .card-container {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+
+        min-width: 0;
+        max-width: none;
+
+        flex: none;
+    }
+
+    /* ------------------------------------
+       APPOINTMENT FILTERS
+    ------------------------------------ */
+
+    .search-filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        height: auto;
+
+        gap: 20px;
+
+        margin-bottom: 20px;
+
+        box-sizing: border-box;
+
+        background-color: white;
+    }
+
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+
+        gap: 10px;
+
+        box-sizing: border-box;
+    }
+
+    .search-input-container {
+        width: 100%;
+
+        padding: 15px;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .date-filter {
+        width: 100%;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* ------------------------------------
+       APPOINTMENT DETAILS
+    ------------------------------------ */
+
+    .appointment-details {
+        padding: 20px;
+    }
+
+    .details-header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .details-header h1 {
+        font-size: 24px;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* ------------------------------------
+       EDIT APPOINTMENT
+    ------------------------------------ */
+
+    .edit-appointment {
+        padding: 20px;
+    }
+
+    .edit-header h1 {
+        font-size: 24px;
+    }
+
+    .form-card {
+        padding: 20px;
+    }
+
+    .form-card form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: auto;
+    }
+
+    .form-actions {
+        grid-column: auto;
+    }
+
+    /* ------------------------------------
+       DASHBOARD
+    ------------------------------------ */
+
     .dashboard {
         padding: 20px;
     }
@@ -1439,6 +1638,7 @@ tbody tr:last-child td {
 
     .overview-cards {
         grid-template-columns: repeat(2, 1fr);
+
         gap: 15px;
     }
 
@@ -1451,9 +1651,55 @@ tbody tr:last-child td {
     }
 }
 
-/* Mobile */
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 600px) {
+    /* ------------------------------------
+       EDIT APPOINTMENT
+    ------------------------------------ */
+
+    .edit-appointment {
+        padding: 15px;
+    }
+
+    .edit-header h1 {
+        font-size: 22px;
+    }
+
+    .edit-header p {
+        font-size: 13px;
+    }
+
+    .form-card {
+        padding: 16px;
+    }
+
+    .form-card .card-title h2 {
+        font-size: 16px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 13px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .cancel-btn,
+    .save-btn {
+        width: 100%;
+    }
+
+    /* ------------------------------------
+       DASHBOARD
+    ------------------------------------ */
+
     .dashboard {
         padding: 15px;
     }
@@ -1488,6 +1734,7 @@ tbody tr:last-child td {
 
     .appointment-item {
         align-items: flex-start;
+
         gap: 10px;
     }
 
@@ -1498,6 +1745,7 @@ tbody tr:last-child td {
     .appointment-patient strong,
     .appointment-patient span {
         overflow: hidden;
+
         text-overflow: ellipsis;
         white-space: nowrap;
     }

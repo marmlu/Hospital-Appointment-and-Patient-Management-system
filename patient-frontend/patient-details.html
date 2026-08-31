@@ -1,0 +1,166 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Patient Details</title>
+
+        <link rel="stylesheet" href="patient-details.css" />
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+    </head>
+
+    <body>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                EthioCare
+            </div>
+
+            <ul class="menu">
+                <li>
+                    <i class="fa-solid fa-house"></i>
+                    Dashboard
+                </li>
+
+                <li id="sidebar-patients">
+                    <i class="fa-solid fa-users"></i>
+                    Patients
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-user-doctor"></i>
+                    Doctors
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Appointments
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-building"></i>
+                    Departments
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-file-medical"></i>
+                    Records
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-chart-line"></i>
+                    Reports
+                </li>
+
+                <li>
+                    <i class="fa-solid fa-gear"></i>
+                    Settings
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <section class="patient-details">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>Patient Details</h1>
+
+                    <p>View detailed information about the selected patient.</p>
+                </div>
+
+                <!-- Patient Card -->
+                <div class="patient-card">
+                    <!-- Patient Photo -->
+                    <div class="patient-photo">
+                        <img src="patient.jpg" alt="Patient Photo" />
+                    </div>
+
+                    <!-- Patient Information -->
+                    <div class="patient-info">
+                        <h2 id="patient-name">Abebe Kebede</h2>
+
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span>Patient ID</span>
+                                <strong id="patient-id"> P001 </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Gender</span>
+                                <strong id="patient-gender"> Male </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Age</span>
+                                <strong id="patient-age"> 35 </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Phone</span>
+                                <strong id="patient-phone"> 0912345678 </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Email</span>
+                                <strong id="patient-email">
+                                    abebe@email.com
+                                </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Address</span>
+                                <strong id="patient-address">
+                                    Addis Ababa
+                                </strong>
+                            </div>
+
+                            <div class="info-item">
+                                <span>Status</span>
+
+                                <strong
+                                    id="patient-status"
+                                    class="status admitted"
+                                >
+                                    Admitted
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="actions">
+                        <button
+                            type="button"
+                            class="edit-btn"
+                            id="edit-patient-btn"
+                        >
+                            <i class="fa-solid fa-pen"></i>
+                            Edit
+                        </button>
+
+                        <button
+                            type="button"
+                            class="back-btn"
+                            id="back-patient-list-btn"
+                        >
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to Patient List
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Patient JavaScript -->
+        <script src="patient.js"></script>
+    </body>
+</html>

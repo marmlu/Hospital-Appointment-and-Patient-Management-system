@@ -1,0 +1,349 @@
+/* ========================================
+   PATIENT DETAILS PAGE
+======================================== */
+
+.patient-details-page {
+    display: flex;
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    background: #f4f8fb;
+
+    color: #172033;
+
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.patient-details-main {
+    flex: 1;
+
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    padding: 30px;
+
+    background: #f4f8fb;
+}
+
+/* ========================================
+   PAGE HEADER
+======================================== */
+
+.patient-details-header {
+    margin-bottom: 30px;
+}
+
+.patient-details-header h1 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 32px;
+
+    font-weight: 600;
+}
+
+.patient-details-header p {
+    margin-top: 8px;
+
+    color: #6b7280;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+}
+
+/* ========================================
+   DETAILS CARD
+======================================== */
+
+.patient-details-card {
+    width: 100%;
+
+    max-width: 1000px;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* ========================================
+   CARD TITLE
+======================================== */
+
+.patient-details-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.patient-details-title h2 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 24px;
+}
+
+.patient-details-title p {
+    margin-top: 6px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+/* ========================================
+   STATUS
+======================================== */
+
+.patient-details-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-admitted {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+.status-discharged {
+    background: #f1f5f9;
+
+    color: #475569;
+}
+
+.status-checkup {
+    background: #fef3c7;
+
+    color: #92400e;
+}
+
+/* ========================================
+   PATIENT INFORMATION
+======================================== */
+
+.patient-info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.patient-info-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 16px;
+
+    background: #f8fafc;
+
+    border-radius: 10px;
+}
+
+.patient-info-item span {
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+.patient-info-item strong {
+    color: #172033;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+/* ========================================
+   ACTIONS
+======================================== */
+
+.patient-details-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.patient-details-actions button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 11px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-family: "Segoe UI", sans-serif;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: background-color 0.3s ease;
+}
+
+/* ========================================
+   BACK BUTTON
+======================================== */
+
+.patient-details-actions .back-btn,
+.patient-details-card > .back-btn {
+    background: #f1f5f9;
+
+    color: #475569;
+}
+
+.patient-details-actions .back-btn:hover,
+.patient-details-card > .back-btn:hover {
+    background: #e2e8f0;
+}
+
+/* ========================================
+   EDIT BUTTON
+======================================== */
+
+.patient-details-actions .edit-btn {
+    background: #0ea5e9;
+
+    color: #ffffff;
+}
+
+.patient-details-actions .edit-btn:hover {
+    background: #0284c7;
+}
+
+/* ========================================
+   NOT FOUND
+======================================== */
+
+.patient-details-card h1 {
+    margin: 0 0 10px;
+
+    color: #0f172a;
+
+    font-size: 26px;
+}
+
+.patient-details-card > p {
+    margin-bottom: 20px;
+
+    color: #6b7280;
+
+    font-size: 15px;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 768px) {
+    .patient-details-main {
+        margin-left: 0;
+
+        padding: 20px;
+    }
+
+    .patient-details-header h1 {
+        font-size: 28px;
+    }
+
+    .patient-details-card {
+        padding: 20px;
+    }
+
+    .patient-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-details-title {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .patient-details-actions {
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+    .patient-details-actions button {
+        width: 100%;
+    }
+}
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 550px) {
+    .patient-details-main {
+        padding: 15px;
+    }
+
+    .patient-details-card {
+        padding: 18px;
+    }
+
+    .patient-details-header h1 {
+        font-size: 24px;
+    }
+}

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
-import "./PatientDashboard.css";
+import { getPatients } from "../api/patientApi";
 
+import "./PatientDashboard.css";
 function PatientDashboard() {
     const navigate = useNavigate();
 
@@ -14,11 +15,18 @@ function PatientDashboard() {
     ======================================== */
 
     useEffect(() => {
-        const storedPatients =
-            JSON.parse(localStorage.getItem("patients")) || [];
-
-        setPatients(storedPatients);
+        loadPatients();
     }, []);
+
+    async function loadPatients() {
+        try {
+            const data = await getPatients();
+
+            setPatients(data);
+        } catch (error) {
+            console.error("Failed to load patients:", error);
+        }
+    }
 
     /* ========================================
        CALCULATE DASHBOARD COUNTS
@@ -48,11 +56,14 @@ function PatientDashboard() {
        REFRESH DASHBOARD
     ======================================== */
 
-    function refreshPatients() {
-        const storedPatients =
-            JSON.parse(localStorage.getItem("patients")) || [];
+    async function refreshPatients() {
+        try {
+            const data = await getPatients();
 
-        setPatients(storedPatients);
+            setPatients(data);
+        } catch (error) {
+            console.error("Failed to refresh patients:", error);
+        }
     }
 
     /* ========================================
@@ -184,11 +195,18 @@ function PatientDashboard() {
                                         <tr key={patient.id}>
                                             <td>{patient.id}</td>
 
-                                            <td>{patient.name}</td>
+                                            <td>
+                                                {patient.first_name}{" "}
+                                                {patient.last_name}
+                                            </td>
 
                                             <td>{patient.gender}</td>
 
-                                            <td>{patient.age}</td>
+                                            <td>
+                                                {calculateAge(
+                                                    patient.date_of_birth,
+                                                )}
+                                            </td>
 
                                             <td>
                                                 <span
@@ -332,5 +350,21 @@ function getStatusClass(status) {
 
     return "status-checkup";
 }
+function calculateAge(dateOfBirth) {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
 
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (
+        monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    return age;
+}
 export default PatientDashboard;

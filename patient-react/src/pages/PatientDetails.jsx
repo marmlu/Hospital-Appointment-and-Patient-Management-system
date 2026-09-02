@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
+import { getPatient } from "../api/patientApi";
+
 import "./PatientDetails.css";
 
 function PatientDetails() {
@@ -9,23 +11,52 @@ function PatientDetails() {
     const { patientId } = useParams();
 
     const [patient, setPatient] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-        const storedPatients =
-            JSON.parse(localStorage.getItem("patients")) || [];
+        async function loadPatient() {
+            try {
+                setLoading(true);
+                setError("");
 
-        const foundPatient = storedPatients.find(
-            (item) => item.id === patientId,
-        );
+                const data = await getPatient(patientId);
 
-        setPatient(foundPatient || null);
+                setPatient(data);
+            } catch (error) {
+                console.error(error);
+                setError("Failed to load patient.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        loadPatient();
     }, [patientId]);
+
+    /* ========================================
+       LOADING
+    ======================================== */
+
+    if (loading) {
+        return (
+            <div className="patient-details-page">
+                <Sidebar />
+
+                <main className="patient-details-main">
+                    <div className="patient-details-card">
+                        <h1>Loading Patient...</h1>
+                    </div>
+                </main>
+            </div>
+        );
+    }
 
     /* ========================================
        PATIENT NOT FOUND
     ======================================== */
 
-    if (!patient) {
+    if (error || !patient) {
         return (
             <div className="patient-details-page">
                 <Sidebar />
@@ -34,7 +65,10 @@ function PatientDetails() {
                     <div className="patient-details-card">
                         <h1>Patient Not Found</h1>
 
-                        <p>The patient you are looking for does not exist.</p>
+                        <p>
+                            {error ||
+                                "The patient you are looking for does not exist."}
+                        </p>
 
                         <button
                             type="button"
@@ -81,7 +115,9 @@ function PatientDetails() {
                 <div className="patient-details-card">
                     <div className="patient-details-title">
                         <div>
-                            <h2>{patient.name}</h2>
+                            <h2>
+                                {patient.first_name} {patient.last_name}
+                            </h2>
 
                             <p>Patient ID: {patient.id}</p>
                         </div>
@@ -91,7 +127,7 @@ function PatientDetails() {
                                 patient.status,
                             )}`}
                         >
-                            {patient.status}
+                            {patient.status || "Check-up"}
                         </span>
                     </div>
 
@@ -107,19 +143,29 @@ function PatientDetails() {
                         <div className="patient-info-item">
                             <span>Full Name</span>
 
-                            <strong>{patient.name}</strong>
+                            <strong>
+                                {patient.first_name} {patient.last_name}
+                            </strong>
                         </div>
 
                         <div className="patient-info-item">
                             <span>Age</span>
 
-                            <strong>{patient.age}</strong>
+                            <strong>
+                                {calculateAge(patient.date_of_birth)}
+                            </strong>
                         </div>
 
                         <div className="patient-info-item">
                             <span>Gender</span>
 
                             <strong>{patient.gender}</strong>
+                        </div>
+
+                        <div className="patient-info-item">
+                            <span>Date of Birth</span>
+
+                            <strong>{patient.date_of_birth}</strong>
                         </div>
 
                         <div className="patient-info-item">
@@ -141,9 +187,25 @@ function PatientDetails() {
                         </div>
 
                         <div className="patient-info-item">
+                            <span>Blood Group</span>
+
+                            <strong>
+                                {patient.blood_group || "Not provided"}
+                            </strong>
+                        </div>
+
+                        <div className="patient-info-item">
+                            <span>Emergency Contact</span>
+
+                            <strong>
+                                {patient.emergency_contact || "Not provided"}
+                            </strong>
+                        </div>
+
+                        <div className="patient-info-item">
                             <span>Status</span>
 
-                            <strong>{patient.status}</strong>
+                            <strong>{patient.status || "Check-up"}</strong>
                         </div>
                     </div>
 
@@ -172,6 +234,28 @@ function PatientDetails() {
             </main>
         </div>
     );
+}
+
+/* ========================================
+   CALCULATE AGE
+======================================== */
+
+function calculateAge(dateOfBirth) {
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDifference = today.getMonth() - birthDate.getMonth();
+
+    if (
+        monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthDate.getDate())
+    ) {
+        age--;
+    }
+
+    return age;
 }
 
 /* ========================================

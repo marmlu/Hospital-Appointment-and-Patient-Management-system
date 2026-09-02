@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import Sidebar from "../components/Sidebar";
+import { createPatient, getPatient, updatePatient } from "../api/patientApi";
+
 import "./PatientForm.css";
 
 function PatientForm() {
@@ -11,51 +12,58 @@ function PatientForm() {
     const isEditMode = Boolean(id);
 
     const [formData, setFormData] = useState({
-        name: "",
-        age: "",
+        first_name: "",
+        last_name: "",
         gender: "",
+        date_of_birth: "",
         phone: "",
         email: "",
         address: "",
+        blood_group: "",
+        emergency_contact: "",
         status: "Check-up",
     });
 
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    /* ========================================
-       LOAD PATIENT FOR EDITING
-    ======================================== */
-
+    // Load patient data when editing
     useEffect(() => {
         if (!isEditMode) {
             return;
         }
 
-        const storedPatients =
-            JSON.parse(localStorage.getItem("patients")) || [];
+        async function loadPatient() {
+            try {
+                setLoading(true);
+                setError("");
 
-        const patient = storedPatients.find((patient) => patient.id === id);
+                const patient = await getPatient(id);
 
-        if (!patient) {
-            setError("Patient not found.");
-            return;
+                setFormData({
+                    first_name: patient.first_name || "",
+                    last_name: patient.last_name || "",
+                    gender: patient.gender || "",
+                    date_of_birth: patient.date_of_birth || "",
+                    phone: patient.phone || "",
+                    email: patient.email || "",
+                    address: patient.address || "",
+                    blood_group: patient.blood_group || "",
+                    emergency_contact: patient.emergency_contact || "",
+                    status: patient.status || "Check-up",
+                });
+            } catch (error) {
+                console.error(error);
+                setError("Failed to load patient.");
+            } finally {
+                setLoading(false);
+            }
         }
 
-        setFormData({
-            name: patient.name || "",
-            age: patient.age || "",
-            gender: patient.gender ? patient.gender.toLowerCase() : "",
-            phone: patient.phone || "",
-            email: patient.email || "",
-            address: patient.address || "",
-            status: patient.status || "Check-up",
-        });
+        loadPatient();
     }, [id, isEditMode]);
 
-    /* ========================================
-       HANDLE INPUT
-    ======================================== */
-
+    // Handle input changes
     function handleChange(event) {
         const { name, value } = event.target;
 
@@ -65,297 +73,234 @@ function PatientForm() {
         }));
     }
 
-    /* ========================================
-       SAVE / UPDATE PATIENT
-    ======================================== */
-
-    function handleSubmit(event) {
+    // Handle form submission
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        setError("");
+        try {
+            setLoading(true);
+            setError("");
 
-        if (
-            !formData.name.trim() ||
-            !formData.age ||
-            !formData.gender ||
-            !formData.phone.trim()
-        ) {
-            setError("Please fill in all required fields.");
-
-            return;
-        }
-
-        const storedPatients =
-            JSON.parse(localStorage.getItem("patients")) || [];
-
-        /* ====================================
-           EDIT EXISTING PATIENT
-        ==================================== */
-
-        if (isEditMode) {
-            const patientIndex = storedPatients.findIndex(
-                (patient) => patient.id === id,
-            );
-
-            if (patientIndex === -1) {
-                setError("Patient not found.");
-                return;
+            if (isEditMode) {
+                await updatePatient(id, formData);
+            } else {
+                await createPatient(formData);
             }
 
-            const updatedPatient = {
-                ...storedPatients[patientIndex],
-
-                name: formData.name.trim(),
-
-                age: Number(formData.age),
-
-                gender: formData.gender === "male" ? "Male" : "Female",
-
-                phone: formData.phone.trim(),
-
-                email: formData.email.trim(),
-
-                address: formData.address.trim(),
-
-                status: formData.status,
-            };
-
-            storedPatients[patientIndex] = updatedPatient;
-
-            localStorage.setItem("patients", JSON.stringify(storedPatients));
-
             navigate("/patients");
-
-            return;
-        }
-
-        /* ====================================
-           ADD NEW PATIENT
-        ==================================== */
-
-        let nextNumber = 1;
-
-        if (storedPatients.length > 0) {
-            const numbers = storedPatients.map((patient) =>
-                parseInt(patient.id.replace("P", ""), 10),
+        } catch (error) {
+            console.error(error);
+            setError(
+                "Failed to save patient. Please check the information and try again.",
             );
-
-            nextNumber = Math.max(...numbers) + 1;
+        } finally {
+            setLoading(false);
         }
-
-        const newPatient = {
-            id: `P${String(nextNumber).padStart(3, "0")}`,
-
-            name: formData.name.trim(),
-
-            age: Number(formData.age),
-
-            gender: formData.gender === "male" ? "Male" : "Female",
-
-            phone: formData.phone.trim(),
-
-            email: formData.email.trim(),
-
-            address: formData.address.trim(),
-
-            status: formData.status,
-        };
-
-        storedPatients.push(newPatient);
-
-        localStorage.setItem("patients", JSON.stringify(storedPatients));
-
-        navigate("/patients");
     }
-
-    /* ========================================
-       CANCEL
-    ======================================== */
 
     function handleCancel() {
         navigate("/patients");
     }
 
-    /* ========================================
-       PATIENT NOT FOUND
-    ======================================== */
-
-    if (isEditMode && error === "Patient not found.") {
-        return (
-            <div className="patient-form-page">
-                <Sidebar />
-
-                <main className="patient-form-main">
-                    <div className="patient-form-card">
-                        <h1>Patient Not Found</h1>
-
-                        <p>
-                            The patient you are trying to edit does not exist.
-                        </p>
-
-                        <button
-                            type="button"
-                            className="cancel-btn"
-                            onClick={() => navigate("/patients")}
-                        >
-                            Back to Patients
-                        </button>
-                    </div>
-                </main>
-            </div>
-        );
+    if (loading && isEditMode && !formData.first_name) {
+        return <p>Loading patient...</p>;
     }
 
     return (
         <div className="patient-form-page">
             <Sidebar />
+            <div className="patient-form-header">
+                <h1>{isEditMode ? "Edit Patient" : "Add New Patient"}</h1>
 
-            <main className="patient-form-main">
-                {/* ====================================
-                    PAGE HEADER
-                ==================================== */}
+                <p>
+                    {isEditMode
+                        ? "Update the patient's information."
+                        : "Enter the patient's information below."}
+                </p>
+            </div>
 
-                <div className="patient-form-header">
-                    <h1>{isEditMode ? "Edit Patient" : "Add Patient"}</h1>
+            {error && <div className="form-error">{error}</div>}
 
-                    <p>
-                        {isEditMode
-                            ? "Update the patient's information below."
-                            : "Enter the patient's information below."}
-                    </p>
+            <form className="patient-form" onSubmit={handleSubmit}>
+                {/* First Name */}
+                <div className="form-group">
+                    <label htmlFor="first_name">First Name</label>
+
+                    <input
+                        id="first_name"
+                        name="first_name"
+                        type="text"
+                        value={formData.first_name}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
 
-                {/* ====================================
-                    FORM
-                ==================================== */}
+                {/* Last Name */}
+                <div className="form-group">
+                    <label htmlFor="last_name">Last Name</label>
 
-                <form className="patient-form-card" onSubmit={handleSubmit}>
-                    {/* ERROR */}
-                    {error && <div className="patient-form-error">{error}</div>}
+                    <input
+                        id="last_name"
+                        name="last_name"
+                        type="text"
+                        value={formData.last_name}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    {/* NAME */}
-                    <div className="form-group">
-                        <label htmlFor="name">Full Name</label>
+                {/* Gender */}
+                <div className="form-group">
+                    <label htmlFor="gender">Gender</label>
 
-                        <input
-                            id="name"
-                            name="name"
-                            type="text"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Enter patient's full name"
-                        />
-                    </div>
+                    <select
+                        id="gender"
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Select Gender</option>
 
-                    {/* AGE */}
-                    <div className="form-group">
-                        <label htmlFor="age">Age</label>
+                        <option value="Male">Male</option>
 
-                        <input
-                            id="age"
-                            name="age"
-                            type="number"
-                            min="1"
-                            value={formData.age}
-                            onChange={handleChange}
-                            placeholder="Enter patient's age"
-                        />
-                    </div>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
 
-                    {/* GENDER */}
-                    <div className="form-group">
-                        <label htmlFor="gender">Gender</label>
+                {/* Date of Birth */}
+                <div className="form-group">
+                    <label htmlFor="date_of_birth">Date of Birth</label>
 
-                        <select
-                            id="gender"
-                            name="gender"
-                            value={formData.gender}
-                            onChange={handleChange}
-                        >
-                            <option value="">Select Gender</option>
+                    <input
+                        id="date_of_birth"
+                        name="date_of_birth"
+                        type="date"
+                        value={formData.date_of_birth}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                            <option value="male">Male</option>
+                {/* Phone */}
+                <div className="form-group">
+                    <label htmlFor="phone">Phone Number</label>
 
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
+                    <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
 
-                    {/* PHONE */}
-                    <div className="form-group">
-                        <label htmlFor="phone">Phone</label>
+                {/* Email */}
+                <div className="form-group">
+                    <label htmlFor="email">Email</label>
 
-                        <input
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            placeholder="Enter phone number"
-                        />
-                    </div>
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    {/* EMAIL */}
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                {/* Address */}
+                <div className="form-group">
+                    <label htmlFor="address">Address</label>
 
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            placeholder="Enter email address"
-                        />
-                    </div>
+                    <textarea
+                        id="address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        rows="3"
+                    />
+                </div>
 
-                    {/* ADDRESS */}
-                    <div className="form-group">
-                        <label htmlFor="address">Address</label>
+                {/* Blood Group */}
+                <div className="form-group">
+                    <label htmlFor="blood_group">Blood Group</label>
 
-                        <input
-                            id="address"
-                            name="address"
-                            type="text"
-                            value={formData.address}
-                            onChange={handleChange}
-                            placeholder="Enter address"
-                        />
-                    </div>
+                    <select
+                        id="blood_group"
+                        name="blood_group"
+                        value={formData.blood_group}
+                        onChange={handleChange}
+                    >
+                        <option value="">Select Blood Group</option>
 
-                    {/* STATUS */}
-                    <div className="form-group">
-                        <label htmlFor="status">Status</label>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
 
-                        <select
-                            id="status"
-                            name="status"
-                            value={formData.status}
-                            onChange={handleChange}
-                        >
-                            <option value="Check-up">Check-up</option>
+                {/* Emergency Contact */}
+                <div className="form-group">
+                    <label htmlFor="emergency_contact">Emergency Contact</label>
 
-                            <option value="Admitted">Admitted</option>
+                    <input
+                        id="emergency_contact"
+                        name="emergency_contact"
+                        type="tel"
+                        value={formData.emergency_contact}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                            <option value="Discharged">Discharged</option>
-                        </select>
-                    </div>
+                {/* Status */}
+                <div className="form-group">
+                    <label htmlFor="status">Status</label>
 
-                    {/* BUTTONS */}
-                    <div className="patient-form-actions">
-                        <button
-                            type="button"
-                            className="cancel-btn"
-                            onClick={handleCancel}
-                        >
-                            Cancel
-                        </button>
+                    <select
+                        id="status"
+                        name="status"
+                        value={formData.status}
+                        onChange={handleChange}
+                    >
+                        <option value="Check-up">Check-up</option>
 
-                        <button type="submit" className="save-btn">
-                            {isEditMode ? "Update Patient" : "Save Patient"}
-                        </button>
-                    </div>
-                </form>
-            </main>
+                        <option value="Admitted">Admitted</option>
+
+                        <option value="Discharged">Discharged</option>
+                    </select>
+                </div>
+
+                {/* Buttons */}
+                <div className="form-actions">
+                    <button
+                        type="button"
+                        className="cancel-btn"
+                        onClick={handleCancel}
+                        disabled={loading}
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        className="save-btn"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Saving..."
+                            : isEditMode
+                              ? "Update Patient"
+                              : "Add Patient"}
+                    </button>
+                </div>
+            </form>
         </div>
     );
 }

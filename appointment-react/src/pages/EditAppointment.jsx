@@ -1,16 +1,21 @@
 import "../App.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout, { useLayout } from "../components/Layout";
 
 function EditAppointment() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Get the selected appointment from Appointments.jsx
+    const { toggleSidebar, addAppointment, updateAppointment } = useLayout();
+
+    // Get appointment when editing
     const { appointment } = location.state || {};
 
-    // If no appointment was passed
-    if (!appointment) {
+    // Check whether this is New Appointment mode
+    const isNewAppointment = location.pathname.endsWith("/new");
+
+    // If editing but no appointment was provided
+    if (!appointment && !isNewAppointment) {
         return (
             <Layout>
                 <section className="edit-appointment">
@@ -32,57 +37,115 @@ function EditAppointment() {
         );
     }
 
+    // ========================================
+    // HANDLE FORM SUBMISSION
+    // ========================================
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.target);
+
+        const appointmentData = {
+            patientId: Number(formData.get("patientId")),
+            doctorId: Number(formData.get("doctorId")),
+            department: formData.get("department"),
+            date: formData.get("date"),
+            time: convertTo12Hour(formData.get("time")),
+            reason: formData.get("reason"),
+            status: formData.get("status"),
+            type: formData.get("type"),
+            notes: formData.get("notes"),
+        };
+
+        // ========================================
+        // NEW APPOINTMENT
+        // ========================================
+
+        if (isNewAppointment) {
+            addAppointment(appointmentData);
+
+            alert("Appointment created successfully!");
+
+            navigate("/appointments");
+
+            return;
+        }
+
+        // ========================================
+        // EDIT APPOINTMENT
+        // ========================================
+
+        updateAppointment({
+            id: appointment.id,
+            ...appointmentData,
+        });
+
+        alert("Appointment updated successfully!");
+
+        navigate("/appointments");
+    };
+
     return (
         <Layout>
-            <section className="edit-appointment">
-                {/* ========================================
-                        HEADER
+            {/* ========================================
+                        PAGE HEADER
                     ======================================== */}
 
-                <div className="edit-header">
+            <header className="page-header">
+                <div className="page-header-left">
+                    <button
+                        className="hamburger"
+                        type="button"
+                        onClick={toggleSidebar}
+                        aria-label="Toggle sidebar"
+                    >
+                        <i className="fa-solid fa-bars"></i>
+                    </button>
+
                     <div>
-                        <h1>Edit Appointment</h1>
+                        <h1>
+                            {isNewAppointment
+                                ? "New Appointment"
+                                : "Edit Appointment"}
+                        </h1>
 
                         <p>
-                            Update the information for appointment #
-                            {appointment.id}.
+                            {isNewAppointment
+                                ? "Create a new hospital appointment."
+                                : `Update the information for appointment #${appointment.id}.`}
                         </p>
                     </div>
                 </div>
+            </header>
 
-                {/* ========================================
-                        FORM CARD
+            {/* ========================================
+                        FORM
                     ======================================== */}
 
+            <section className="edit-appointment">
                 <div className="form-card">
                     <div className="card-title">
                         <h2>Appointment Information</h2>
                     </div>
 
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-
-                            // Temporary behavior.
-                            // Later this will send the updated
-                            // appointment to Laravel.
-                            alert("Appointment updated successfully!");
-                        }}
-                    >
+                    <form onSubmit={handleSubmit}>
                         {/* Appointment ID */}
 
-                        <div className="form-group">
-                            <label htmlFor="appointment-id">
-                                Appointment ID
-                            </label>
+                        {!isNewAppointment && (
+                            <div className="form-group">
+                                <label htmlFor="appointment-id">
+                                    Appointment ID
+                                </label>
 
-                            <input
-                                id="appointment-id"
-                                type="text"
-                                value={appointment.id}
-                                readOnly
-                            />
-                        </div>
+                                <input
+                                    id="appointment-id"
+                                    type="text"
+                                    value={appointment.id}
+                                    readOnly
+                                />
+                            </div>
+                        )}
 
                         {/* Patient ID */}
 
@@ -91,8 +154,15 @@ function EditAppointment() {
 
                             <input
                                 id="patient-id"
+                                name="patientId"
                                 type="number"
-                                defaultValue={appointment.patientId}
+                                defaultValue={
+                                    isNewAppointment
+                                        ? ""
+                                        : appointment.patientId
+                                }
+                                placeholder="Enter patient ID"
+                                required
                             />
                         </div>
 
@@ -103,8 +173,13 @@ function EditAppointment() {
 
                             <input
                                 id="doctor-id"
+                                name="doctorId"
                                 type="number"
-                                defaultValue={appointment.doctorId}
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.doctorId
+                                }
+                                placeholder="Enter doctor ID"
+                                required
                             />
                         </div>
 
@@ -115,8 +190,18 @@ function EditAppointment() {
 
                             <select
                                 id="department"
-                                defaultValue={appointment.department}
+                                name="department"
+                                defaultValue={
+                                    isNewAppointment
+                                        ? ""
+                                        : appointment.department
+                                }
+                                required
                             >
+                                <option value="" disabled>
+                                    Select department
+                                </option>
+
                                 <option value="Cardiology">Cardiology</option>
 
                                 <option value="Neurology">Neurology</option>
@@ -140,8 +225,12 @@ function EditAppointment() {
 
                             <input
                                 id="appointment-date"
+                                name="date"
                                 type="date"
-                                defaultValue={appointment.date}
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.date
+                                }
+                                required
                             />
                         </div>
 
@@ -152,8 +241,14 @@ function EditAppointment() {
 
                             <input
                                 id="appointment-time"
+                                name="time"
                                 type="time"
-                                defaultValue={appointment.time}
+                                defaultValue={
+                                    isNewAppointment
+                                        ? ""
+                                        : convertTo24Hour(appointment.time)
+                                }
+                                required
                             />
                         </div>
 
@@ -164,8 +259,13 @@ function EditAppointment() {
 
                             <input
                                 id="reason"
+                                name="reason"
                                 type="text"
-                                defaultValue={appointment.reason}
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.reason
+                                }
+                                placeholder="Enter appointment reason"
+                                required
                             />
                         </div>
 
@@ -176,14 +276,19 @@ function EditAppointment() {
 
                             <select
                                 id="status"
-                                defaultValue={appointment.status}
+                                name="status"
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.status
+                                }
+                                required
                             >
+                                <option value="" disabled>
+                                    Select status
+                                </option>
+
                                 <option value="Pending">Pending</option>
-
                                 <option value="Approved">Approved</option>
-
                                 <option value="Completed">Completed</option>
-
                                 <option value="Cancelled">Cancelled</option>
                             </select>
                         </div>
@@ -193,7 +298,18 @@ function EditAppointment() {
                         <div className="form-group">
                             <label htmlFor="type">Type</label>
 
-                            <select id="type" defaultValue={appointment.type}>
+                            <select
+                                id="type"
+                                name="type"
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.type
+                                }
+                                required
+                            >
+                                <option value="" disabled>
+                                    Select appointment type
+                                </option>
+
                                 <option value="Walk-in">Walk-in</option>
 
                                 <option value="Follow-up">Follow-up</option>
@@ -215,8 +331,12 @@ function EditAppointment() {
 
                             <textarea
                                 id="notes"
+                                name="notes"
                                 rows="5"
-                                defaultValue={appointment.notes}
+                                defaultValue={
+                                    isNewAppointment ? "" : appointment.notes
+                                }
+                                placeholder="Enter appointment notes"
                             ></textarea>
                         </div>
 
@@ -226,21 +346,28 @@ function EditAppointment() {
                             <button
                                 type="button"
                                 className="cancel-btn"
-                                onClick={() =>
-                                    navigate(
-                                        `/appointment-details/${appointment.id}`,
-                                        {
-                                            state: { appointment },
-                                        },
-                                    )
-                                }
+                                onClick={() => {
+                                    if (isNewAppointment) {
+                                        navigate("/appointments");
+                                    } else {
+                                        navigate(
+                                            `/appointment-details/${appointment.id}`,
+                                            {
+                                                state: { appointment },
+                                            },
+                                        );
+                                    }
+                                }}
                             >
                                 Cancel
                             </button>
 
                             <button type="submit" className="save-btn">
                                 <i className="fa-solid fa-floppy-disk"></i>
-                                Save Changes
+
+                                {isNewAppointment
+                                    ? "Create Appointment"
+                                    : "Save Changes"}
                             </button>
                         </div>
                     </form>
@@ -248,6 +375,54 @@ function EditAppointment() {
             </section>
         </Layout>
     );
+}
+
+/* ========================================
+   CONVERT 12-HOUR → 24-HOUR
+======================================== */
+
+function convertTo24Hour(time) {
+    if (!time) {
+        return "";
+    }
+
+    const [timePart, modifier] = time.split(" ");
+
+    let [hours, minutes] = timePart.split(":");
+
+    if (modifier === "PM" && hours !== "12") {
+        hours = String(Number(hours) + 12);
+    }
+
+    if (modifier === "AM" && hours === "12") {
+        hours = "00";
+    }
+
+    return `${hours.padStart(2, "0")}:${minutes}`;
+}
+
+/* ========================================
+   CONVERT 24-HOUR → 12-HOUR
+======================================== */
+
+function convertTo12Hour(time) {
+    if (!time) {
+        return "";
+    }
+
+    let [hours, minutes] = time.split(":");
+
+    hours = Number(hours);
+
+    const modifier = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+
+    if (hours === 0) {
+        hours = 12;
+    }
+
+    return `${String(hours).padStart(2, "0")}:${minutes} ${modifier}`;
 }
 
 export default EditAppointment;

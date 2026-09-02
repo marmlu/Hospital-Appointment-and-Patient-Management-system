@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import Layout from "../components/Layout";
+import Layout, { useLayout } from "../components/Layout";
 
 function AppointmentDashboard() {
+    const { toggleSidebar } = useLayout();
+
     const upcomingAppointments = [
         {
             patient: "Abebe Kebede",
@@ -59,20 +61,28 @@ function AppointmentDashboard() {
 
     return (
         <Layout>
+            <header className="page-header">
+                <div className="page-header-left">
+                    <button
+                        className="hamburger"
+                        type="button"
+                        onClick={toggleSidebar}
+                        aria-label="Toggle sidebar"
+                    >
+                        <i className="fa-solid fa-bars"></i>
+                    </button>
+
+                    <div>
+                        <h1>Appointment Dashboard</h1>
+                        <p>Welcome to your appointment dashboard.</p>
+                    </div>
+                </div>
+            </header>
+
             <section className="dashboard">
                 {/* ========================================
-        DASHBOARD HEADER
-    ======================================== */}
-
-                <div className="dashboard-header">
-                    <h1>Appointment Dashboard</h1>
-
-                    <p>Welcome to your appointment dashboard.</p>
-                </div>
-
-                {/* ========================================
-        OVERVIEW CARDS
-    ======================================== */}
+                        OVERVIEW CARDS
+                    ======================================== */}
 
                 <div className="overview-cards">
                     {/* Total Appointments */}
@@ -141,13 +151,13 @@ function AppointmentDashboard() {
                 </div>
 
                 {/* ========================================
-        DASHBOARD GRID
-    ======================================== */}
+                        DASHBOARD GRID
+                    ======================================== */}
 
                 <div className="dashboard-grid">
                     {/* ========================================
-        UPCOMING APPOINTMENTS
-    ======================================== */}
+                        UPCOMING APPOINTMENTS
+                    ======================================== */}
 
                     <div className="dashboard-card">
                         <div className="dashboard-card-header">
@@ -172,6 +182,7 @@ function AppointmentDashboard() {
                                             <strong>
                                                 {appointment.patient}
                                             </strong>
+
                                             <span>{appointment.doctor}</span>
                                         </div>
                                     </div>
@@ -187,8 +198,8 @@ function AppointmentDashboard() {
                     </div>
 
                     {/* ========================================
-        RECENT ACTIVITY
-    ======================================== */}
+                        RECENT ACTIVITY
+                    ======================================== */}
 
                     <div className="dashboard-card">
                         <div className="dashboard-card-header">

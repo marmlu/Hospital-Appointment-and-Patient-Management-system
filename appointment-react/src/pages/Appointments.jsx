@@ -1,73 +1,10 @@
 import "../App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout, { useLayout } from "../components/Layout";
 
 function Appointments() {
-    const appointments = [
-        {
-            id: 3,
-            patientId: 12,
-            doctorId: 4,
-            department: "Cardiology",
-            date: "2027-10-05",
-            time: "09:30 AM",
-            reason: "Chest Pain",
-            status: "Completed",
-            notes: "Follow-up required after consultation.",
-            type: "Walk-in",
-        },
-        {
-            id: 4,
-            patientId: 9,
-            doctorId: 7,
-            department: "Pediatrics",
-            date: "2027-11-01",
-            time: "11:00 AM",
-            reason: "Fever",
-            status: "Completed",
-            notes: "First Appointment",
-            type: "Follow-up",
-        },
-        {
-            id: 5,
-            patientId: 15,
-            doctorId: 10,
-            department: "Neurology",
-            date: "2027-12-09",
-            time: "02:00 PM",
-            reason: "Migraine",
-            status: "Pending",
-            notes: "Patient requested morning appointment.",
-            type: "Consultation",
-        },
-        {
-            id: 6,
-            patientId: 18,
-            doctorId: 1,
-            department: "Dermatology",
-            date: "2027-02-13",
-            time: "10:15 AM",
-            reason: "Skin Rash",
-            status: "Cancelled",
-            notes: "Patient referred for further evaluation.",
-            type: "Emergency",
-        },
-        {
-            id: 7,
-            patientId: 21,
-            doctorId: 7,
-            department: "Ophthalmology",
-            date: "2027-08-14",
-            time: "03:45 PM",
-            reason: "Blurred Vision",
-            status: "Cancelled",
-            notes: "First Appointment",
-            type: "Online",
-        },
-    ];
-
-    const [appointmentList, setAppointmentList] = useState(appointments);
+    const { toggleSidebar, appointments, deleteAppointment } = useLayout();
 
     const appointmentStats = [
         {
@@ -123,7 +60,7 @@ function Appointments() {
         { id: "10", name: "Dr Lia" },
     ];
 
-    const filteredAppointments = appointmentList.filter((appointment) => {
+    const filteredAppointments = appointments.filter((appointment) => {
         const search = searchTerm.toLowerCase();
 
         const matchesSearch =
@@ -169,237 +106,188 @@ function Appointments() {
             return;
         }
 
-        setAppointmentList((currentAppointments) =>
-            currentAppointments.filter((appointment) => appointment.id !== id),
-        );
+        deleteAppointment(id);
     };
 
     return (
         <Layout>
-            {(toggleSidebar) => (
-                <>
-                    {/* ========================================
+            {/* ========================================
                         APPOINTMENTS HEADER
                     ======================================== */}
 
-                    <header className="page-header">
-                        <div className="page-header-left">
-                            <button
-                                className="hamburger"
-                                type="button"
-                                onClick={toggleSidebar}
-                                aria-label="Toggle sidebar"
-                            >
-                                <i className="fa-solid fa-bars"></i>
-                            </button>
+            <header className="page-header">
+                <div className="page-header-left">
+                    <button
+                        className="hamburger"
+                        type="button"
+                        onClick={toggleSidebar}
+                        aria-label="Toggle sidebar"
+                    >
+                        <i className="fa-solid fa-bars"></i>
+                    </button>
 
-                            <div>
-                                <h1>Appointments</h1>
-                                <p>
-                                    Manage and track all hospital appointments.
-                                </p>
-                            </div>
-                        </div>
+                    <div>
+                        <h1>Appointments</h1>
+                        <p>Manage and track all hospital appointments.</p>
+                    </div>
+                </div>
+            </header>
 
-                        <div className="page-header-right">
-                            <div className="search-container">
-                                <i className="fa-solid fa-magnifying-glass"></i>
-
-                                <input type="text" placeholder="Search..." />
-                            </div>
-
-                            <div className="notification">
-                                <i className="fa-solid fa-bell"></i>
-                                <span className="badge">3</span>
-                            </div>
-
-                            <div className="admin-profile">
-                                <i className="fa-solid fa-circle-user profile-icon"></i>
-
-                                <div className="admin-info">
-                                    <h4>Dr. Jon Doe</h4>
-                                    <p>Administrator</p>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-
-                    {/* ========================================
+            {/* ========================================
                         APPOINTMENTS CONTENT
                     ======================================== */}
 
-                    <section className="content">
-                        <div className="card-container">
-                            {appointmentStats.map((stat, index) => (
-                                <div
-                                    className={`card card-${index + 1}`}
-                                    key={stat.title}
-                                >
-                                    <i
-                                        className={`fa-regular ${stat.icon}`}
-                                    ></i>
+            <section className="content">
+                <div className="card-container">
+                    {appointmentStats.map((stat, index) => (
+                        <div
+                            className={`card card-${index + 1}`}
+                            key={stat.title}
+                        >
+                            <i className={`fa-regular ${stat.icon}`}></i>
 
-                                    <div>
-                                        <p>{stat.title}</p>
-                                        <h2>{stat.count}</h2>
-                                    </div>
-                                </div>
+                            <div>
+                                <p>{stat.title}</p>
+                                <h2>{stat.count}</h2>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="search-filter-container">
+                    <div className="search-input-container">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                            className="appointment-search-input"
+                            type="text"
+                            placeholder="Search appointments here"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="filter-container">
+                        <select
+                            className="filter-select status-filter"
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                        >
+                            {statuses.map((status) => (
+                                <option key={status} value={status}>
+                                    {status}
+                                </option>
                             ))}
+                        </select>
+
+                        <select
+                            className="filter-select department-filter"
+                            value={departmentFilter}
+                            onChange={(e) =>
+                                setDepartmentFilter(e.target.value)
+                            }
+                        >
+                            {departments.map((department) => (
+                                <option key={department} value={department}>
+                                    {department}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            className="filter-select doctor-filter"
+                            value={doctorFilter}
+                            onChange={(e) => setDoctorFilter(e.target.value)}
+                        >
+                            <option value="All Doctors">All Doctors</option>
+
+                            {doctors.map((doctor) => (
+                                <option key={doctor.id} value={doctor.id}>
+                                    {doctor.name}
+                                </option>
+                            ))}
+                        </select>
+
+                        <div className="date-filter">
+                            <input
+                                type="date"
+                                id="appointment-date"
+                                aria-label="Select date"
+                                value={dateFilter}
+                                onChange={(e) => setDateFilter(e.target.value)}
+                            />
                         </div>
+                    </div>
+                    <Link to="/edit-appointment/new" className="add-btn">
+                        + New Appointment
+                    </Link>
+                </div>
 
-                        <div className="search-filter-container">
-                            <div className="search-input-container">
-                                <i className="fa-solid fa-magnifying-glass"></i>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Appointment ID</th>
+                            <th>Patient_ID</th>
+                            <th>Doctor_ID</th>
+                            <th>Department</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                                <input
-                                    className="appointment-search-input"
-                                    type="text"
-                                    placeholder="Search appointments here"
-                                    value={searchTerm}
-                                    onChange={(e) =>
-                                        setSearchTerm(e.target.value)
-                                    }
-                                />
-                            </div>
+                    <tbody>
+                        {filteredAppointments.map((appointment) => (
+                            <tr key={appointment.id}>
+                                <td>{appointment.id}</td>
+                                <td>{appointment.patientId}</td>
+                                <td>{appointment.doctorId}</td>
+                                <td>{appointment.department}</td>
+                                <td>{appointment.date}</td>
+                                <td>{appointment.time}</td>
+                                <td>{appointment.reason}</td>
+                                <td>{appointment.status}</td>
+                                <td>{appointment.notes}</td>
+                                <td>{appointment.type}</td>
 
-                            <div className="filter-container">
-                                <select
-                                    className="filter-select status-filter"
-                                    value={statusFilter}
-                                    onChange={(e) =>
-                                        setStatusFilter(e.target.value)
-                                    }
-                                >
-                                    {statuses.map((status) => (
-                                        <option key={status} value={status}>
-                                            {status}
-                                        </option>
-                                    ))}
-                                </select>
+                                <td className="actions">
+                                    <Link
+                                        to={`/appointment-details/${appointment.id}`}
+                                        state={{ appointment }}
+                                        className="view-btn"
+                                        title="View"
+                                    >
+                                        <i className="fa-solid fa-eye"></i>
+                                    </Link>
 
-                                <select
-                                    className="filter-select department-filter"
-                                    value={departmentFilter}
-                                    onChange={(e) =>
-                                        setDepartmentFilter(e.target.value)
-                                    }
-                                >
-                                    {departments.map((department) => (
-                                        <option
-                                            key={department}
-                                            value={department}
-                                        >
-                                            {department}
-                                        </option>
-                                    ))}
-                                </select>
+                                    <Link
+                                        to={`/edit-appointment/${appointment.id}`}
+                                        state={{ appointment }}
+                                        className="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i className="fa-solid fa-pen-to-square"></i>
+                                    </Link>
 
-                                <select
-                                    className="filter-select doctor-filter"
-                                    value={doctorFilter}
-                                    onChange={(e) =>
-                                        setDoctorFilter(e.target.value)
-                                    }
-                                >
-                                    <option value="All Doctors">
-                                        All Doctors
-                                    </option>
-
-                                    {doctors.map((doctor) => (
-                                        <option
-                                            key={doctor.id}
-                                            value={doctor.id}
-                                        >
-                                            {doctor.name}
-                                        </option>
-                                    ))}
-                                </select>
-
-                                <div className="date-filter">
-                                    <input
-                                        type="date"
-                                        id="appointment-date"
-                                        aria-label="Select date"
-                                        value={dateFilter}
-                                        onChange={(e) =>
-                                            setDateFilter(e.target.value)
+                                    <button
+                                        className="delete-btn"
+                                        title="Delete"
+                                        onClick={() =>
+                                            handleDelete(appointment.id)
                                         }
-                                    />
-                                </div>
-                            </div>
-
-                            <button className="add-btn">
-                                + New Appointment
-                            </button>
-                        </div>
-
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Appointment ID</th>
-                                    <th>Patient_ID</th>
-                                    <th>Doctor_ID</th>
-                                    <th>Department</th>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Reason</th>
-                                    <th>Status</th>
-                                    <th>Notes</th>
-                                    <th>Type</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {filteredAppointments.map((appointment) => (
-                                    <tr key={appointment.id}>
-                                        <td>{appointment.id}</td>
-                                        <td>{appointment.patientId}</td>
-                                        <td>{appointment.doctorId}</td>
-                                        <td>{appointment.department}</td>
-                                        <td>{appointment.date}</td>
-                                        <td>{appointment.time}</td>
-                                        <td>{appointment.reason}</td>
-                                        <td>{appointment.status}</td>
-                                        <td>{appointment.notes}</td>
-                                        <td>{appointment.type}</td>
-
-                                        <td className="actions">
-                                            <Link
-                                                to={`/appointment-details/${appointment.id}`}
-                                                state={{ appointment }}
-                                                className="view-btn"
-                                                title="View"
-                                            >
-                                                <i className="fa-solid fa-eye"></i>
-                                            </Link>
-
-                                            <Link
-                                                to={`/edit-appointment/${appointment.id}`}
-                                                state={{ appointment }}
-                                                className="edit-btn"
-                                                title="Edit"
-                                            >
-                                                <i className="fa-solid fa-pen-to-square"></i>
-                                            </Link>
-
-                                            <button
-                                                className="delete-btn"
-                                                title="Delete"
-                                                onClick={() =>
-                                                    handleDelete(appointment.id)
-                                                }
-                                            >
-                                                <i className="fa-solid fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </section>
-                </>
-            )}
+                                    >
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
         </Layout>
     );
 }

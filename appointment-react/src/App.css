@@ -1,5 +1,5 @@
 /* ========================================
-GLOBAL
+   GLOBAL
 ======================================== */
 
 * {
@@ -30,7 +30,7 @@ textarea {
 }
 
 /* ========================================
-SIDEBAR
+   SIDEBAR
 ======================================== */
 
 .sidebar {
@@ -42,7 +42,7 @@ SIDEBAR
     background: #0f172a;
     color: white;
     line-height: 1.5;
-    z-index: 2000;
+    z-index: 3000;
     overflow-y: auto;
 }
 
@@ -91,7 +91,7 @@ SIDEBAR
 }
 
 /* ========================================
-ACTIVE APPOINTMENT
+   ACTIVE APPOINTMENT
 ======================================== */
 
 .appointment {
@@ -106,7 +106,15 @@ ACTIVE APPOINTMENT
 }
 
 /* ========================================
-MAIN CONTENT
+   SIDEBAR OVERLAY
+======================================== */
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* ========================================
+   MAIN CONTENT
 ======================================== */
 
 .main-content {
@@ -117,7 +125,53 @@ MAIN CONTENT
 }
 
 /* ========================================
-NAVBAR
+   PAGE HEADER
+======================================== */
+
+.page-header {
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 15px 30px;
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.page-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.page-header-left > div {
+    min-width: 0;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.page-header p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.page-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ========================================
+   NAVBAR
 ======================================== */
 
 .navbar {
@@ -154,7 +208,7 @@ NAVBAR
 }
 
 /* ========================================
-SEARCH
+   SEARCH
 ======================================== */
 
 .search-container {
@@ -190,7 +244,7 @@ SEARCH
 }
 
 /* ========================================
-NOTIFICATION
+   NOTIFICATION
 ======================================== */
 
 .notification {
@@ -231,7 +285,7 @@ NOTIFICATION
 }
 
 /* ========================================
-ADMIN PROFILE
+   ADMIN PROFILE
 ======================================== */
 
 .admin-profile {
@@ -260,7 +314,7 @@ ADMIN PROFILE
 }
 
 /* ========================================
-NAVBAR BUTTONS
+   NAVBAR / PAGE HEADER BUTTONS
 ======================================== */
 
 .hamburger,
@@ -276,6 +330,9 @@ NAVBAR BUTTONS
 }
 
 .hamburger {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
     font-size: 22px;
 }
 
@@ -284,7 +341,7 @@ NAVBAR BUTTONS
 }
 
 /* ========================================
-MOBILE NAVBAR MENU
+   MOBILE NAVBAR MENU
 ======================================== */
 
 .navbar-menu {
@@ -292,7 +349,7 @@ MOBILE NAVBAR MENU
 }
 
 /* ========================================
-APPOINTMENT CARDS
+   APPOINTMENT CARDS
 ======================================== */
 
 .card-container {
@@ -350,7 +407,7 @@ APPOINTMENT CARDS
 }
 
 /* ========================================
-SEARCH / FILTERS
+   SEARCH / FILTERS
 ======================================== */
 
 .search-filter-container {
@@ -426,7 +483,7 @@ SEARCH / FILTERS
 }
 
 /* ========================================
-DATE FILTER
+   DATE FILTER
 ======================================== */
 
 .date-filter {
@@ -453,7 +510,7 @@ DATE FILTER
 }
 
 /* ========================================
-ADD BUTTON
+   ADD BUTTON
 ======================================== */
 
 .add-btn {
@@ -477,7 +534,7 @@ ADD BUTTON
 }
 
 /* ========================================
-CONTENT
+   CONTENT
 ======================================== */
 
 .content {
@@ -487,8 +544,8 @@ CONTENT
 }
 
 /* ========================================
-TABLE
-ONLY THE TABLE CAN SCROLL HORIZONTALLY
+   TABLE
+   ONLY THE TABLE CAN SCROLL HORIZONTALLY
 ======================================== */
 
 .content > table {
@@ -544,7 +601,7 @@ ONLY THE TABLE CAN SCROLL HORIZONTALLY
 }
 
 /* ========================================
-TABLE ACTIONS
+   TABLE ACTIONS
 ======================================== */
 
 .actions {
@@ -607,7 +664,7 @@ TABLE ACTIONS
 }
 
 /* ========================================
-APPOINTMENT DETAILS
+   APPOINTMENT DETAILS
 ======================================== */
 
 .appointment-details {
@@ -625,7 +682,7 @@ APPOINTMENT DETAILS
 }
 
 .details-header h1 {
-    margin: 15px 0 5px;
+    margin: 0 0 5px;
     font-size: 28px;
     color: #1e293b;
 }
@@ -669,7 +726,7 @@ APPOINTMENT DETAILS
 }
 
 /* ========================================
-DETAILS GRID
+   DETAILS GRID
 ======================================== */
 
 .details-grid {
@@ -739,7 +796,7 @@ DETAILS GRID
 }
 
 /* ========================================
-EDIT APPOINTMENT
+   EDIT APPOINTMENT
 ======================================== */
 
 .edit-appointment {
@@ -753,7 +810,7 @@ EDIT APPOINTMENT
 }
 
 .edit-header h1 {
-    margin: 15px 0 5px;
+    margin: 0 0 5px;
     font-size: 28px;
     color: #1e293b;
 }
@@ -765,7 +822,7 @@ EDIT APPOINTMENT
 }
 
 /* ========================================
-FORM CARD
+   FORM CARD
 ======================================== */
 
 .form-card {
@@ -791,7 +848,7 @@ FORM CARD
 }
 
 /* ========================================
-FORM
+   FORM
 ======================================== */
 
 .form-card form {
@@ -849,7 +906,7 @@ FORM
 }
 
 /* ========================================
-FORM ACTIONS
+   FORM ACTIONS
 ======================================== */
 
 .form-actions {
@@ -905,7 +962,7 @@ FORM ACTIONS
 }
 
 /* ========================================
-DASHBOARD
+   DASHBOARD
 ======================================== */
 
 .dashboard {
@@ -919,19 +976,19 @@ DASHBOARD
 }
 
 .dashboard-header h1 {
-    margin: 10px 0;
+    margin: 0 0 5px;
     font-size: 28px;
     color: #1e293b;
 }
 
 .dashboard-header p {
-    margin: 10px 0;
+    margin: 0;
     color: #64748b;
     font-size: 14px;
 }
 
 /* ========================================
-OVERVIEW CARDS
+   OVERVIEW CARDS
 ======================================== */
 
 .overview-cards {
@@ -994,7 +1051,7 @@ OVERVIEW CARDS
 }
 
 /* ========================================
-DASHBOARD GRID
+   DASHBOARD GRID
 ======================================== */
 
 .dashboard-grid {
@@ -1013,7 +1070,7 @@ DASHBOARD GRID
 }
 
 /* ========================================
-DASHBOARD CARD HEADER
+   DASHBOARD CARD HEADER
 ======================================== */
 
 .dashboard-card-header {
@@ -1049,7 +1106,7 @@ DASHBOARD CARD HEADER
 }
 
 /* ========================================
-UPCOMING APPOINTMENTS
+   UPCOMING APPOINTMENTS
 ======================================== */
 
 .appointment-preview {
@@ -1129,7 +1186,7 @@ UPCOMING APPOINTMENTS
 }
 
 /* ========================================
-RECENT ACTIVITY
+   RECENT ACTIVITY
 ======================================== */
 
 .activity-list {
@@ -1186,7 +1243,7 @@ RECENT ACTIVITY
 }
 
 /* ========================================
-LARGE TABLET
+   LARGE TABLET
 ======================================== */
 
 @media (max-width: 1100px) {
@@ -1208,7 +1265,7 @@ LARGE TABLET
 }
 
 /* ========================================
-TABLET / SMALL WINDOW
+   TABLET / SMALL WINDOW
 ======================================== */
 
 @media (max-width: 768px) {
@@ -1216,13 +1273,15 @@ TABLET / SMALL WINDOW
         overflow-x: hidden;
     }
 
-    /* SIDEBAR */
+    /* ----------------------------------------
+       SIDEBAR
+    ---------------------------------------- */
 
     .sidebar {
         display: none;
         position: fixed;
         left: 0;
-        top: 70px;
+        top: 0;
         width: 250px;
         height: 100vh;
         z-index: 3000;
@@ -1233,7 +1292,21 @@ TABLET / SMALL WINDOW
         display: block;
     }
 
-    /* MAIN */
+    /* ----------------------------------------
+       SIDEBAR OVERLAY
+    ---------------------------------------- */
+
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.35);
+        z-index: 2500;
+    }
+
+    /* ----------------------------------------
+       MAIN
+    ---------------------------------------- */
 
     .main-content {
         margin-left: 0;
@@ -1242,14 +1315,80 @@ TABLET / SMALL WINDOW
         overflow-x: hidden;
     }
 
-    /* NAVBAR */
+    /* ----------------------------------------
+       PAGE HEADER
+    ---------------------------------------- */
+
+    .page-header {
+        min-height: 75px;
+        padding: 15px 20px;
+        position: relative;
+        z-index: 2000;
+    }
+
+    .page-header-left {
+        gap: 10px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
+    /* ----------------------------------------
+       HAMBURGER
+       
+       Normally the hamburger is inside the
+       page header.
+
+       When sidebar opens, this moves the
+       hamburger to the right edge of the
+       sidebar and places it above the sidebar.
+    ---------------------------------------- */
+
+    .hamburger {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        font-size: 24px;
+        position: relative;
+        z-index: 4000;
+    }
+
+    .sidebar.unhide ~ .main-content .hamburger {
+        position: fixed;
+        top: 15px;
+        left: 265px;
+        z-index: 4000;
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .sidebar.unhide ~ .main-content .hamburger i {
+        color: #1e293b;
+    }
+
+    .sidebar.unhide ~ .main-content .hamburger:hover {
+        background: #f8fafc;
+    }
+
+    /* ----------------------------------------
+       NAVBAR
+    ---------------------------------------- */
 
     .navbar {
         width: 100%;
         height: 70px;
         padding: 0 20px;
         position: relative;
-        z-index: 2500;
+        z-index: 2000;
     }
 
     .left-of-navbar {
@@ -1262,23 +1401,17 @@ TABLET / SMALL WINDOW
         text-overflow: ellipsis;
     }
 
-    /* HAMBURGER */
-
-    .hamburger {
-        display: flex;
-        width: 40px;
-        height: 40px;
-        flex-shrink: 0;
-        font-size: 24px;
-    }
-
-    /* DESKTOP NAVBAR */
+    /* ----------------------------------------
+       DESKTOP NAVBAR
+    ---------------------------------------- */
 
     .navbar > .gap {
         display: none;
     }
 
-    /* THREE DOT */
+    /* ----------------------------------------
+       THREE DOT
+    ---------------------------------------- */
 
     .navbar-toggle {
         display: flex;
@@ -1288,7 +1421,9 @@ TABLET / SMALL WINDOW
         font-size: 22px;
     }
 
-    /* MOBILE MENU */
+    /* ----------------------------------------
+       MOBILE MENU
+    ---------------------------------------- */
 
     .navbar-menu {
         display: none;
@@ -1328,7 +1463,9 @@ TABLET / SMALL WINDOW
         width: 100%;
     }
 
-    /* APPOINTMENT CARDS */
+    /* ----------------------------------------
+       APPOINTMENT CARDS
+    ---------------------------------------- */
 
     .card-container {
         flex-direction: column;
@@ -1343,7 +1480,9 @@ TABLET / SMALL WINDOW
         flex: none;
     }
 
-    /* SEARCH / FILTERS */
+    /* ----------------------------------------
+       SEARCH / FILTERS
+    ---------------------------------------- */
 
     .search-filter-container {
         width: calc(100% - 30px);
@@ -1382,7 +1521,9 @@ TABLET / SMALL WINDOW
         min-height: 42px;
     }
 
-    /* TABLE */
+    /* ----------------------------------------
+       TABLE
+    ---------------------------------------- */
 
     .content {
         width: 100%;
@@ -1403,7 +1544,9 @@ TABLET / SMALL WINDOW
         padding: 12px 14px;
     }
 
-    /* DETAILS */
+    /* ----------------------------------------
+       DETAILS
+    ---------------------------------------- */
 
     .appointment-details {
         padding: 20px;
@@ -1427,7 +1570,9 @@ TABLET / SMALL WINDOW
         grid-template-columns: 1fr;
     }
 
-    /* EDIT */
+    /* ----------------------------------------
+       EDIT
+    ---------------------------------------- */
 
     .edit-appointment {
         padding: 20px;
@@ -1453,7 +1598,9 @@ TABLET / SMALL WINDOW
         grid-column: auto;
     }
 
-    /* DASHBOARD */
+    /* ----------------------------------------
+       DASHBOARD
+    ---------------------------------------- */
 
     .dashboard {
         padding: 20px;
@@ -1478,10 +1625,42 @@ TABLET / SMALL WINDOW
 }
 
 /* ========================================
-MOBILE
+   MOBILE
 ======================================== */
 
 @media (max-width: 600px) {
+    /* PAGE HEADER */
+
+    .page-header {
+        min-height: 70px;
+        padding: 12px 15px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .page-header p {
+        font-size: 11px;
+    }
+
+    /* HAMBURGER */
+
+    .hamburger {
+        width: 38px;
+        height: 38px;
+        font-size: 22px;
+    }
+
+    .sidebar.unhide ~ .main-content .hamburger {
+        top: 15px;
+        left: 265px;
+        width: 38px;
+        height: 38px;
+    }
+
+    /* NAVBAR */
+
     .navbar {
         padding: 0 15px;
     }
@@ -1496,6 +1675,8 @@ MOBILE
         max-width: none;
     }
 
+    /* DETAILS */
+
     .appointment-details {
         padding: 15px;
     }
@@ -1507,6 +1688,8 @@ MOBILE
     .details-card {
         padding: 16px;
     }
+
+    /* EDIT */
 
     .edit-appointment {
         padding: 15px;
@@ -1543,6 +1726,8 @@ MOBILE
     .save-btn {
         width: 100%;
     }
+
+    /* DASHBOARD */
 
     .dashboard {
         padding: 15px;
@@ -1598,18 +1783,36 @@ MOBILE
 }
 
 /* ========================================
-VERY SMALL MOBILE
+   VERY SMALL MOBILE
 ======================================== */
 
 @media (max-width: 400px) {
-    .left-of-navbar h2 {
+    .page-header h1 {
         font-size: 18px;
+    }
+
+    .page-header p {
+        font-size: 10px;
     }
 
     .hamburger {
         width: 35px;
         height: 35px;
         font-size: 21px;
+    }
+
+    .sidebar.unhide ~ .main-content .hamburger {
+        left: 265px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .navbar {
+        padding: 0 12px;
+    }
+
+    .left-of-navbar h2 {
+        font-size: 18px;
     }
 
     .navbar-toggle {

@@ -32,35 +32,59 @@ class PatientController extends Controller
         ]);
 
         /*
-         * Get the highest existing patient code.
+         * Check if any patients exist.
          *
-         * Example:
-         * P001
-         * P002
-         * P003
-         *
-         * The next patient will receive P004.
+         * If there are no patients, start from P001.
          */
-        $lastPatient = Patient::orderBy('id', 'desc')->first();
-
-        if ($lastPatient) {
-            $lastNumber = (int) str_replace(
-                'P',
-                '',
-                $lastPatient->patient_code
-            );
-
-            $nextNumber = $lastNumber + 1;
+        if (Patient::count() === 0) {
+            $nextNumber = 1;
         } else {
             /*
-             * No patients exist.
-             * Start again from P001.
+             * Find the highest patient code.
+             *
+             * Example:
+             * P001
+             * P002
+             * P003
+             *
+             * The next patient will receive P004.
              */
-            $nextNumber = 1;
+            $lastPatient = Patient::whereNotNull('patient_code')
+                ->orderByRaw(
+                    "CAST(SUBSTRING(patient_code, 2) AS UNSIGNED) DESC"
+                )
+                ->first();
+
+            if ($lastPatient) {
+                $lastNumber = (int) substr(
+                    $lastPatient->patient_code,
+                    1
+                );
+
+                $nextNumber = $lastNumber + 1;
+            } else {
+                /*
+                 * Patients exist, but none has a patient code.
+                 * Start from P001.
+                 */
+                $nextNumber = 1;
+            }
         }
 
+        /*
+         * Generate the patient code.
+         *
+         * 1  -> P001
+         * 2  -> P002
+         * 10 -> P010
+         */
         $validated['patient_code'] =
-            'P' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+            'P' . str_pad(
+                $nextNumber,
+                3,
+                '0',
+                STR_PAD_LEFT
+            );
 
         $patient = Patient::create($validated);
 
@@ -92,11 +116,17 @@ class PatientController extends Controller
             'status' => 'nullable|in:Check-up,Admitted,Discharged',
         ]);
 
+        /*
+         * patient_code is intentionally NOT included here.
+         *
+         * This means editing a patient will never change
+         * their patient ID.
+         */
         $patient->update($validated);
 
         return response()->json([
             'message' => 'Patient updated successfully.',
-            'patient' => $patient,
+            'patient' => $patient->fresh(),
         ]);
     }
 

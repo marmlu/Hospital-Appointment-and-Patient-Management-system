@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import "./App.css";
 import PatientDashboard from "./pages/PatientDashboard";
 import PatientList from "./pages/PatientList";
 import PatientForm from "./pages/PatientForm";

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('appointments', function (Blueprint $table) {
-            $table->id();
+        Schema::create('appointments', function (Blueprint $table) {
+           $table->id();
 
             $table->foreignId('patient_id')
                   ->constrained()
@@ -25,15 +25,18 @@ return new class extends Migration
             $table->date('appointment_date');
             $table->time('appointment_time');
             $table->string('reason');
+
             $table->enum('status', [
-                        'pending',
-                        'approved',
-                        'completed',
-                        'cancelled'
+                'pending',
+                'approved',
+                'completed',
+                'cancelled'
             ]);
+
             $table->text('notes')->nullable();
             $table->string('appointment_type')->nullable();
-           $table->timestamps();
+
+            $table->timestamps();
         });
     }
 

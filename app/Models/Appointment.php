@@ -6,16 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
 {
-    protected $fillable = [
-        'patient_id',
-        'doctor_id',
-        'appointment_date',
-        'appointment_time',
-        'reason',
-        'status',
-        'notes',
-        'appointment_type',
-    ];
+    protected $primaryKey = 'id';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+protected $fillable = [
+    'appointment_number',
+    'patient_id',
+    'doctor_id',
+    'appointment_date',
+    'appointment_time',
+    'reason',
+    'status',
+    'notes',
+    'appointment_type',
+];
 
     public function doctor()
     {

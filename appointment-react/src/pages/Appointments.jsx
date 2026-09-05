@@ -1,10 +1,46 @@
 import "../App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout, { useLayout } from "../components/Layout";
-
+const mapAppointment = (appointment) => {
+    return {
+        id: appointment.id,
+        appointmentNumber: appointment.appointment_number,
+        patientId: appointment.patient_id,
+        doctorId: appointment.doctor_id,
+        department: appointment.doctor?.department?.name || "Not available",
+        date: appointment.appointment_date,
+        time: appointment.appointment_time,
+        reason: appointment.reason,
+        status:
+            appointment.status.charAt(0).toUpperCase() +
+            appointment.status.slice(1),
+        notes: appointment.notes || "",
+        type: appointment.appointment_type || "Not specified",
+    };
+};
 function Appointments() {
-    const { toggleSidebar, appointments, deleteAppointment } = useLayout();
+    const { toggleSidebar } = useLayout();
+
+    const [appointments, setAppointments] = useState([]);
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/appointments")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch appointments");
+                }
+
+                return response.json();
+            })
+            .then((data) => {
+                const mappedAppointments = data.map(mapAppointment);
+
+                setAppointments(mappedAppointments);
+            })
+            .catch((error) => {
+                console.error("Error fetching appointments:", error);
+            });
+    }, []);
 
     const appointmentStats = [
         {
@@ -97,7 +133,7 @@ function Appointments() {
         );
     });
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         const confirmed = window.confirm(
             "Are you sure you want to delete this appointment?",
         );
@@ -106,7 +142,29 @@ function Appointments() {
             return;
         }
 
-        deleteAppointment(id);
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/api/appointments/${id}`,
+                {
+                    method: "DELETE",
+                },
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to delete appointment");
+            }
+
+            setAppointments((currentAppointments) =>
+                currentAppointments.filter(
+                    (appointment) => appointment.id !== id,
+                ),
+            );
+
+            alert("Appointment deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting appointment:", error);
+            alert("Failed to delete appointment.");
+        }
     };
 
     return (
@@ -243,7 +301,7 @@ function Appointments() {
                     <tbody>
                         {filteredAppointments.map((appointment) => (
                             <tr key={appointment.id}>
-                                <td>{appointment.id}</td>
+                                <td>{appointment.appointmentNumber}</td>
                                 <td>{appointment.patientId}</td>
                                 <td>{appointment.doctorId}</td>
                                 <td>{appointment.department}</td>

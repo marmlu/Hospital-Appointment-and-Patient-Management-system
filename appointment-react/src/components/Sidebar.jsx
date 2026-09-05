@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function Sidebar({ sidebarOpen }) {
     return (
         <aside className={`sidebar ${sidebarOpen ? "unhide" : ""}`}>
@@ -29,10 +30,10 @@ function Sidebar({ sidebarOpen }) {
                 </li>
 
                 <li className="appointment">
-                    <a href="#">
+                    <Link to="/appointment-dashboard">
                         <i className="fa-solid fa-calendar-check"></i>
                         Appointments
-                    </a>
+                    </Link>
                 </li>
 
                 <li>

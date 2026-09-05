@@ -1,20 +1,75 @@
 import "../App.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout, { useLayout } from "../components/Layout";
 
 function EditAppointment() {
     const location = useLocation();
     const navigate = useNavigate();
-
-    const { toggleSidebar, addAppointment, updateAppointment } = useLayout();
-
-    // Get appointment when editing
-    const { appointment } = location.state || {};
+    const { id } = useParams();
 
     // Check whether this is New Appointment mode
     const isNewAppointment = location.pathname.endsWith("/new");
 
-    // If editing but no appointment was provided
+    // Get appointment when editing
+    const [appointment, setAppointment] = useState(
+        location.state?.appointment || null,
+    );
+
+    const [loading, setLoading] = useState(!isNewAppointment);
+
+    const { toggleSidebar } = useLayout();
+
+    // ========================================
+    // FETCH APPOINTMENT WHEN EDITING
+    // ========================================
+
+    useEffect(() => {
+        if (isNewAppointment) {
+            return;
+        }
+
+        fetch(`http://127.0.0.1:8000/api/appointments/${id}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch appointment");
+                }
+
+                return response.json();
+            })
+            .then((data) => {
+                setAppointment(data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching appointment:", error);
+                setLoading(false);
+            });
+    }, [id, isNewAppointment]);
+
+    // ========================================
+    // LOADING
+    // ========================================
+
+    if (loading) {
+        return (
+            <Layout>
+                <section className="edit-appointment">
+                    <h1>Loading Appointment...</h1>
+
+                    <p>
+                        Please wait while the appointment information is being
+                        loaded.
+                    </p>
+                </section>
+            </Layout>
+        );
+    }
+
+    // ========================================
+    // APPOINTMENT NOT FOUND
+    // ========================================
+
     if (!appointment && !isNewAppointment) {
         return (
             <Layout>
@@ -41,21 +96,20 @@ function EditAppointment() {
     // HANDLE FORM SUBMISSION
     // ========================================
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
 
         const appointmentData = {
-            patientId: Number(formData.get("patientId")),
-            doctorId: Number(formData.get("doctorId")),
-            department: formData.get("department"),
-            date: formData.get("date"),
-            time: convertTo12Hour(formData.get("time")),
+            patient_id: Number(formData.get("patientId")),
+            doctor_id: Number(formData.get("doctorId")),
+            appointment_date: formData.get("date"),
+            appointment_time: formData.get("time"),
             reason: formData.get("reason"),
-            status: formData.get("status"),
-            type: formData.get("type"),
+            status: formData.get("status").toLowerCase(),
             notes: formData.get("notes"),
+            appointment_type: formData.get("type"),
         };
 
         // ========================================
@@ -63,11 +117,33 @@ function EditAppointment() {
         // ========================================
 
         if (isNewAppointment) {
-            addAppointment(appointmentData);
+            try {
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/appointments",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
+                        body: JSON.stringify(appointmentData),
+                    },
+                );
 
-            alert("Appointment created successfully!");
+                const data = await response.json();
 
-            navigate("/appointments");
+                if (!response.ok) {
+                    console.error("Validation error:", data);
+                    throw new Error("Failed to create appointment");
+                }
+
+                alert("Appointment created successfully!");
+
+                navigate("/appointments");
+            } catch (error) {
+                console.error("Error creating appointment:", error);
+                alert("Failed to create appointment.");
+            }
 
             return;
         }
@@ -76,21 +152,40 @@ function EditAppointment() {
         // EDIT APPOINTMENT
         // ========================================
 
-        updateAppointment({
-            id: appointment.id,
-            ...appointmentData,
-        });
+        try {
+            const response = await fetch(
+                `http://127.0.0.1:8000/api/appointments/${appointment.id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    body: JSON.stringify(appointmentData),
+                },
+            );
 
-        alert("Appointment updated successfully!");
+            const data = await response.json();
 
-        navigate("/appointments");
+            if (!response.ok) {
+                console.error("Validation error:", data);
+                throw new Error("Failed to update appointment");
+            }
+
+            alert("Appointment updated successfully!");
+
+            navigate("/appointments");
+        } catch (error) {
+            console.error("Error updating appointment:", error);
+            alert("Failed to update appointment.");
+        }
     };
 
     return (
         <Layout>
             {/* ========================================
-                        PAGE HEADER
-                    ======================================== */}
+                PAGE HEADER
+            ======================================== */}
 
             <header className="page-header">
                 <div className="page-header-left">
@@ -113,15 +208,19 @@ function EditAppointment() {
                         <p>
                             {isNewAppointment
                                 ? "Create a new hospital appointment."
-                                : `Update the information for appointment #${appointment.id}.`}
+                                : `Update the information for appointment #${
+                                      appointment.appointment_number ??
+                                      appointment.appointmentNumber ??
+                                      appointment.id
+                                  }.`}
                         </p>
                     </div>
                 </div>
             </header>
 
             {/* ========================================
-                        FORM
-                    ======================================== */}
+                FORM
+            ======================================== */}
 
             <section className="edit-appointment">
                 <div className="form-card">
@@ -141,7 +240,11 @@ function EditAppointment() {
                                 <input
                                     id="appointment-id"
                                     type="text"
-                                    value={appointment.id}
+                                    value={
+                                        appointment.appointment_number ??
+                                        appointment.appointmentNumber ??
+                                        appointment.id
+                                    }
                                     readOnly
                                 />
                             </div>
@@ -159,7 +262,8 @@ function EditAppointment() {
                                 defaultValue={
                                     isNewAppointment
                                         ? ""
-                                        : appointment.patientId
+                                        : (appointment.patientId ??
+                                          appointment.patient_id)
                                 }
                                 placeholder="Enter patient ID"
                                 required
@@ -176,7 +280,10 @@ function EditAppointment() {
                                 name="doctorId"
                                 type="number"
                                 defaultValue={
-                                    isNewAppointment ? "" : appointment.doctorId
+                                    isNewAppointment
+                                        ? ""
+                                        : (appointment.doctorId ??
+                                          appointment.doctor_id)
                                 }
                                 placeholder="Enter doctor ID"
                                 required
@@ -194,7 +301,7 @@ function EditAppointment() {
                                 defaultValue={
                                     isNewAppointment
                                         ? ""
-                                        : appointment.department
+                                        : (appointment.department ?? "")
                                 }
                                 required
                             >
@@ -228,7 +335,10 @@ function EditAppointment() {
                                 name="date"
                                 type="date"
                                 defaultValue={
-                                    isNewAppointment ? "" : appointment.date
+                                    isNewAppointment
+                                        ? ""
+                                        : (appointment.date ??
+                                          appointment.appointment_date)
                                 }
                                 required
                             />
@@ -246,7 +356,10 @@ function EditAppointment() {
                                 defaultValue={
                                     isNewAppointment
                                         ? ""
-                                        : convertTo24Hour(appointment.time)
+                                        : convertTo24Hour(
+                                              appointment.time ??
+                                                  appointment.appointment_time,
+                                          )
                                 }
                                 required
                             />
@@ -302,7 +415,11 @@ function EditAppointment() {
                                 id="type"
                                 name="type"
                                 defaultValue={
-                                    isNewAppointment ? "" : appointment.type
+                                    isNewAppointment
+                                        ? ""
+                                        : (appointment.type ??
+                                          appointment.appointment_type ??
+                                          "")
                                 }
                                 required
                             >
@@ -334,7 +451,9 @@ function EditAppointment() {
                                 name="notes"
                                 rows="5"
                                 defaultValue={
-                                    isNewAppointment ? "" : appointment.notes
+                                    isNewAppointment
+                                        ? ""
+                                        : (appointment.notes ?? "")
                                 }
                                 placeholder="Enter appointment notes"
                             ></textarea>
@@ -377,15 +496,21 @@ function EditAppointment() {
     );
 }
 
-/* ========================================
-   CONVERT 12-HOUR → 24-HOUR
-======================================== */
+// ========================================
+// CONVERT 12-HOUR → 24-HOUR
+// ========================================
 
 function convertTo24Hour(time) {
     if (!time) {
         return "";
     }
 
+    // Laravel/database format: HH:MM:SS
+    if (/^\d{2}:\d{2}(:\d{2})?$/.test(time)) {
+        return time.slice(0, 5);
+    }
+
+    // Frontend format: HH:MM AM/PM
     const [timePart, modifier] = time.split(" ");
 
     let [hours, minutes] = timePart.split(":");
@@ -401,9 +526,9 @@ function convertTo24Hour(time) {
     return `${hours.padStart(2, "0")}:${minutes}`;
 }
 
-/* ========================================
-   CONVERT 24-HOUR → 12-HOUR
-======================================== */
+// ========================================
+// CONVERT 24-HOUR → 12-HOUR
+// ========================================
 
 function convertTo12Hour(time) {
     if (!time) {

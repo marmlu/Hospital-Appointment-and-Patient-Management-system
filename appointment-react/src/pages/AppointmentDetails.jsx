@@ -68,10 +68,6 @@ function AppointmentDetails() {
                             <i className="fa-solid fa-arrow-left"></i>
                             Back to Appointments
                         </Link>
-
-                        <h1>Appointment Details</h1>
-
-                        <p>View complete information about this appointment.</p>
                     </div>
 
                     <Link

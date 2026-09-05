@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Management</title>
+    <link rel="stylesheet" href="doctor_department.css">
+</head>
+
+<body>
+
+    <main class="doctor-management">
+
+        <!-- Page Header -->
+        <section class="page-header">
+            <div>
+                <h1>Doctor Management</h1>
+                <p>Manage doctors and their professional information.</p>
+            </div>
+
+            <button type="button">
+                <i class="fa-solid fa-plus"></i>
+                Add Doctor
+            </button>
+        </section>
+
+
+        <!-- Doctor Search -->
+        <section class="doctor-tools">
+
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="doctorSearch"
+                    placeholder="Search doctors..."
+                >
+            </div>
+
+        </section>
+
+
+        <!-- Doctor List -->
+        <section class="doctor-list">
+
+            <div class="section-title">
+                <h2>Doctors</h2>
+                <span id="totalDoctors">Total Doctors: 0</span>
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Specialization</th>
+                            <th>Qualification</th>
+                            <th>Experience</th>
+                            <th>Phone</th>
+                            <th>Department</th>
+                            <th>Working Days</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="doctorTableBody">
+
+                        <!-- Doctor data will be added later -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+    <script src="doctor.js"></script>
+
+</body>
+</html>

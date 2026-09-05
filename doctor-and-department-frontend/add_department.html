@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Department</title>
+<link rel="stylesheet" href="doctor_department.css">
+
+</head>
+
+<body>
+
+    <main class="department-form">
+
+        <div class="form-header">
+
+            <h1>Add New Department</h1>
+
+            <p>
+                Enter the information for the new hospital department.
+            </p>
+
+        </div>
+
+
+        <form id="departmentForm">
+
+            <!-- Department Name -->
+
+            <div class="form-group">
+
+                <label for="departmentName">
+                    Department Name
+                </label>
+
+                <input
+                    type="text"
+                    id="departmentName"
+                    name="name"
+                    placeholder="e.g. Cardiology"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="form-group">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    placeholder="Enter department description..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <button type="reset">
+                    Cancel
+                </button>
+
+                <button type="submit">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Department
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+</html>

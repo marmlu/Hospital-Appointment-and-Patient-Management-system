@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <title></title>
+    </head>
+    <body>
+        <!-- Sidebar -->
+
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                EthioCare
+            </div>
+
+            <ul class="menu">
+                <li><i class="fa-solid fa-house"></i> Dashboard</li>
+                <li><i class="fa-solid fa-users"></i> Patients</li>
+                <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
+                <li class="appointment">
+                    <a href="index.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Appointments
+                    </a>
+                </li>
+                <li><i class="fa-solid fa-building"></i> Departments</li>
+                <li><i class="fa-solid fa-file-medical"></i> Records</li>
+                <li><i class="fa-solid fa-chart-line"></i> Reports</li>
+                <li><i class="fa-solid fa-gear"></i> Settings</li>
+            </ul>
+        </aside>
+
+        <!-- Right Side -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <nav class="navbar">
+                <div class="left-of-navbar">
+                    <button class="hamburger" type=""button">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h2>Appointments</h2>
+                </div>
+                <!-- Navbar Menu Toggle --> <button class="navbar-toggle" type="button"> <i class="fa-solid fa-ellipsis-vertical"></i> </button>
+                <div class="navbar-menu">
+                    <div class="gap">
+                        <div class="search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="notification">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="badge">3</span>
+                        </div>
+
+                        <div class="admin-profile">
+                            <i class="fa-solid fa-circle-user profile-icon"></i>
+
+                            <div class="admin-info">
+                                <h4>Dr. Jon Doe</h4>
+                                <p>Administrator</p>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="content">
+                <!--cards-->
+                <div class="card-container">
+                    <div class="card card-1">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <div>
+                            <p>Today's Appointments</p>
+                            <h2>18</h2>
+                        </div>
+                    </div>
+                    <div class="card card-2">
+                        <i class="fa-regular fa-clock"></i>
+                        <div>
+                            <p>Pending</p>
+                            <h2>6</h2>
+                        </div>
+                    </div>
+                    <div class="card card-3">
+                        <i class="fa-regular fa-circle-check"></i>
+                        <div>
+                            <p>Completed</p>
+                            <h2>4</h2>
+                        </div>
+                    </div>
+                    <div class="card card-4">
+                        <i class="fa-regular fa-circle-xmark"></i>
+                        <div>
+                            <p>Cancelled</p>
+                            <h2>8</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- Filters -->
+                <div class="search-filter-container">
+                    <div class="search-input-container">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input
+                            class="appointment-search-input"
+                            type="text"
+                            placeholder="Search appointments here"
+                        />
+                    </div>
+                    <div class="filter-container">
+                        <select class="filter-select status-filter">
+                            <option>All Status</option>
+                            <option>pending</option>
+                            <option>approved</option>
+                            <option>completed</option>
+                            <option>cancelled</option>
+                        </select>
+
+                        <select class="filter-select department-filter">
+                            <option>All Departments</option>
+                            <option>Neurology</option>
+                            <option>Orthopedics</option>
+                            <option>Dermatology</option>
+                            <option>Cardiology</option>
+                        </select>
+                        <select class="filter-select doctor-filter">
+                            <option>All Doctors</option>
+                            <option value="1">Dr Abraham</option>
+                            <option value="7">Dr John</option>
+                            <option value="4">Dr Gemechis</option>
+                            <option value="10">Dr Lia</option>
+                        </select>
+                        <div class="date-filter">
+                            <input
+                                type="date"
+                                id="appointment-date"
+                                aria-label="Select date"
+                            />
+                        </div>
+                    </div>
+                    <button class="add-btn">+ New Appointments</button>
+                </div>
+
+                <!-- Appointment Table -->
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Appointment ID</th>
+                                <th>Patient_ID</th>
+                                <th>Doctor_ID</th>
+                                <th>Department</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>3</td>
+                                <td>12</td>
+                                <td>4</td>
+                                <td>Cardiology</td>
+                                <td>10/05/2027</td>
+                                <td>09:30 AM</td>
+                                <td>Chest Pain</td>
+                                <td>Completed</td>
+                                <td>Follow-up required after consultation.</td>
+                                <td>Walk-in</td>
+                                <td class="actions">
+                                    <a
+                                        href="appointment-details.html"
+                                        class="view-btn"
+                                        title="View"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="edit-appointment.html"
+                                        class="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i
+                                            class="fa-solid fa-pen-to-square"
+                                        ></i>
+                                    </a>
+
+                                    <button class="delete-btn" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>4</td>
+                                <td>9</td>
+                                <td>7</td>
+                                <td>Pediatrics</td>
+                                <td>11/01/2027</td>
+                                <td>11:00 AM</td>
+                                <td>Fever</td>
+                                <td>Completed</td>
+                                <td>First Appointment</td>
+                                <td>Follow-up</td>
+                                <td class="actions">
+                                    <a
+                                        href="appointment-details.html"
+                                        class="view-btn"
+                                        title="View"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="edit-appointment.html"
+                                        class="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i
+                                            class="fa-solid fa-pen-to-square"
+                                        ></i>
+                                    </a>
+
+                                    <button class="delete-btn" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>5</td>
+                                <td>15</td>
+                                <td>10</td>
+                                <td>Neurology</td>
+                                <td>12/09/2027</td>
+                                <td>02:00 PM</td>
+                                <td>Migraine</td>
+                                <td>Pending</td>
+                                <td>Patient requested morning appointment.</td>
+                                <td>Consultation</td>
+                                <td class="actions">
+                                    <a
+                                        href="appointment-details.html"
+                                        class="view-btn"
+                                        title="View"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="edit-appointment.html"
+                                        class="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i
+                                            class="fa-solid fa-pen-to-square"
+                                        ></i>
+                                    </a>
+                                    <button class="delete-btn" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>6</td>
+                                <td>18</td>
+                                <td>1</td>
+                                <td>Dermatology</td>
+                                <td>13/02/2027</td>
+                                <td>10:15 AM</td>
+                                <td>Skin Rash</td>
+                                <td>Cancelled</td>
+                                <td>
+                                    Patient referred for further evaluation.
+                                </td>
+                                <td>Emergency</td>
+                                <td class="actions">
+                                    <a
+                                        href="appointment-details.html"
+                                        class="view-btn"
+                                        title="View"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="edit-appointment.html"
+                                        class="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i
+                                            class="fa-solid fa-pen-to-square"
+                                        ></i>
+                                    </a>
+
+                                    <button class="delete-btn" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>7</td>
+                                <td>21</td>
+                                <td>7</td>
+                                <td>Ophthalmology</td>
+                                <td>14/08/2027</td>
+                                <td>03:45 PM</td>
+                                <td>Blurred Vision</td>
+                                <td>Cancelled</td>
+                                <td>First Appointment</td>
+                                <td>Online</td>
+                                <td class="actions">
+                                    <a
+                                        href="appointment-details.html"
+                                        class="view-btn"
+                                        title="View"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="edit-appointment.html"
+                                        class="edit-btn"
+                                        title="Edit"
+                                    >
+                                        <i
+                                            class="fa-solid fa-pen-to-square"
+                                        ></i>
+                                    </a>
+
+                                    <button class="delete-btn" title="Delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+        <script src="js/script.js"></script>
+    </body>
+</html>

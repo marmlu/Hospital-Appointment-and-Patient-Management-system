@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Appointment Details</title>
+
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        />
+    </head>
+
+    <body>
+        <!-- Sidebar -->
+           <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                EthioCare
+            </div>
+
+            <ul class="menu">
+                <li><i class="fa-solid fa-house"></i> Dashboard</li>
+                <li><i class="fa-solid fa-users"></i> Patients</li>
+                <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
+                <li class="appointment">
+                    <a href="index.html">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        Appointments
+                    </a>
+                </li>
+                <li><i class="fa-solid fa-building"></i> Departments</li>
+                <li><i class="fa-solid fa-file-medical"></i> Records</li>
+                <li><i class="fa-solid fa-chart-line"></i> Reports</li>
+                <li><i class="fa-solid fa-gear"></i> Settings</li>
+            </ul>
+        </aside>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Navbar -->
+          <nav class="navbar">
+                <div class="left-of-navbar">
+                    <button class="hamburger" type=""button">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h2>Appointments</h2>
+                </div>
+                <!-- Navbar Menu Toggle --> <button class="navbar-toggle" type="button"> <i class="fa-solid fa-ellipsis-vertical"></i> </button>
+                <div class="navbar-menu">
+                    <div class="gap">
+                        <div class="search-container">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search..." />
+                        </div>
+                        <div class="notification">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="badge">3</span>
+                        </div>
+
+                        <div class="admin-profile">
+                            <i class="fa-solid fa-circle-user profile-icon"></i>
+
+                            <div class="admin-info">
+                                <h4>Dr. Jon Doe</h4>
+                                <p>Administrator</p>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Appointment Details Content -->
+            <section class="appointment-details">
+                <!-- Page Header -->
+                <div class="details-header">
+                    <div>
+                        <a href="appointments.html" class="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            Back to Appointments
+                        </a>
+
+                        <h1>Appointment Details</h1>
+
+                        <p>View complete information about this appointment.</p>
+                    </div>
+
+                    <a
+                        href="edit-appointment.html"
+                        class="edit-appointment-btn"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Edit Appointment
+                    </a>
+                </div>
+
+                <!-- Appointment Information -->
+                <div class="details-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <h2>Appointment Information</h2>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span>Appointment ID</span>
+                            <strong data-field="appointment-id">APT-001</strong>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Status</span>
+
+                            <span class="status approved" data-field="status">
+                                Approved
+                            </span>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Date</span>
+                            <strong data-field="date">28 Jul 2026</strong>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Time</span>
+                            <strong data-field="time">09:30 AM</strong>
+                        </div>
+
+                        <div class="detail-item">
+                            <span>Type</span>
+                            <strong data-field="type">Walk-in</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patient and Doctor -->
+                <div class="two-column">
+                    <!-- Patient -->
+                    <div class="details-card">
+                        <div class="card-title">
+                            <i class="fa-solid fa-user"></i>
+                            <h2>Patient Information</h2>
+                        </div>
+
+                        <div class="detail-list">
+                            <div class="detail-item">
+                                <span>Patient Name</span>
+                                <strong>John Smith</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Patient ID</span>
+                                <strong data-field="patient-id">P-001</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Phone</span>
+                                <strong>0912345678</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Email</span>
+                                <strong>john@example.com</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Gender</span>
+                                <strong>Male</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Age</span>
+                                <strong>32</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Doctor -->
+                    <div class="details-card">
+                        <div class="card-title">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <h2>Doctor Information</h2>
+                        </div>
+
+                        <div class="detail-list">
+                            <div class="detail-item">
+                                <span>Doctor ID</span>
+                                <strong data-field="doctor-id">Dr. Hana</strong>
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Department</span>
+                                <strong data-field="department"
+                                    >Cardiology</strong
+                                >
+                            </div>
+
+                            <div class="detail-item">
+                                <span>Specialization</span>
+                                <strong>Cardiologist</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reason -->
+                <div class="details-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-notes-medical"></i>
+                        <h2>Appointment Reason</h2>
+                    </div>
+
+                    <p class="description" data-field="reason">
+                        Patient reports chest pain and shortness of breath. A
+                        cardiology consultation was requested.
+                    </p>
+                </div>
+
+                <!-- Notes -->
+                <div class="details-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-note-sticky"></i>
+                        <h2>Notes</h2>
+                    </div>
+
+                    <p class="description" data-field="notes">
+                        Follow-up consultation required after initial
+                        examination.
+                    </p>
+                </div>
+            </section>
+        </main>
+        <script src="js/script.js"></script>
+    </body>
+</html>

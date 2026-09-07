@@ -1,0 +1,259 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patients List</title>
+
+    <link rel="stylesheet" href="patients-list.css" />
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i>
+            EthioCare
+        </div>
+
+        <ul class="menu">
+            <li>
+                <i class="fa-solid fa-house"></i>
+                Dashboard
+            </li>
+
+            <li id="sidebar-patients">
+                <i class="fa-solid fa-users"></i>
+                Patients
+            </li>
+
+            <li>
+                <i class="fa-solid fa-user-doctor"></i>
+                Doctors
+            </li>
+
+            <li>
+                <i class="fa-solid fa-calendar-check"></i>
+                Appointments
+            </li>
+
+            <li>
+                <i class="fa-solid fa-building"></i>
+                Departments
+            </li>
+
+            <li>
+                <i class="fa-solid fa-file-medical"></i>
+                Records
+            </li>
+
+            <li>
+                <i class="fa-solid fa-chart-line"></i>
+                Reports
+            </li>
+
+            <li>
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- Page Header -->
+        <section class="page-header">
+            <div>
+                <h1>Patients List</h1>
+
+                <p>
+                    View and manage all registered patients.
+                </p>
+            </div>
+            <button type="button" class="dashboard-btn" id="patient-dashboard-btn" > <i class="fa-solid fa-chart-pie"></i> Patient Dashboard </button>
+        </section>
+
+        <!-- Search, Filter and Add Patient -->
+        <section class="top-actions">
+
+            <input
+                type="text"
+                placeholder="Search patient..."
+                class="search-box"
+                id="search-patient"
+            />
+
+            <select
+                class="filter"
+                id="patient-status-filter"
+            >
+                <option value="all">All Patients</option>
+                <option value="admitted">Admitted</option>
+                <option value="discharged">Discharged</option>
+                <option value="checkup">Check-up</option>
+            </select>
+
+           <button
+class="add-btn"
+id="list-add-patient"
+type="button"
+
+>
+
+<i class="fa-solid fa-plus"></i>
+Add Patient
+</button>
+
+        </section>
+
+        <!-- Patients Table -->
+        <section class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Patient Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="patient-table-body">
+
+                    <tr>
+                        <td>P001</td>
+                        <td>Abebe Kebede</td>
+                        <td>35</td>
+                        <td>Male</td>
+                        <td>0912345678</td>
+                        <td>
+                            <span class="status admitted">
+                                Admitted
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <button class="view-btn">
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </button>
+
+                            <button class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit
+                            </button>
+
+                            <button class="delete-btn">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>P002</td>
+                        <td>Almaz Tesfaye</td>
+                        <td>28</td>
+                        <td>Female</td>
+                        <td>0923456789</td>
+                        <td>
+                            <span class="status discharged">
+                                Discharged
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <button class="view-btn">
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </button>
+
+                            <button class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit
+                            </button>
+
+                            <button class="delete-btn">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>P003</td>
+                        <td>Hana Bekele</td>
+                        <td>42</td>
+                        <td>Female</td>
+                        <td>0934567890</td>
+                        <td>
+                            <span class="status checkup">
+                                Check-up
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <button class="view-btn">
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </button>
+
+                            <button class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit
+                            </button>
+
+                            <button class="delete-btn">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>P004</td>
+                        <td>Samuel Tadesse</td>
+                        <td>30</td>
+                        <td>Male</td>
+                        <td>0945678901</td>
+                        <td>
+                            <span class="status admitted">
+                                Admitted
+                            </span>
+                        </td>
+                        <td class="actions">
+                            <button class="view-btn">
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </button>
+
+                            <button class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit
+                            </button>
+
+                            <button class="delete-btn">
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </section>
+
+    </main>
+    <script src="patient.js"></script>
+</body
+
+</html>

@@ -2,27 +2,55 @@ import "../App.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Layout, { useLayout } from "../components/Layout";
+
 const mapAppointment = (appointment) => {
     return {
         id: appointment.id,
-        appointmentNumber: appointment.appointment_number,
+
+        appointmentNumber: appointment.appointment_number || "N/A",
+
+        // Keep numeric ID for API/filtering
         patientId: appointment.patient_id,
+
+        // Keep the complete patient object for AppointmentDetails
+        patient: appointment.patient,
+
+        // Keep numeric ID for API/filtering
         doctorId: appointment.doctor_id,
+
+        // Keep the complete doctor object for AppointmentDetails
+        doctor: appointment.doctor,
+
         department: appointment.doctor?.department?.name || "Not available",
+
         date: appointment.appointment_date,
+
         time: appointment.appointment_time,
-        reason: appointment.reason,
-        status:
-            appointment.status.charAt(0).toUpperCase() +
-            appointment.status.slice(1),
+
+        reason: appointment.reason || "Not specified",
+
+        status: appointment.status
+            ? appointment.status.charAt(0).toUpperCase() +
+              appointment.status.slice(1)
+            : "Not specified",
+
         notes: appointment.notes || "",
+
         type: appointment.appointment_type || "Not specified",
     };
 };
+
 function Appointments() {
     const { toggleSidebar } = useLayout();
 
     const [appointments, setAppointments] = useState([]);
+    const [departments, setDepartments] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+
+    /* ========================================
+                FETCH APPOINTMENTS
+    ======================================== */
+
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/appointments")
             .then((response) => {
@@ -41,6 +69,40 @@ function Appointments() {
                 console.error("Error fetching appointments:", error);
             });
     }, []);
+
+    /* ========================================
+            FETCH DEPARTMENTS AND DOCTORS
+    ======================================== */
+
+    useEffect(() => {
+        Promise.all([
+            fetch("http://127.0.0.1:8000/api/departments"),
+            fetch("http://127.0.0.1:8000/api/doctors"),
+        ])
+            .then(async ([departmentsResponse, doctorsResponse]) => {
+                if (!departmentsResponse.ok) {
+                    throw new Error("Failed to fetch departments");
+                }
+
+                if (!doctorsResponse.ok) {
+                    throw new Error("Failed to fetch doctors");
+                }
+
+                const departmentsData = await departmentsResponse.json();
+
+                const doctorsData = await doctorsResponse.json();
+
+                setDepartments(departmentsData);
+                setDoctors(doctorsData);
+            })
+            .catch((error) => {
+                console.error("Error fetching departments/doctors:", error);
+            });
+    }, []);
+
+    /* ========================================
+                APPOINTMENT STATISTICS
+    ======================================== */
 
     const appointmentStats = [
         {
@@ -65,10 +127,18 @@ function Appointments() {
         },
     ];
 
+    /* ========================================
+                    FILTERS
+    ======================================== */
+
     const [searchTerm, setSearchTerm] = useState("");
+
     const [statusFilter, setStatusFilter] = useState("All Status");
+
     const [departmentFilter, setDepartmentFilter] = useState("All Departments");
+
     const [doctorFilter, setDoctorFilter] = useState("All Doctors");
+
     const [dateFilter, setDateFilter] = useState("");
 
     const statuses = [
@@ -79,30 +149,31 @@ function Appointments() {
         "Cancelled",
     ];
 
-    const departments = [
-        "All Departments",
-        "Neurology",
-        "Orthopedics",
-        "Dermatology",
-        "Cardiology",
-        "Pediatrics",
-        "Ophthalmology",
-    ];
-
-    const doctors = [
-        { id: "1", name: "Dr Abraham" },
-        { id: "7", name: "Dr John" },
-        { id: "4", name: "Dr Gemechis" },
-        { id: "10", name: "Dr Lia" },
-    ];
+    /* ========================================
+                FILTER APPOINTMENTS
+    ======================================== */
 
     const filteredAppointments = appointments.filter((appointment) => {
         const search = searchTerm.toLowerCase();
 
+        /*
+         * Display IDs:
+         * P001
+         * D001
+         */
+
+        const patientDisplayId =
+            appointment.patient?.patient_code ||
+            `P${String(appointment.patientId).padStart(3, "0")}`;
+
+        const doctorDisplayId = appointment.doctor
+            ? `D${String(appointment.doctor.id).padStart(3, "0")}`
+            : `D${String(appointment.doctorId).padStart(3, "0")}`;
+
         const matchesSearch =
-            appointment.id.toString().includes(search) ||
-            appointment.patientId.toString().includes(search) ||
-            appointment.doctorId.toString().includes(search) ||
+            appointment.appointmentNumber.toLowerCase().includes(search) ||
+            patientDisplayId.toLowerCase().includes(search) ||
+            doctorDisplayId.toLowerCase().includes(search) ||
             appointment.department.toLowerCase().includes(search) ||
             appointment.reason.toLowerCase().includes(search) ||
             appointment.status.toLowerCase().includes(search) ||
@@ -117,6 +188,10 @@ function Appointments() {
             departmentFilter === "All Departments" ||
             appointment.department === departmentFilter;
 
+        /*
+         * Compare the real numeric doctor ID.
+         * The user only sees D001, D002, etc.
+         */
         const matchesDoctor =
             doctorFilter === "All Doctors" ||
             appointment.doctorId.toString() === doctorFilter;
@@ -132,6 +207,10 @@ function Appointments() {
             matchesDate
         );
     });
+
+    /* ========================================
+                    DELETE
+    ======================================== */
 
     const handleDelete = async (id) => {
         const confirmed = window.confirm(
@@ -163,6 +242,7 @@ function Appointments() {
             alert("Appointment deleted successfully.");
         } catch (error) {
             console.error("Error deleting appointment:", error);
+
             alert("Failed to delete appointment.");
         }
     };
@@ -170,7 +250,7 @@ function Appointments() {
     return (
         <Layout>
             {/* ========================================
-                        APPOINTMENTS HEADER
+                        PAGE HEADER
                     ======================================== */}
 
             <header className="page-header">
@@ -186,16 +266,21 @@ function Appointments() {
 
                     <div>
                         <h1>Appointments</h1>
+
                         <p>Manage and track all hospital appointments.</p>
                     </div>
                 </div>
             </header>
 
             {/* ========================================
-                        APPOINTMENTS CONTENT
+                        CONTENT
                     ======================================== */}
 
             <section className="content">
+                {/* ========================================
+                        APPOINTMENT STATISTICS
+                    ======================================== */}
+
                 <div className="card-container">
                     {appointmentStats.map((stat, index) => (
                         <div
@@ -206,11 +291,16 @@ function Appointments() {
 
                             <div>
                                 <p>{stat.title}</p>
+
                                 <h2>{stat.count}</h2>
                             </div>
                         </div>
                     ))}
                 </div>
+
+                {/* ========================================
+                        SEARCH AND FILTERS
+                    ======================================== */}
 
                 <div className="search-filter-container">
                     <div className="search-input-container">
@@ -226,6 +316,8 @@ function Appointments() {
                     </div>
 
                     <div className="filter-container">
+                        {/* Status */}
+
                         <select
                             className="filter-select status-filter"
                             value={statusFilter}
@@ -238,6 +330,8 @@ function Appointments() {
                             ))}
                         </select>
 
+                        {/* Department */}
+
                         <select
                             className="filter-select department-filter"
                             value={departmentFilter}
@@ -245,12 +339,21 @@ function Appointments() {
                                 setDepartmentFilter(e.target.value)
                             }
                         >
+                            <option value="All Departments">
+                                All Departments
+                            </option>
+
                             {departments.map((department) => (
-                                <option key={department} value={department}>
-                                    {department}
+                                <option
+                                    key={department.id}
+                                    value={department.name}
+                                >
+                                    {department.name}
                                 </option>
                             ))}
                         </select>
+
+                        {/* Doctor */}
 
                         <select
                             className="filter-select doctor-filter"
@@ -261,10 +364,12 @@ function Appointments() {
 
                             {doctors.map((doctor) => (
                                 <option key={doctor.id} value={doctor.id}>
-                                    {doctor.name}
+                                    {`D${String(doctor.id).padStart(3, "0")}`}
                                 </option>
                             ))}
                         </select>
+
+                        {/* Date */}
 
                         <div className="date-filter">
                             <input
@@ -276,18 +381,22 @@ function Appointments() {
                             />
                         </div>
                     </div>
+
                     <Link to="/edit-appointment/new" className="add-btn">
                         + New Appointment
                     </Link>
                 </div>
 
+                {/* ========================================
+                        APPOINTMENT TABLE
+                    ======================================== */}
+
                 <table>
                     <thead>
                         <tr>
                             <th>Appointment ID</th>
-                            <th>Patient_ID</th>
-                            <th>Doctor_ID</th>
-                            <th>Department</th>
+                            <th>Patient ID</th>
+                            <th>Doctor ID</th>
                             <th>Date</th>
                             <th>Time</th>
                             <th>Reason</th>
@@ -299,50 +408,90 @@ function Appointments() {
                     </thead>
 
                     <tbody>
-                        {filteredAppointments.map((appointment) => (
-                            <tr key={appointment.id}>
-                                <td>{appointment.appointmentNumber}</td>
-                                <td>{appointment.patientId}</td>
-                                <td>{appointment.doctorId}</td>
-                                <td>{appointment.department}</td>
-                                <td>{appointment.date}</td>
-                                <td>{appointment.time}</td>
-                                <td>{appointment.reason}</td>
-                                <td>{appointment.status}</td>
-                                <td>{appointment.notes}</td>
-                                <td>{appointment.type}</td>
+                        {filteredAppointments.map((appointment) => {
+                            const patientDisplayId =
+                                appointment.patient?.patient_code ||
+                                `P${String(appointment.patientId).padStart(
+                                    3,
+                                    "0",
+                                )}`;
 
-                                <td className="actions">
-                                    <Link
-                                        to={`/appointment-details/${appointment.id}`}
-                                        state={{ appointment }}
-                                        className="view-btn"
-                                        title="View"
-                                    >
-                                        <i className="fa-solid fa-eye"></i>
-                                    </Link>
+                            const doctorDisplayId = appointment.doctor
+                                ? `D${String(appointment.doctor.id).padStart(
+                                      3,
+                                      "0",
+                                  )}`
+                                : `D${String(appointment.doctorId).padStart(
+                                      3,
+                                      "0",
+                                  )}`;
 
-                                    <Link
-                                        to={`/edit-appointment/${appointment.id}`}
-                                        state={{ appointment }}
-                                        className="edit-btn"
-                                        title="Edit"
-                                    >
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                    </Link>
+                            return (
+                                <tr key={appointment.id}>
+                                    <td>{appointment.appointmentNumber}</td>
 
-                                    <button
-                                        className="delete-btn"
-                                        title="Delete"
-                                        onClick={() =>
-                                            handleDelete(appointment.id)
-                                        }
-                                    >
-                                        <i className="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                    {/* P001 */}
+
+                                    <td>{patientDisplayId}</td>
+
+                                    {/* D001 */}
+
+                                    <td>{doctorDisplayId}</td>
+
+                                    <td>{appointment.date}</td>
+
+                                    <td>{appointment.time}</td>
+
+                                    <td>{appointment.reason}</td>
+
+                                    <td>{appointment.status}</td>
+
+                                    <td>{appointment.notes}</td>
+
+                                    <td>{appointment.type}</td>
+
+                                    <td className="actions">
+                                        {/* View */}
+
+                                        <Link
+                                            to={`/appointment-details/${appointment.id}`}
+                                            state={{
+                                                appointment,
+                                            }}
+                                            className="view-btn"
+                                            title="View"
+                                        >
+                                            <i className="fa-solid fa-eye"></i>
+                                        </Link>
+
+                                        {/* Edit */}
+
+                                        <Link
+                                            to={`/edit-appointment/${appointment.id}`}
+                                            state={{
+                                                appointment,
+                                            }}
+                                            className="edit-btn"
+                                            title="Edit"
+                                        >
+                                            <i className="fa-solid fa-pen-to-square"></i>
+                                        </Link>
+
+                                        {/* Delete */}
+
+                                        <button
+                                            className="delete-btn"
+                                            title="Delete"
+                                            onClick={() =>
+                                                handleDelete(appointment.id)
+                                            }
+                                        >
+                                            <i className="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </section>

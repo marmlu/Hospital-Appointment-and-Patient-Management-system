@@ -17,7 +17,11 @@ function EditAppointment() {
     );
 
     const [loading, setLoading] = useState(!isNewAppointment);
-
+    const [patients, setPatients] = useState([]);
+    const [departments, setDepartments] = useState([]);
+    const [doctors, setDoctors] = useState([]);
+    const [selectedDepartment, setSelectedDepartment] = useState("");
+    const [selectedDoctor, setSelectedDoctor] = useState("");
     const { toggleSidebar } = useLayout();
 
     // ========================================
@@ -46,6 +50,82 @@ function EditAppointment() {
                 setLoading(false);
             });
     }, [id, isNewAppointment]);
+
+    // ========================================
+    // FETCH PATIENTS, DEPARTMENTS & DOCTORS
+    // ========================================
+
+    useEffect(() => {
+        Promise.all([
+            fetch("http://127.0.0.1:8000/api/patients"),
+            fetch("http://127.0.0.1:8000/api/departments"),
+            fetch("http://127.0.0.1:8000/api/doctors"),
+        ])
+            .then(
+                async ([
+                    patientsResponse,
+                    departmentsResponse,
+                    doctorsResponse,
+                ]) => {
+                    if (!patientsResponse.ok) {
+                        throw new Error("Failed to fetch patients");
+                    }
+
+                    if (!departmentsResponse.ok) {
+                        throw new Error("Failed to fetch departments");
+                    }
+
+                    if (!doctorsResponse.ok) {
+                        throw new Error("Failed to fetch doctors");
+                    }
+
+                    const patientsData = await patientsResponse.json();
+                    const departmentsData = await departmentsResponse.json();
+                    const doctorsData = await doctorsResponse.json();
+
+                    setPatients(patientsData);
+                    setDepartments(departmentsData);
+                    setDoctors(doctorsData);
+                },
+            )
+            .catch((error) => {
+                console.error(
+                    "Error fetching patients/departments/doctors:",
+                    error,
+                );
+            });
+    }, []);
+
+    // ========================================
+    // SET DEPARTMENT WHEN EDITING
+    // ========================================
+
+    useEffect(() => {
+        if (!isNewAppointment && appointment?.doctor?.department) {
+            setSelectedDepartment(String(appointment.doctor.department.id));
+        }
+    }, [appointment, isNewAppointment]);
+
+    // ========================================
+    // SET DOCTOR WHEN EDITING
+    // ========================================
+
+    useEffect(() => {
+        if (!isNewAppointment && appointment?.doctor_id) {
+            setSelectedDoctor(String(appointment.doctor_id));
+        }
+    }, [appointment, isNewAppointment]);
+
+    // ========================================
+    // FILTER DOCTORS BY DEPARTMENT
+    // ========================================
+
+    const filteredDoctors = selectedDepartment
+        ? doctors.filter(
+              (doctor) =>
+                  String(doctor.department?.id) === String(selectedDepartment),
+          )
+        : doctors;
 
     // ========================================
     // LOADING
@@ -255,39 +335,28 @@ function EditAppointment() {
                         <div className="form-group">
                             <label htmlFor="patient-id">Patient ID</label>
 
-                            <input
+                            <select
                                 id="patient-id"
                                 name="patientId"
-                                type="number"
                                 defaultValue={
                                     isNewAppointment
                                         ? ""
                                         : (appointment.patientId ??
-                                          appointment.patient_id)
+                                          appointment.patient_id ??
+                                          "")
                                 }
-                                placeholder="Enter patient ID"
                                 required
-                            />
-                        </div>
+                            >
+                                <option value="" disabled>
+                                    Select patient id
+                                </option>
 
-                        {/* Doctor ID */}
-
-                        <div className="form-group">
-                            <label htmlFor="doctor-id">Doctor ID</label>
-
-                            <input
-                                id="doctor-id"
-                                name="doctorId"
-                                type="number"
-                                defaultValue={
-                                    isNewAppointment
-                                        ? ""
-                                        : (appointment.doctorId ??
-                                          appointment.doctor_id)
-                                }
-                                placeholder="Enter doctor ID"
-                                required
-                            />
+                                {patients.map((patient) => (
+                                    <option key={patient.id} value={patient.id}>
+                                        {patient.patient_code}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         {/* Department */}
@@ -298,30 +367,54 @@ function EditAppointment() {
                             <select
                                 id="department"
                                 name="department"
-                                defaultValue={
-                                    isNewAppointment
-                                        ? ""
-                                        : (appointment.department ?? "")
-                                }
+                                value={selectedDepartment}
+                                onChange={(e) => {
+                                    setSelectedDepartment(e.target.value);
+                                    setSelectedDoctor("");
+                                }}
                                 required
                             >
                                 <option value="" disabled>
                                     Select department
                                 </option>
 
-                                <option value="Cardiology">Cardiology</option>
+                                {departments.map((department) => (
+                                    <option
+                                        key={department.id}
+                                        value={department.id}
+                                    >
+                                        {department.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                                <option value="Neurology">Neurology</option>
+                        {/* Doctor ID */}
 
-                                <option value="Orthopedics">Orthopedics</option>
+                        <div className="form-group">
+                            <label htmlFor="doctor-id">Doctor</label>
 
-                                <option value="Dermatology">Dermatology</option>
-
-                                <option value="Pediatrics">Pediatrics</option>
-
-                                <option value="Ophthalmology">
-                                    Ophthalmology
+                            <select
+                                id="doctor-id"
+                                name="doctorId"
+                                value={selectedDoctor}
+                                onChange={(e) =>
+                                    setSelectedDoctor(e.target.value)
+                                }
+                                required
+                            >
+                                <option value="" disabled>
+                                    Select doctor
                                 </option>
+
+                                {filteredDoctors.map((doctor) => (
+                                    <option key={doctor.id} value={doctor.id}>
+                                        {`D${String(doctor.id).padStart(
+                                            3,
+                                            "0",
+                                        )}`}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -400,8 +493,11 @@ function EditAppointment() {
                                 </option>
 
                                 <option value="Pending">Pending</option>
+
                                 <option value="Approved">Approved</option>
+
                                 <option value="Completed">Completed</option>
+
                                 <option value="Cancelled">Cancelled</option>
                             </select>
                         </div>
@@ -524,30 +620,6 @@ function convertTo24Hour(time) {
     }
 
     return `${hours.padStart(2, "0")}:${minutes}`;
-}
-
-// ========================================
-// CONVERT 24-HOUR → 12-HOUR
-// ========================================
-
-function convertTo12Hour(time) {
-    if (!time) {
-        return "";
-    }
-
-    let [hours, minutes] = time.split(":");
-
-    hours = Number(hours);
-
-    const modifier = hours >= 12 ? "PM" : "AM";
-
-    hours = hours % 12;
-
-    if (hours === 0) {
-        hours = 12;
-    }
-
-    return `${String(hours).padStart(2, "0")}:${minutes} ${modifier}`;
 }
 
 export default EditAppointment;

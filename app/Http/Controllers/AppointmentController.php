@@ -12,7 +12,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments = Appointment::with(['patient', 'doctor'])->get();
+        $appointments = Appointment::with([
+            'patient',
+            'doctor.department',
+            'doctor.user',
+        ])->get();
 
         return response()->json($appointments);
     }
@@ -65,7 +69,11 @@ class AppointmentController extends Controller
 
         return response()->json([
             'message' => 'Appointment created successfully.',
-            'appointment' => $appointment->load(['patient', 'doctor']),
+            'appointment' => $appointment->load([
+                'patient',
+                'doctor.department',
+                'doctor.user',
+            ]),
         ], 201);
     }
 
@@ -74,8 +82,11 @@ class AppointmentController extends Controller
      */
     public function show(string $id)
     {
-        $appointment = Appointment::with(['patient', 'doctor'])
-            ->findOrFail($id);
+        $appointment = Appointment::with([
+            'patient',
+            'doctor.department',
+            'doctor.user',
+        ])->findOrFail($id);
 
         return response()->json($appointment);
     }
@@ -102,7 +113,11 @@ class AppointmentController extends Controller
 
         return response()->json([
             'message' => 'Appointment updated successfully.',
-            'appointment' => $appointment->load(['patient', 'doctor']),
+            'appointment' => $appointment->load([
+                'patient',
+                'doctor.department',
+                'doctor.user',
+            ]),
         ]);
     }
 

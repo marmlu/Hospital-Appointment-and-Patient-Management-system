@@ -11,32 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
-           $table->id();
-
-            $table->foreignId('patient_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
-
-            $table->foreignId('doctor_id')
-                  ->constrained()
-                  ->cascadeOnDelete();
-
-            $table->date('appointment_date');
-            $table->time('appointment_time');
-            $table->string('reason');
-
-            $table->enum('status', [
-                'pending',
-                'approved',
-                'completed',
-                'cancelled'
-            ]);
-
-            $table->text('notes')->nullable();
-            $table->string('appointment_type')->nullable();
-
-            $table->timestamps();
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->string('appointment_number')
+                  ->unique()
+                  ->after('id');
         });
     }
 
@@ -45,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::table('appointments', function (Blueprint $table) {
+            $table->dropUnique(['appointment_number']);
+            $table->dropColumn('appointment_number');
+        });
     }
 };

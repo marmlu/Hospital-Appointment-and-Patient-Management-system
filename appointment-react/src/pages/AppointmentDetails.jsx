@@ -97,7 +97,7 @@ function AppointmentDetails() {
                         <div className="detail-item">
                             <span>Appointment ID</span>
 
-                            <strong>{appointment.id}</strong>
+                            <strong>{appointment.appointmentNumber}</strong>
                         </div>
 
                         {/* Status */}
@@ -105,11 +105,11 @@ function AppointmentDetails() {
                         <div className="detail-item">
                             <span>Status</span>
 
-                            <span
-                                className={`status ${appointment.status.toLowerCase()}`}
+                            <strong
+                                className={`status ${appointment.status?.toLowerCase()}`}
                             >
                                 {appointment.status}
-                            </span>
+                            </strong>
                         </div>
 
                         {/* Date */}
@@ -155,40 +155,82 @@ function AppointmentDetails() {
                         </div>
 
                         <div className="detail-list">
+                            {/* Patient ID */}
+
                             <div className="detail-item">
                                 <span>Patient ID</span>
 
-                                <strong>{appointment.patientId}</strong>
+                                <strong>
+                                    {appointment.patient?.patient_code ||
+                                        "Not available"}
+                                </strong>
                             </div>
+
+                            {/* Patient Name */}
 
                             <div className="detail-item">
                                 <span>Patient Name</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.patient
+                                        ? `${appointment.patient.first_name} ${appointment.patient.last_name}`
+                                        : "Not available"}
+                                </strong>
                             </div>
+
+                            {/* Phone */}
 
                             <div className="detail-item">
                                 <span>Phone</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.patient?.phone ||
+                                        "Not available"}
+                                </strong>
                             </div>
+
+                            {/* Email */}
 
                             <div className="detail-item">
                                 <span>Email</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.patient?.email ||
+                                        "Not available"}
+                                </strong>
                             </div>
+
+                            {/* Gender */}
 
                             <div className="detail-item">
                                 <span>Gender</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.patient?.gender ||
+                                        "Not available"}
+                                </strong>
                             </div>
 
-                            <div className="detail-item">
-                                <span>Age</span>
+                            {/* Date of Birth */}
 
-                                <strong>Not available</strong>
+                            <div className="detail-item">
+                                <span>Date of Birth</span>
+
+                                <strong>
+                                    {appointment.patient?.date_of_birth ||
+                                        "Not available"}
+                                </strong>
+                            </div>
+
+                            {/* Address */}
+
+                            <div className="detail-item">
+                                <span>Address</span>
+
+                                <strong>
+                                    {appointment.patient?.address ||
+                                        "Not available"}
+                                </strong>
                             </div>
                         </div>
                     </div>
@@ -205,28 +247,86 @@ function AppointmentDetails() {
                         </div>
 
                         <div className="detail-list">
+                            {/* Doctor ID */}
+
                             <div className="detail-item">
                                 <span>Doctor ID</span>
 
-                                <strong>{appointment.doctorId}</strong>
+                                <strong>
+                                    {appointment.doctor
+                                        ? `D${String(
+                                              appointment.doctor.id,
+                                          ).padStart(3, "0")}`
+                                        : "Not available"}
+                                </strong>
                             </div>
 
-                            <div className="detail-item">
-                                <span>Department</span>
-
-                                <strong>{appointment.department}</strong>
-                            </div>
+                            {/* Doctor Name */}
 
                             <div className="detail-item">
                                 <span>Doctor Name</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.doctor?.user?.name ||
+                                        "Not available"}
+                                </strong>
                             </div>
+
+                            {/* Department */}
+
+                            <div className="detail-item">
+                                <span>Department</span>
+
+                                <strong>
+                                    {appointment.doctor?.department?.name ||
+                                        "Not available"}
+                                </strong>
+                            </div>
+
+                            {/* Specialization */}
 
                             <div className="detail-item">
                                 <span>Specialization</span>
 
-                                <strong>Not available</strong>
+                                <strong>
+                                    {appointment.doctor?.specialization ||
+                                        "Not available"}
+                                </strong>
+                            </div>
+
+                            {/* Qualification */}
+
+                            <div className="detail-item">
+                                <span>Qualification</span>
+
+                                <strong>
+                                    {appointment.doctor?.qualification ||
+                                        "Not available"}
+                                </strong>
+                            </div>
+
+                            {/* Experience */}
+
+                            <div className="detail-item">
+                                <span>Experience</span>
+
+                                <strong>
+                                    {appointment.doctor?.experience !==
+                                    undefined
+                                        ? `${appointment.doctor.experience} years`
+                                        : "Not available"}
+                                </strong>
+                            </div>
+
+                            {/* Phone */}
+
+                            <div className="detail-item">
+                                <span>Phone</span>
+
+                                <strong>
+                                    {appointment.doctor?.phone ||
+                                        "Not available"}
+                                </strong>
                             </div>
                         </div>
                     </div>
@@ -243,7 +343,9 @@ function AppointmentDetails() {
                         <h2>Appointment Reason</h2>
                     </div>
 
-                    <p className="description">{appointment.reason}</p>
+                    <p className="description">
+                        {appointment.reason || "No reason provided."}
+                    </p>
                 </div>
 
                 {/* ========================================

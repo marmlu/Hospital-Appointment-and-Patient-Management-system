@@ -1,4 +1,3 @@
-import "./sidebar.css";
 import { Link } from "react-router-dom";
 
 function Sidebar({ sidebarOpen }) {

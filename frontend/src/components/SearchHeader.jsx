@@ -30,39 +30,58 @@ function SearchHeader() {
      PAGE TITLE
      ===================================================== */
 
-  const getPageTitle = () => {
-    switch (location.pathname) {
-      case "/":
-        return "Dashboard";
+;const getPageTitle = () => {
+    const path = location.pathname;
 
-      case "/patients":
-        return "Patients";
-
-      case "/doctors":
-        return "Doctors";
-
-      case "/appointments":
-        return "Appointments";
-
-      case "/departments":
-        return "Departments";
-
-      case "/medical-records":
-        return "Medical Records";
-
-      case "/prescriptions":
-        return "Prescriptions";
-
-      case "/reports":
-        return "Reports";
-
-      case "/settings":
-        return "Settings";
-
-      default:
-        return "Dashboard";
+    if (path === "/patient-dashboard") {
+        return "Patient Dashboard";
     }
-  };
+
+    if (path === "/patients") {
+        return "Patients";
+    }
+
+    if (path === "/patients/add") {
+        return "Add Patient";
+    }
+
+    if (path.startsWith("/patients/edit/")) {
+        return "Edit Patient";
+    }
+
+    if (path.startsWith("/patient-details/")) {
+        return "Patient Details";
+    }
+
+    switch (path) {
+        case "/":
+            return "Dashboard";
+
+        case "/doctors":
+            return "Doctors";
+
+        case "/appointments":
+            return "Appointments";
+
+        case "/departments":
+            return "Departments";
+
+        case "/medical-records":
+            return "Medical Records";
+
+        case "/prescriptions":
+            return "Prescriptions";
+
+        case "/reports":
+            return "Reports";
+
+        case "/settings":
+            return "Settings";
+
+        default:
+            return "Dashboard";
+    }
+};
 
   /* =====================================================
      CLOSE DROPDOWNS WHEN CLICKING OUTSIDE

@@ -35,7 +35,7 @@ function Sidebar() {
     },
     {
       name: "Patients",
-      path: "/patients",
+      path: "/patient-dashboard",
       icon: Users,
     },
     {
@@ -50,7 +50,7 @@ function Sidebar() {
     },
     {
       name: "Departments",
-      path: "/departments",
+      path: "/departmnts",
       icon: Building2,
     },
     {

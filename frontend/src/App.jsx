@@ -11,7 +11,10 @@ import MedicalRecords from "./pages/MedicalRecords";
 import Prescriptions from "./pages/Prescriptions";
 import Reports from "./pages/Reports";
 
-import Patients from "./pages/Patients";
+import PatientList from "./pages/PatientList";
+import PatientDashboard from "./pages/PatientDashboard";
+import PatientForm from "./pages/PatientForm";
+import PatientDetails from "./pages/PatientDetails";
 import Doctors from "./pages/Doctors";
 import Appointments from "./pages/Appointments";
 import Departments from "./pages/Departments";
@@ -52,14 +55,33 @@ function App() {
 
           {/* ================= PATIENTS ================= */}
 
-          <Route
-            path="/patients"
-            element={<Patients />}
-          />
-
+         <Route
+    path="/patients"
+    element={<PatientList />}
+/>
           {/* ================= DOCTORS ================= */}
 
+         
           <Route
+    path="/patient-dashboard"
+    element={<PatientDashboard />}
+/>
+
+<Route
+    path="/patients/add"
+    element={<PatientForm />}
+/>
+
+<Route
+    path="/patients/edit/:id"
+    element={<PatientForm />}
+/>
+
+<Route
+    path="/patient-details/:patientId"
+    element={<PatientDetails />}
+/>
+ <Route
             path="/doctors"
             element={<Doctors />}
           />

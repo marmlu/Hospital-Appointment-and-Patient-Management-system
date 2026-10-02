@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import Sidebar from "../components/Sidebar";
 import { getPatients, deletePatient } from "../api/patientApi";
 
 import "./PatientList.css";
@@ -106,8 +104,6 @@ function PatientList() {
 
     return (
         <div className="patient-list-page">
-            <Sidebar />
-
             <main className="patient-list-main">
                 {/* PAGE HEADER */}
                 <div className="patient-list-header">

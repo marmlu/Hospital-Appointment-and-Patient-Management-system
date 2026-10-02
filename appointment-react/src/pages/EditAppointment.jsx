@@ -1,4 +1,4 @@
-import "../App.css";
+import "./App.css";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout, { useLayout } from "../components/Layout";

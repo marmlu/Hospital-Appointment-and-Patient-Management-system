@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Sidebar from "../components/Sidebar";
 import { getPatients } from "../api/patientApi";
 
 import "./PatientDashboard.css";
@@ -72,9 +71,7 @@ function PatientDashboard() {
 
     return (
         <div className="patient-dashboard-page">
-            <Sidebar />
-
-            <main className="patient-dashboard-main">
+           <main className="patient-dashboard-main">
                 {/* ====================================
                     PAGE HEADER
                 ==================================== */}

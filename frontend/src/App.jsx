@@ -11,10 +11,16 @@ import MedicalRecords from "./pages/MedicalRecords";
 import Prescriptions from "./pages/Prescriptions";
 import Reports from "./pages/Reports";
 
-import Patients from "./pages/Patients";
-import Doctors from "./pages/Doctors";
-import Appointments from "./pages/Appointments";
-import Departments from "./pages/Departments";
+import PatientList from "./pages/PatientList";
+import PatientDashboard from "./pages/PatientDashboard";
+import PatientForm from "./pages/PatientForm";
+import PatientDetails from "./pages/PatientDetails";
+import Doctors from "./pages/doctor";
+import Appointments from "./pages/AppointmentsList";
+import AppointmentDashboard from "./pages/AppointmentDashboard";
+import AppointmentDetails from "./pages/AppointmentDetails";
+import EditAppointment from "./pages/EditAppointment";
+import Departments from "./pages/department";
 
 function App() {
   return (
@@ -52,24 +58,58 @@ function App() {
 
           {/* ================= PATIENTS ================= */}
 
-          <Route
-            path="/patients"
-            element={<Patients />}
-          />
-
+         <Route
+    path="/patients"
+    element={<PatientList />}
+/>
           {/* ================= DOCTORS ================= */}
 
+         
           <Route
+    path="/patient-dashboard"
+    element={<PatientDashboard />}
+/>
+
+<Route
+    path="/patients/add"
+    element={<PatientForm />}
+/>
+
+<Route
+    path="/patients/edit/:id"
+    element={<PatientForm />}
+/>
+
+<Route
+    path="/patient-details/:patientId"
+    element={<PatientDetails />}
+/>
+ <Route
             path="/doctors"
             element={<Doctors />}
           />
 
-          {/* ================= APPOINTMENTS ================= */}
+       {/* ================= APPOINTMENTS ================= */}
 
-          <Route
-            path="/appointments"
-            element={<Appointments />}
-          />
+<Route
+  path="/appointment-dashboard"
+  element={<AppointmentDashboard />}
+/>
+
+<Route
+  path="/appointments"
+  element={<Appointments />}
+/>
+
+<Route
+  path="/appointment-details/:id"
+  element={<AppointmentDetails />}
+/>
+
+<Route
+  path="/edit-appointment/:id"
+  element={<EditAppointment />}
+/>
 
           {/* ================= DEPARTMENTS ================= */}
 

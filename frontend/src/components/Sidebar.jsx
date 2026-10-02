@@ -35,7 +35,7 @@ function Sidebar() {
     },
     {
       name: "Patients",
-      path: "/patients",
+      path: "/patient-dashboard",
       icon: Users,
     },
     {
@@ -45,7 +45,7 @@ function Sidebar() {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/appointment-dashboard",
       icon: CalendarCheck,
     },
     {

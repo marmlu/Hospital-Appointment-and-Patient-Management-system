@@ -10,8 +10,7 @@ class PatientController extends Controller
     // Get all patients
     public function index()
     {
-        $patients = Patient::latest()->get();
-
+        $patients = Patient::latest()->get();$patients = Patient::orderBy('id', 'asc')->get();
         return response()->json($patients);
     }
 

@@ -30,39 +30,73 @@ function SearchHeader() {
      PAGE TITLE
      ===================================================== */
 
-  const getPageTitle = () => {
-    switch (location.pathname) {
-      case "/":
-        return "Dashboard";
+const getPageTitle = () => {
+  const path = location.pathname;
 
-      case "/patients":
-        return "Patients";
+  if (path === "/patient-dashboard") {
+    return "Patient Dashboard";
+  }
 
-      case "/doctors":
-        return "Doctors";
+  if (path === "/patients") {
+    return "Patients List";
+  }
 
-      case "/appointments":
-        return "Appointments";
+  if (path === "/patients/add") {
+    return "Add Patient";
+  }
 
-      case "/departments":
-        return "Departments";
+  if (path.startsWith("/patients/edit/")) {
+    return "Edit Patient";
+  }
 
-      case "/medical-records":
-        return "Medical Records";
+  if (path.startsWith("/patient-details/")) {
+    return "Patient Details";
+  }
 
-      case "/prescriptions":
-        return "Prescriptions";
+  if (path === "/appointment-dashboard") {
+    return "Appointment Dashboard";
+  }
 
-      case "/reports":
-        return "Reports";
+  if (path === "/appointments") {
+    return "Appointments";
+  }
 
-      case "/settings":
-        return "Settings";
+  if (path.startsWith("/appointment-details/")) {
+    return "Appointment Details";
+  }
 
-      default:
-        return "Dashboard";
-    }
-  };
+  if (path.startsWith("/edit-appointment/")) {
+    return path.endsWith("/new")
+      ? "Add Appointment"
+      : "Edit Appointment";
+  }
+
+  switch (path) {
+    case "/":
+      return "Dashboard";
+
+    case "/doctors":
+      return "Doctors";
+
+    case "/departments":
+      return "Departments";
+
+    case "/medical-records":
+      return "Medical Records";
+
+    case "/prescriptions":
+      return "Prescriptions";
+
+    case "/reports":
+      return "Reports";
+
+    case "/settings":
+      return "Settings";
+
+    default:
+      return "Dashboard";
+  }
+};
 
   /* =====================================================
      CLOSE DROPDOWNS WHEN CLICKING OUTSIDE

@@ -98,14 +98,6 @@ function Appointments() {
 
       <div className="module-header">
 
-        <div className="module-header-left">
-          <h1>Appointments</h1>
-
-          <p>
-            Schedule and manage hospital appointments
-          </p>
-        </div>
-
         <button className="primary-action">
           <CalendarDays size={16} />
           New Appointment

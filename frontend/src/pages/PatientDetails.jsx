@@ -94,13 +94,7 @@ function PatientDetails() {
             <main className="patient-details-main">
                 {/* PAGE HEADER */}
 
-                <div className="patient-details-header">
-                    <div>
-                        <h1>Patient Details</h1>
-
-                        <p>View the complete information for this patient.</p>
-                    </div>
-                </div>
+                
 
                 {/* PATIENT CARD */}
 

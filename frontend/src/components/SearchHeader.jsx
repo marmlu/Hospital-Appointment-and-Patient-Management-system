@@ -30,57 +30,72 @@ function SearchHeader() {
      PAGE TITLE
      ===================================================== */
 
-;const getPageTitle = () => {
-    const path = location.pathname;
+const getPageTitle = () => {
+  const path = location.pathname;
 
-    if (path === "/patient-dashboard") {
-        return "Patient Dashboard";
-    }
+  if (path === "/patient-dashboard") {
+    return "Patient Dashboard";
+  }
 
-    if (path === "/patients") {
-        return "Patients";
-    }
+  if (path === "/patients") {
+    return "Patients List";
+  }
 
-    if (path === "/patients/add") {
-        return "Add Patient";
-    }
+  if (path === "/patients/add") {
+    return "Add Patient";
+  }
 
-    if (path.startsWith("/patients/edit/")) {
-        return "Edit Patient";
-    }
+  if (path.startsWith("/patients/edit/")) {
+    return "Edit Patient";
+  }
 
-    if (path.startsWith("/patient-details/")) {
-        return "Patient Details";
-    }
+  if (path.startsWith("/patient-details/")) {
+    return "Patient Details";
+  }
 
-    switch (path) {
-        case "/":
-            return "Dashboard";
+  if (path === "/appointment-dashboard") {
+    return "Appointment Dashboard";
+  }
 
-        case "/doctors":
-            return "Doctors";
+  if (path === "/appointments") {
+    return "Appointments";
+  }
 
-        case "/appointments":
-            return "Appointments";
+  if (path.startsWith("/appointment-details/")) {
+    return "Appointment Details";
+  }
 
-        case "/departments":
-            return "Departments";
+  if (path.startsWith("/edit-appointment/")) {
+    return path.endsWith("/new")
+      ? "Add Appointment"
+      : "Edit Appointment";
+  }
 
-        case "/medical-records":
-            return "Medical Records";
+  switch (path) {
+    case "/":
+      return "Dashboard";
 
-        case "/prescriptions":
-            return "Prescriptions";
+    case "/doctors":
+      return "Doctors";
 
-        case "/reports":
-            return "Reports";
+    case "/departments":
+      return "Departments";
 
-        case "/settings":
-            return "Settings";
+    case "/medical-records":
+      return "Medical Records";
 
-        default:
-            return "Dashboard";
-    }
+    case "/prescriptions":
+      return "Prescriptions";
+
+    case "/reports":
+      return "Reports";
+
+    case "/settings":
+      return "Settings";
+
+    default:
+      return "Dashboard";
+  }
 };
 
   /* =====================================================

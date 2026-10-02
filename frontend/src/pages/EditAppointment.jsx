@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout, { useLayout } from "../components/Layout";
 
@@ -22,7 +22,6 @@ function EditAppointment() {
     const [doctors, setDoctors] = useState([]);
     const [selectedDepartment, setSelectedDepartment] = useState("");
     const [selectedDoctor, setSelectedDoctor] = useState("");
-    const { toggleSidebar } = useLayout();
 
     // ========================================
     // FETCH APPOINTMENT WHEN EDITING
@@ -267,36 +266,7 @@ function EditAppointment() {
                 PAGE HEADER
             ======================================== */}
 
-            <header className="page-header">
-                <div className="page-header-left">
-                    <button
-                        className="hamburger"
-                        type="button"
-                        onClick={toggleSidebar}
-                        aria-label="Toggle sidebar"
-                    >
-                        <i className="fa-solid fa-bars"></i>
-                    </button>
-
-                    <div>
-                        <h1>
-                            {isNewAppointment
-                                ? "New Appointment"
-                                : "Edit Appointment"}
-                        </h1>
-
-                        <p>
-                            {isNewAppointment
-                                ? "Create a new hospital appointment."
-                                : `Update the information for appointment #${
-                                      appointment.appointment_number ??
-                                      appointment.appointmentNumber ??
-                                      appointment.id
-                                  }.`}
-                        </p>
-                    </div>
-                </div>
-            </header>
+           
 
             {/* ========================================
                 FORM

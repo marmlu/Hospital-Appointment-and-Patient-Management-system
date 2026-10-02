@@ -108,11 +108,7 @@ function PatientList() {
             <main className="patient-list-main">
                 {/* PAGE HEADER */}
                 <div className="patient-list-header">
-                    <div>
-                        <h1>Patients</h1>
-
-                        <p>Manage all registered patients.</p>
-                    </div>
+                   
 
                     <button
                         type="button"

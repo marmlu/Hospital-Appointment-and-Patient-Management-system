@@ -15,9 +15,12 @@ import PatientList from "./pages/PatientList";
 import PatientDashboard from "./pages/PatientDashboard";
 import PatientForm from "./pages/PatientForm";
 import PatientDetails from "./pages/PatientDetails";
-import Doctors from "./pages/Doctors";
-import Appointments from "./pages/Appointments";
-import Departments from "./pages/Departments";
+import Doctors from "./pages/doctor";
+import Appointments from "./pages/AppointmentsList";
+import AppointmentDashboard from "./pages/AppointmentDashboard";
+import AppointmentDetails from "./pages/AppointmentDetails";
+import EditAppointment from "./pages/EditAppointment";
+import Departments from "./pages/department";
 
 function App() {
   return (
@@ -86,12 +89,27 @@ function App() {
             element={<Doctors />}
           />
 
-          {/* ================= APPOINTMENTS ================= */}
+       {/* ================= APPOINTMENTS ================= */}
 
-          <Route
-            path="/appointments"
-            element={<Appointments />}
-          />
+<Route
+  path="/appointment-dashboard"
+  element={<AppointmentDashboard />}
+/>
+
+<Route
+  path="/appointments"
+  element={<Appointments />}
+/>
+
+<Route
+  path="/appointment-details/:id"
+  element={<AppointmentDetails />}
+/>
+
+<Route
+  path="/edit-appointment/:id"
+  element={<EditAppointment />}
+/>
 
           {/* ================= DEPARTMENTS ================= */}
 

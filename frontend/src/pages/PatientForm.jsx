@@ -109,13 +109,7 @@ function PatientForm() {
     return (
         <div className="patient-form-page">
             <div className="patient-form-header">
-                <h1>{isEditMode ? "Edit Patient" : "Add New Patient"}</h1>
-
-                <p>
-                    {isEditMode
-                        ? "Update the patient's information."
-                        : "Enter the patient's information below."}
-                </p>
+              
             </div>
 
             {error && <div className="form-error">{error}</div>}

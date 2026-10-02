@@ -45,12 +45,12 @@ function Sidebar() {
     },
     {
       name: "Appointments",
-      path: "/appointments",
+      path: "/appointment-dashboard",
       icon: CalendarCheck,
     },
     {
       name: "Departments",
-      path: "/departmnts",
+      path: "/departments",
       icon: Building2,
     },
     {

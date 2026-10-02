@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import "./doctor_department.css";
+import {
+    Building2,
+    Users,
+    Stethoscope,
+    CalendarDays,
+    Search,
+    Pencil,
+    Trash2,
+} from "lucide-react";
+
+import "./ModulePages.css";
 
 const API_URL = "http://127.0.0.1:8000/api";
 
-function DepartmentManagement() {
-
+function Departments() {
     const [departments, setDepartments] = useState([]);
     const [search, setSearch] = useState("");
 
@@ -19,12 +28,8 @@ function DepartmentManagement() {
     // =========================
 
     const fetchDepartments = async () => {
-
         try {
-
-            const response = await fetch(
-                `${API_URL}/departments`
-            );
+            const response = await fetch(`${API_URL}/departments`);
 
             if (!response.ok) {
                 throw new Error("Failed to fetch departments.");
@@ -33,14 +38,8 @@ function DepartmentManagement() {
             const data = await response.json();
 
             setDepartments(data);
-
         } catch (error) {
-
-            console.error(
-                "Error fetching departments:",
-                error
-            );
-
+            console.error("Error fetching departments:", error);
         }
     };
 
@@ -53,7 +52,6 @@ function DepartmentManagement() {
     // =========================
 
     const openAddForm = () => {
-
         setEditingDepartment(null);
         setName("");
         setDescription("");
@@ -65,7 +63,6 @@ function DepartmentManagement() {
     // =========================
 
     const openEditForm = (department) => {
-
         setEditingDepartment(department);
         setName(department.name);
         setDescription(department.description);
@@ -77,7 +74,6 @@ function DepartmentManagement() {
     // =========================
 
     const closeForm = () => {
-
         setShowForm(false);
         setEditingDepartment(null);
         setName("");
@@ -89,51 +85,40 @@ function DepartmentManagement() {
     // =========================
 
     const saveDepartment = async (e) => {
-
         e.preventDefault();
 
         if (name.trim() === "" || description.trim() === "") {
-
             alert("Please fill in all fields.");
-
             return;
         }
 
         try {
-
             const url = editingDepartment
                 ? `${API_URL}/departments/${editingDepartment.id}`
                 : `${API_URL}/departments`;
 
-            const method = editingDepartment
-                ? "PUT"
-                : "POST";
+            const method = editingDepartment ? "PUT" : "POST";
 
             const response = await fetch(url, {
-
                 method,
 
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    Accept: "application/json",
                 },
 
                 body: JSON.stringify({
                     name: name.trim(),
-                    description: description.trim()
-                })
+                    description: description.trim(),
+                }),
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-
                 console.error(data);
 
-                alert(
-                    data.message ||
-                    "Something went wrong."
-                );
+                alert(data.message || "Something went wrong.");
 
                 return;
             }
@@ -141,23 +126,16 @@ function DepartmentManagement() {
             alert(
                 editingDepartment
                     ? "Department updated successfully."
-                    : "Department added successfully."
+                    : "Department added successfully.",
             );
 
             closeForm();
 
             await fetchDepartments();
-
         } catch (error) {
+            console.error("Error saving department:", error);
 
-            console.error(
-                "Error saving department:",
-                error
-            );
-
-            alert(
-                "Could not connect to Laravel."
-            );
+            alert("Could not connect to Laravel.");
         }
     };
 
@@ -166,17 +144,14 @@ function DepartmentManagement() {
     // =========================
 
     const deleteDepartment = async (id) => {
-
-        const department = departments.find(
-            (item) => item.id === id
-        );
+        const department = departments.find((item) => item.id === id);
 
         if (!department) {
             return;
         }
 
         const confirmed = window.confirm(
-            `Are you sure you want to delete ${department.name}?`
+            `Are you sure you want to delete ${department.name}?`,
         );
 
         if (!confirmed) {
@@ -184,48 +159,31 @@ function DepartmentManagement() {
         }
 
         try {
+            const response = await fetch(`${API_URL}/departments/${id}`, {
+                method: "DELETE",
 
-            const response = await fetch(
-                `${API_URL}/departments/${id}`,
-                {
-                    method: "DELETE",
-
-                    headers: {
-                        "Accept": "application/json"
-                    }
-                }
-            );
+                headers: {
+                    Accept: "application/json",
+                },
+            });
 
             const data = await response.json();
 
             if (!response.ok) {
-
                 console.error(data);
 
-                alert(
-                    data.message ||
-                    "Could not delete department."
-                );
+                alert(data.message || "Could not delete department.");
 
                 return;
             }
 
-            alert(
-                "Department deleted successfully."
-            );
+            alert("Department deleted successfully.");
 
             await fetchDepartments();
-
         } catch (error) {
+            console.error("Error deleting department:", error);
 
-            console.error(
-                "Error deleting department:",
-                error
-            );
-
-            alert(
-                "Could not connect to Laravel."
-            );
+            alert("Could not connect to Laravel.");
         }
     };
 
@@ -233,286 +191,279 @@ function DepartmentManagement() {
     // SEARCH
     // =========================
 
-    const filteredDepartments =
-        departments.filter((department) =>
+    const filteredDepartments = departments.filter(
+        (department) =>
+            department.name.toLowerCase().includes(search.toLowerCase()) ||
+            department.description.toLowerCase().includes(search.toLowerCase()),
+    );
 
-            department.name
-                .toLowerCase()
-                .includes(search.toLowerCase()) ||
+    // =========================
+    // STATISTICS
+    // =========================
 
-            department.description
-                .toLowerCase()
-                .includes(search.toLowerCase())
-        );
+    const totalDepartments = departments.length;
+
+    const totalDoctors = departments.reduce(
+        (total, department) => total + Number(department.doctors || 0),
+        0,
+    );
+
+    const totalPatients = departments.reduce(
+        (total, department) => total + Number(department.patients || 0),
+        0,
+    );
+
+    const totalAppointments = departments.reduce(
+        (total, department) => total + Number(department.appointments || 0),
+        0,
+    );
 
     // =========================
     // PAGE
     // =========================
 
     return (
+        <div className="module-page">
+            {/* =========================
+                HEADER
+            ========================= */}
 
-        <main className="department-management">
+            <div className="module-header">
+                <div className="module-header-left">
+                    <h1>Departments</h1>
 
-            <section className="page-header">
-
-                <div>
-
-                    <h1>
-                        Department Management
-                    </h1>
-
-                    <p>
-                        Manage hospital departments and their information.
-                    </p>
-
+                    <p>Hospital departments and service distribution</p>
                 </div>
 
-                <button
-                    type="button"
-                    onClick={openAddForm}
-                >
-
-                    <i className="fa-solid fa-plus"></i>
-
+                <button className="primary-action" onClick={openAddForm}>
+                    <Building2 size={16} />
                     Add Department
-
                 </button>
+            </div>
 
-            </section>
+            {/* =========================
+                STATISTICS
+            ========================= */}
 
-            <section className="department-tools">
+            <div className="module-stats">
+                <div className="module-stat-card">
+                    <div className="module-stat-icon orange">
+                        <Building2 size={23} />
+                    </div>
 
-                <div className="search-box">
+                    <div className="module-stat-content">
+                        <span>Total Departments</span>
 
-                    <i className="fa-solid fa-magnifying-glass"></i>
-
-                    <input
-                        type="search"
-                        placeholder="Search departments..."
-                        value={search}
-                        onChange={(e) =>
-                            setSearch(e.target.value)
-                        }
-                    />
-
+                        <strong>{totalDepartments}</strong>
+                    </div>
                 </div>
 
-            </section>
+                <div className="module-stat-card">
+                    <div className="module-stat-icon green">
+                        <Stethoscope size={23} />
+                    </div>
 
-            <section className="department-list">
+                    <div className="module-stat-content">
+                        <span>Doctors</span>
 
-                <div className="section-title">
-
-                    <h2>
-                        Departments
-                    </h2>
-
-                    <span>
-                        Total Departments: {departments.length}
-                    </span>
-
+                        <strong>{totalDoctors}</strong>
+                    </div>
                 </div>
 
-                <div className="table-container">
+                <div className="module-stat-card">
+                    <div className="module-stat-icon">
+                        <Users size={23} />
+                    </div>
 
-                    <table>
+                    <div className="module-stat-content">
+                        <span>Patients</span>
 
-                        <thead>
+                        <strong>{totalPatients}</strong>
+                    </div>
+                </div>
 
-                            <tr>
+                <div className="module-stat-card">
+                    <div className="module-stat-icon purple">
+                        <CalendarDays size={23} />
+                    </div>
 
-                                <th>ID</th>
+                    <div className="module-stat-content">
+                        <span>Appointments</span>
 
-                                <th>
-                                    Department Name
-                                </th>
+                        <strong>{totalAppointments}</strong>
+                    </div>
+                </div>
+            </div>
 
-                                <th>
-                                    Description
-                                </th>
+            {/* =========================
+                DEPARTMENT CARD
+            ========================= */}
 
-                                <th>
-                                    Actions
-                                </th>
+            <div className="module-card">
+                <div className="module-card-header">
+                    <h2>Department Distribution</h2>
+                </div>
 
-                            </tr>
+                {/* SEARCH */}
 
-                        </thead>
+                <div className="module-toolbar">
+                    <div className="module-search">
+                        <Search size={16} />
 
-                        <tbody>
+                        <input
+                            type="text"
+                            placeholder="Search departments..."
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-                            {filteredDepartments.length === 0 ? (
+                {/* DEPARTMENT GRID */}
 
-                                <tr>
+                <div style={{ padding: "20px" }}>
+                    <div className="department-grid">
+                        {filteredDepartments.map((department) => (
+                            <div
+                                className="department-card"
+                                key={department.id}
+                            >
+                                <div className="department-card-top">
+                                    <div className="department-icon">
+                                        <Building2 size={22} />
+                                    </div>
 
-                                    <td
-                                        colSpan="4"
+                                    <span className="department-percent">
+                                        {department.percentage || 0}%
+                                    </span>
+                                </div>
+
+                                <h3>{department.name}</h3>
+
+                                <p>{department.description}</p>
+
+                                <div className="department-progress">
+                                    <span
                                         style={{
-                                            textAlign: "center",
-                                            padding: "30px"
+                                            width: `${department.percentage || 0}%`,
                                         }}
+                                    />
+                                </div>
+
+                                <div className="department-info">
+                                    <div>
+                                        <strong>
+                                            {department.doctors || 0}
+                                        </strong>
+
+                                        <span>Doctors</span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            {department.patients || 0}
+                                        </strong>
+
+                                        <span>Patients</span>
+                                    </div>
+
+                                    <div>
+                                        <strong>
+                                            {department.appointments || 0}
+                                        </strong>
+
+                                        <span>Appointments</span>
+                                    </div>
+                                </div>
+
+                                {/* ACTIONS */}
+
+                                <div className="department-actions">
+                                    <button
+                                        type="button"
+                                        className="edit-btn"
+                                        onClick={() => openEditForm(department)}
                                     >
+                                        <Pencil size={16} />
+                                    </button>
 
-                                        No departments found.
+                                    <button
+                                        type="button"
+                                        className="delete-btn"
+                                        onClick={() =>
+                                            deleteDepartment(department.id)
+                                        }
+                                    >
+                                        <Trash2 size={16} />
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
-                                    </td>
-
-                                </tr>
-
-                            ) : (
-
-                                filteredDepartments.map(
-                                    (department) => (
-
-                                        <tr
-                                            key={department.id}
-                                        >
-
-                                            <td>
-                                                {department.id}
-                                            </td>
-
-                                            <td>
-                                                {department.name}
-                                            </td>
-
-                                            <td>
-                                                {department.description}
-                                            </td>
-
-                                            <td>
-
-                                                <button
-                                                    type="button"
-                                                    className="edit-btn"
-                                                    onClick={() =>
-                                                        openEditForm(
-                                                            department
-                                                        )
-                                                    }
-                                                >
-
-                                                    <i className="fa-solid fa-pen"></i>
-
-                                                </button>
-
-                                                <button
-                                                    type="button"
-                                                    className="delete-btn"
-                                                    onClick={() =>
-                                                        deleteDepartment(
-                                                            department.id
-                                                        )
-                                                    }
-                                                >
-
-                                                    <i className="fa-solid fa-trash"></i>
-
-                                                </button>
-
-                                            </td>
-
-                                        </tr>
-
-                                    )
-                                )
-
-                            )}
-
-                        </tbody>
-
-                    </table>
-
+                    {filteredDepartments.length === 0 && (
+                        <div className="no-results">No departments found.</div>
+                    )}
                 </div>
+            </div>
 
-            </section>
+            {/* =========================
+                ADD / EDIT MODAL
+            ========================= */}
 
             {showForm && (
-
                 <div className="department-modal">
-
                     <div className="department-form">
-
                         <div className="form-header">
-
                             <h2>
-
                                 {editingDepartment
                                     ? "Edit Department"
                                     : "Add Department"}
-
                             </h2>
 
-                            <button
-                                type="button"
-                                onClick={closeForm}
-                            >
+                            <button type="button" onClick={closeForm}>
                                 ×
                             </button>
-
                         </div>
 
                         <form onSubmit={saveDepartment}>
-
-                            <label>
-                                Department Name
-                            </label>
+                            <label>Department Name</label>
 
                             <input
                                 type="text"
                                 value={name}
-                                onChange={(e) =>
-                                    setName(e.target.value)
-                                }
+                                onChange={(e) => setName(e.target.value)}
                                 placeholder="Enter department name"
                                 required
                             />
 
-                            <label>
-                                Description
-                            </label>
+                            <label>Description</label>
 
                             <textarea
                                 value={description}
-                                onChange={(e) =>
-                                    setDescription(
-                                        e.target.value
-                                    )
-                                }
+                                onChange={(e) => setDescription(e.target.value)}
                                 placeholder="Enter department description"
                                 rows="4"
                                 required
-                            ></textarea>
+                            />
 
                             <div className="form-actions">
-
-                                <button
-                                    type="button"
-                                    onClick={closeForm}
-                                >
+                                <button type="button" onClick={closeForm}>
                                     Cancel
                                 </button>
 
                                 <button type="submit">
-
                                     {editingDepartment
                                         ? "Update Department"
                                         : "Add Department"}
-
                                 </button>
-
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
-
             )}
-
-        </main>
+        </div>
     );
 }
 
-export default DepartmentManagement;
+export default Departments;
